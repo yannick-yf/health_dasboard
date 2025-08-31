@@ -1,0 +1,48 @@
+### .gitignore
+```gitignore
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+
+# nyc test coverage
+.nyc_output
+
+# node_modules (if you add Node.js later)
+node_modules/
+
+# Personal data files (users shouldn't commit their health data)
+user-data/
+personal-exports/
+my-health-data.*
+
+# Temporary files
+temp/
+tmp/
