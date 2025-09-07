@@ -1,0 +1,26 @@
+#ChatGPT5
+# Prompt:
+You are an experienced AI engineer and software architect.  
+I am a Data Product Owner and Technical Lead, starting a new project: **Personal Health & Fitness Dashboard**.  
+
+**Project Description:**  
+The goal is to build a web-based dashboard for tracking and analyzing health data from multiple sources (Apple Watch, nutrition apps, and manual entries).  
+
+**Problem Statement:**  
+Currently, health device data, exercise logs, weight measurements, and nutrition data are not centralized or visualized in one place. This makes it difficult for users to track trends and correlations. A centralized dashboard will allow users to see a holistic view of their health in one place.  
+
+**Your Tasks:**  
+1. **Technology Stack Recommendation**  
+   - Propose a suitable tech stack for a Proof of Concept (PoC).  
+   - I was considering **Python + Streamlit**, with possible HTML components for better visualization.  
+   - Please analyze the pros/cons and suggest alternatives that would scale better in the long run.  
+
+2. **Data Structure Design**  
+   - Propose a data schema for storing and processing the health data.  As for the PoC phase I will use data entry to popualte the data and I will store it on CSV/excel for the PoC.
+   - The data will mainly be **daily time series**.  
+   - For simplicity, assume all metrics are expressed on a per-day basis (e.g., sleep duration, calories burned, calories consumed, number of steps, etc.).  
+   - Suggest how to structure this data for both short-term PoC and long-term scalability.  
+
+**Output Format:**  
+- Provide clear recommendations for the tech stack, with reasoning.  
+- Provide a proposed data schema (tables, fields, or JSON structure).

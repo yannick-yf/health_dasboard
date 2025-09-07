@@ -1,0 +1,6 @@
+I am a data product owner and technical lead.
+I am starting a new project on: Personal Health & Fitness Dashboard
+[](https://github.com/yannick-yf/health_dasboard#%EF%B8%8F-personal-health--fitness-dashboard)
+A comprehensive web-based dashboard for tracking and analyzing your health data from multiple sources, including Apple Watch, nutrition apps, and manual entries.
+The problem statement I am trying to solve is the following: Health device data, Exercise data, weight measurement, and nutrition app data are not visualized and centralized in one place. Such an application will allow the user to track trends and correlations across multiple health data sources in order to have a broader view in a central place.
+Your task is to perform a deep dive research on existing solutions. Check for private/public one and open source such as GitHub repo etc.
