@@ -1,8 +1,7 @@
-
 [tool.poetry]
-name = "evaluation-tool"
-version = "0.2.0"
-description = ""
+name = "health-tracker"
+version = "1.0.0"
+description = "A comprehensive health metrics tracking and analysis application"
 authors = ["Yannick Flores <yannick.flores@syngenta.com>"]
 readme = "README.md"
 
@@ -11,6 +10,11 @@ python = "^3.11"
 streamlit = "^1.37.0"
 pandas = "^2.2.2"
 plotly = "^5.24.1"
+numpy = "^1.24.0"
+scipy = "^1.10.0"
+pydantic = "^2.0.0"
+scikit-learn = { version = "^1.3.0", optional = true }
+openpyxl = { version = "^3.1.0", optional = true }
 
 [tool.poetry.group.dev.dependencies]
 coverage = { extras = ["toml"], version = "7.2.*" }
@@ -22,3 +26,116 @@ pytest-mock = "^3.10.0"
 pylint = "2.17.*"
 poethepoet = "^0.29.0"
 pre-commit = "^4.0.1"
+mypy = "^1.5.0"
+flake8 = "^6.0.0"
+
+[tool.poetry.extras]
+ml = ["scikit-learn"]
+excel = ["openpyxl"]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poe.tasks]
+test = "pytest tests/ -v"
+test-cov = "pytest tests/ --cov=. --cov-report=html --cov-report=term"
+format = "black ."
+lint = "pylint *.py"
+typecheck = "mypy *.py"
+run = "streamlit run app.py"
+clean = """
+bash -c '
+    find . -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null || true
+    find . -type f -name "*.pyc" -delete
+    rm -rf .pytest_cache .coverage htmlcov .mypy_cache
+'
+"""
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = [
+    "-ra",
+    "--strict-markers",
+    "--ignore=docs",
+    "--ignore=backups",
+    "--cov-report=term-missing",
+]
+
+[tool.coverage.run]
+source = ["."]
+omit = [
+    "*/tests/*",
+    "*/test_*.py",
+    "*/__pycache__/*",
+    "*/backups/*",
+    "*/venv/*",
+    "*/.venv/*",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if self.debug:",
+    "if __name__ == .__main__.:",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if 0:",
+    "if False:",
+    "if TYPE_CHECKING:",
+]
+
+[tool.black]
+line-length = 100
+target-version = ['py311']
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.venv
+  | venv
+  | \.env
+  | backups
+  | build
+  | dist
+  | __pycache__
+)/
+'''
+
+[tool.pylint.messages_control]
+max-line-length = 100
+disable = [
+    "C0114",  # missing-module-docstring
+    "C0116",  # missing-function-docstring
+    "R0903",  # too-few-public-methods
+    "R0913",  # too-many-arguments
+    "W0621",  # redefined-outer-name
+]
+
+[tool.pylint.basic]
+good-names = ["i", "j", "k", "df", "ax", "fig", "_"]
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false
+disallow_any_unimported = false
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+check_untyped_defs = true
+
+[[tool.mypy.overrides]]
+module = [
+    "streamlit.*",
+    "plotly.*",
+    "scipy.*",
+    "pandas.*",
+    "sklearn.*",
+]
+ignore_missing_imports = true
