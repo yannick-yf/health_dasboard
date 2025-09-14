@@ -592,19 +592,63 @@ elif page == "📈 Visualization":
     if df.empty:
         st.warning("No data available. Please add records in the Data Entry page.")
     else:
-        # Date range and aggregation controls
-        col1, col2, col3 = st.columns(3)
+        # Quick Date Filter - Same as Dashboard
+        st.subheader("📅 Time Period")
+        
+        # Quick selection buttons
+        col1, col2, col3, col4, col5, col6 = st.columns(6)
+        
+        today = date.today()
         
         with col1:
-            start_date = st.date_input("Start Date", 
-                                       value=df['date'].min() if not df.empty else date.today())
+            if st.button("7 Days", use_container_width=True, key="viz_7d"):
+                st.session_state.viz_date_range = (today - timedelta(days=7), today)
         with col2:
-            end_date = st.date_input("End Date", 
-                                     value=df['date'].max() if not df.empty else date.today())
+            if st.button("14 Days", use_container_width=True, key="viz_14d"):
+                st.session_state.viz_date_range = (today - timedelta(days=14), today)
         with col3:
+            if st.button("30 Days", use_container_width=True, key="viz_30d"):
+                st.session_state.viz_date_range = (today - timedelta(days=30), today)
+        with col4:
+            if st.button("3 Months", use_container_width=True, key="viz_3m"):
+                st.session_state.viz_date_range = (today - timedelta(days=90), today)
+        with col5:
+            if st.button("This Year", use_container_width=True, key="viz_year"):
+                st.session_state.viz_date_range = (date(today.year, 1, 1), today)
+        with col6:
+            if st.button("All Time", use_container_width=True, key="viz_all"):
+                if not df.empty:
+                    st.session_state.viz_date_range = (df['date'].min().date(), df['date'].max().date())
+        
+        # Initialize default if not set
+        if 'viz_date_range' not in st.session_state:
+            st.session_state.viz_date_range = (today - timedelta(days=30), today)
+        
+        # Get current selection
+        start_date, end_date = st.session_state.viz_date_range
+        
+        # Show current selection
+        days_shown = (end_date - start_date).days + 1
+        st.info(f"📊 Showing data from **{start_date.strftime('%b %d, %Y')}** to **{end_date.strftime('%b %d, %Y')}** ({days_shown} days)")
+        
+        # Optional: Add custom date range in expander
+        with st.expander("📝 Custom Date Range"):
+            col_start, col_end = st.columns(2)
+            with col_start:
+                custom_start = st.date_input("Start Date", value=start_date, key="viz_custom_start")
+            with col_end:
+                custom_end = st.date_input("End Date", value=end_date, key="viz_custom_end")
+            
+            if st.button("Apply Custom Range", type="primary", key="viz_custom_apply"):
+                st.session_state.viz_date_range = (custom_start, custom_end)
+                st.rerun()
+        
+        # Aggregation control
+        col_agg = st.columns([1, 2])[0]  # Take only first column for aggregation
+        with col_agg:
             aggregation = st.selectbox("Aggregation", ["Daily", "Weekly", "Monthly"])
         
-        # Filter data
+        # Filter data by date range
         mask = (df['date'] >= pd.Timestamp(start_date)) & (df['date'] <= pd.Timestamp(end_date))
         filtered_df = df[mask].copy()
         
@@ -637,7 +681,7 @@ elif page == "📈 Visualization":
             metrics_to_plot = st.multiselect(
                 "Select metrics to plot",
                 ['steps', 'sleep_min', 'workout_duration_min_tot', 'weight', 'calories_burned', 'calories_consumed'],
-                default=['steps', 'weight']
+                default=['calories_burned', 'calories_consumed']
             )
             
             for metric in metrics_to_plot:
@@ -704,49 +748,6 @@ elif page == "📈 Visualization":
                                       nbins=20, marginal='box')
                     fig.update_layout(height=400)
                     st.plotly_chart(fig, use_container_width=True)
-            
-            # Correlation matrix
-            st.subheader("Correlation Analysis")
-            
-            numeric_cols = ['steps', 'sleep_min', 'workout_duration_min_tot', 
-                          'weight', 'calories_burned', 'calories_consumed']
-            corr_matrix = filtered_df[numeric_cols].corr()
-            
-            fig = px.imshow(corr_matrix, 
-                          labels=dict(color="Correlation"),
-                          x=corr_matrix.columns,
-                          y=corr_matrix.columns,
-                          color_continuous_scale='RdBu_r',
-                          zmin=-1, zmax=1,
-                          title="Correlation Matrix")
-            
-            fig.update_layout(height=500)
-            st.plotly_chart(fig, use_container_width=True)
-            
-            # Missing data visualization
-            st.subheader("Data Completeness")
-            
-            missing_data = filtered_df[numeric_cols].isnull().sum()
-            total_records = len(filtered_df)
-            
-            fig = go.Figure(data=[
-                go.Bar(
-                    x=missing_data.index,
-                    y=(total_records - missing_data.values) / total_records * 100,
-                    text=[f"{(total_records - v) / total_records * 100:.1f}%" for v in missing_data.values],
-                    textposition='auto',
-                )
-            ])
-            
-            fig.update_layout(
-                title="Data Completeness by Metric",
-                xaxis_title="Metric",
-                yaxis_title="Completeness (%)",
-                height=400,
-                yaxis_range=[0, 105]
-            )
-            
-            st.plotly_chart(fig, use_container_width=True)
 
 # Deep Dive Page
 elif page == "🔬 Deep Dive":
