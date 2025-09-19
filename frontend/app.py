@@ -56,7 +56,7 @@ if 'imputation_method' not in st.session_state:
 st.sidebar.title("🏃 Health Tracker")
 page = st.sidebar.selectbox(
     "Navigate to:",
-    ["📊 Dashboard", "➕ Data Entry", "📈 Visualization", "🔬 Deep Dive"]
+    ["📊 Analytics Dashboard", "➕ Data Entry", "🔬 Deep Dive"]
 )
 
 # Load data
@@ -80,14 +80,14 @@ if st.session_state.imputation_method != 'none' and not df.empty:
         for col in numeric_cols:
             df[col] = df[col].fillna(df[col].median())
 
-# Dashboard Page
-if page == "📊 Dashboard":
-    st.title("📊 Health Dashboard")
+# Consolidated Dashboard & Visualization Page
+if page == "📊 Analytics Dashboard":
+    st.title("📊 Health Analytics Dashboard")
     
     if df.empty:
         st.warning("No data available. Please add records in the Data Entry page.")
     else:
-        # Quick Date Filter - Option 1 Implementation
+        # ==================== TIME PERIOD SELECTION ====================
         st.subheader("📅 Time Period")
         
         # Quick selection buttons
@@ -138,6 +138,11 @@ if page == "📊 Dashboard":
                 st.session_state.date_range = (custom_start, custom_end)
                 st.rerun()
         
+        # Aggregation control
+        col_agg = st.columns([1, 2])[0]
+        with col_agg:
+            aggregation = st.selectbox("📊 Data Aggregation", ["Daily", "Weekly", "Monthly"])
+        
         # Filter data by date range
         mask = (df['date'] >= pd.Timestamp(start_date)) & (df['date'] <= pd.Timestamp(end_date))
         filtered_df = df[mask].copy()
@@ -145,19 +150,40 @@ if page == "📊 Dashboard":
         if filtered_df.empty:
             st.warning("No data in selected date range.")
         else:
-            # Helper function to calculate weight trend
+            # Store original daily data for KPIs and trends
+            daily_df = filtered_df.copy()
+            
+            # Apply aggregation for visualizations
+            if aggregation == "Weekly":
+                filtered_df = filtered_df.set_index('date').resample('W').agg({
+                    'steps': 'sum',
+                    'sleep_min': 'mean',
+                    'workout_duration_min_tot': 'sum',
+                    'weight': 'mean',
+                    'calories_burned': 'sum',
+                    'calories_consumed': 'sum'
+                }).reset_index()
+            elif aggregation == "Monthly":
+                filtered_df = filtered_df.set_index('date').resample('M').agg({
+                    'steps': 'sum',
+                    'sleep_min': 'mean',
+                    'workout_duration_min_tot': 'sum',
+                    'weight': 'mean',
+                    'calories_burned': 'sum',
+                    'calories_consumed': 'sum'
+                }).reset_index()
+            
+            # ==================== HELPER FUNCTIONS ====================
             def calculate_weight_trend(df, days):
                 """Calculate weight trend percentage over the last N days"""
                 if len(df) < 2 or df['weight'].isna().all():
                     return None
                 
-                # Sort by date and get the last N days with weight data
                 weight_data = df[df['weight'].notna()].sort_values('date')
                 
                 if len(weight_data) < 2:
                     return None
                 
-                # Get the last N days of data
                 if len(weight_data) >= days:
                     recent_data = weight_data.tail(days)
                 else:
@@ -166,7 +192,6 @@ if page == "📊 Dashboard":
                 if len(recent_data) < 2:
                     return None
                 
-                # Calculate trend as percentage change
                 first_weight = recent_data['weight'].iloc[0]
                 last_weight = recent_data['weight'].iloc[-1]
                 
@@ -176,7 +201,6 @@ if page == "📊 Dashboard":
                 trend_percent = ((last_weight - first_weight) / first_weight) * 100
                 return trend_percent
             
-            # Helper function to format sleep time
             def format_sleep_time(minutes):
                 """Convert minutes to hours and minutes format"""
                 if pd.isna(minutes):
@@ -185,24 +209,20 @@ if page == "📊 Dashboard":
                 mins = int(minutes % 60)
                 return f"{hours}h {mins}m"
             
-            # Weight trends section
+            # ==================== WEIGHT TRENDS SECTION ====================
             st.subheader("⚖️ Weight Trends")
             trend_cols = st.columns(3)
             
-            # Calculate trends for 3, 5, and 7 days
             trend_periods = [3, 5, 7]
             trend_labels = ["3-Day Trend", "5-Day Trend", "7-Day Trend"]
             
             for col, days, label in zip(trend_cols, trend_periods, trend_labels):
-                trend = calculate_weight_trend(filtered_df, days)
+                trend = calculate_weight_trend(daily_df, days)
                 if trend is not None:
-                    trend_color = "normal"
                     if trend > 0:
                         trend_text = f"+{trend:.2f}%"
-                        trend_color = "normal"  # Weight gain - neutral color
                     else:
                         trend_text = f"{trend:.2f}%"
-                        trend_color = "normal"  # Weight loss - neutral color
                     
                     col.metric(
                         label=f"📊 {label}",
@@ -216,19 +236,19 @@ if page == "📊 Dashboard":
                         help=f"Insufficient data for {days}-day trend"
                     )
             
-            # KPI Cards (updated - removed Total Workout and Avg Weight)
-            st.subheader("Key Performance Indicators")
+            # ==================== KEY PERFORMANCE INDICATORS ====================
+            st.subheader("📋 Key Performance Indicators")
             kpi_cols = st.columns(4)
             
-            # Calculate average sleep in hours and minutes format
-            avg_sleep_min = filtered_df['sleep_min'].mean()
+            # Calculate KPIs from daily data
+            avg_sleep_min = daily_df['sleep_min'].mean()
             avg_sleep_formatted = format_sleep_time(avg_sleep_min)
             
             metrics = [
-                ("🚶 Avg Steps", filtered_df['steps'].mean(), "{:.0f}"),
+                ("🚶 Avg Steps", daily_df['steps'].mean(), "{:.0f}"),
                 ("😴 Avg Sleep", avg_sleep_formatted, "{}"),
-                ("🔥 Avg Burned", filtered_df['calories_burned'].mean(), "{:.0f} kcal"),
-                ("🍽️ Avg Consumed", filtered_df['calories_consumed'].mean(), "{:.0f} kcal")
+                ("🔥 Avg Burned", daily_df['calories_burned'].mean(), "{:.0f} kcal"),
+                ("🍽️ Avg Consumed", daily_df['calories_consumed'].mean(), "{:.0f} kcal")
             ]
             
             for col, (label, value, fmt) in zip(kpi_cols, metrics):
@@ -239,128 +259,222 @@ if page == "📊 Dashboard":
                 else:
                     col.metric(label, "N/A")
             
-            # Quick visualization
-            st.subheader("Recent Trends")
+            # ==================== TIME SERIES ANALYSIS ====================
+            st.subheader("📈 Time Series Analysis")
             
-            # Weight trend chart (full width)
-            if filtered_df['weight'].notna().any():
-                fig = px.line(filtered_df, x='date', y='weight', 
-                             title='Weight Trend (kg)', markers=True)
-                fig.update_layout(height=350)
-                
-                # Add trend line if we have enough data
-                weight_data = filtered_df[filtered_df['weight'].notna()].sort_values('date')
-                if len(weight_data) >= 2:
-                    # Add a trend line
-                    z = np.polyfit(range(len(weight_data)), weight_data['weight'], 1)
-                    p = np.poly1d(z)
-                    fig.add_scatter(x=weight_data['date'], 
-                                  y=p(range(len(weight_data))),
-                                  mode='lines', 
-                                  name='Trend Line',
-                                  line=dict(dash='dash', color='red'))
-                
-                st.plotly_chart(fig, use_container_width=True)
+            # Metric selection
+            metrics_to_plot = st.multiselect(
+                "Select metrics to visualize",
+                ['steps', 'sleep_min', 'workout_duration_min_tot', 'weight', 'calories_burned', 'calories_consumed'],
+                default=['weight', 'calories_burned', 'calories_consumed'],
+                help="Choose which health metrics you want to analyze"
+            )
             
-            # Calorie Balance chart (full width)
-            if (filtered_df['calories_burned'].notna().any() and 
-                filtered_df['calories_consumed'].notna().any()):
+            # Create enhanced time series plots
+            for metric in metrics_to_plot:
+                if filtered_df[metric].notna().any():
+                    fig = go.Figure()
+                    
+                    # Determine appropriate units and colors
+                    metric_config = {
+                        'steps': {'unit': 'steps', 'color': '#1f77b4'},
+                        'sleep_min': {'unit': 'minutes', 'color': '#9467bd'},
+                        'workout_duration_min_tot': {'unit': 'minutes', 'color': '#ff7f0e'},
+                        'weight': {'unit': 'kg', 'color': '#d62728'},
+                        'calories_burned': {'unit': 'kcal', 'color': '#ff6b6b'},
+                        'calories_consumed': {'unit': 'kcal', 'color': '#4ecdc4'}
+                    }
+                    
+                    config = metric_config.get(metric, {'unit': '', 'color': '#2ca02c'})
+                    
+                    # Main data line
+                    fig.add_trace(go.Scatter(
+                        x=filtered_df['date'],
+                        y=filtered_df[metric],
+                        mode='lines+markers',
+                        name=metric.replace('_', ' ').title(),
+                        line=dict(width=3, color=config['color']),
+                        marker=dict(size=6),
+                        hovertemplate='<b>%{y:.1f}</b> ' + config['unit'] + '<br>%{x}<extra></extra>'
+                    ))
+                    
+                    # Add moving averages for daily data
+                    if aggregation == "Daily" and len(filtered_df) > 7:
+                        # 7-day moving average
+                        ma7 = filtered_df[metric].rolling(window=7, min_periods=1).mean()
+                        fig.add_trace(go.Scatter(
+                            x=filtered_df['date'],
+                            y=ma7,
+                            mode='lines',
+                            name='7-day Average',
+                            line=dict(dash='dash', width=2, color=config['color']),
+                            opacity=0.7,
+                            hovertemplate='7-day avg: <b>%{y:.1f}</b> ' + config['unit'] + '<extra></extra>'
+                        ))
+                        
+                        # 30-day moving average for longer periods
+                        if len(filtered_df) > 30:
+                            ma30 = filtered_df[metric].rolling(window=30, min_periods=1).mean()
+                            fig.add_trace(go.Scatter(
+                                x=filtered_df['date'],
+                                y=ma30,
+                                mode='lines',
+                                name='30-day Average',
+                                line=dict(dash='dot', width=2, color=config['color']),
+                                opacity=0.5,
+                                hovertemplate='30-day avg: <b>%{y:.1f}</b> ' + config['unit'] + '<extra></extra>'
+                            ))
+                    
+                    # Add trend line if we have enough data points
+                    if len(filtered_df[filtered_df[metric].notna()]) >= 3:
+                        trend_data = filtered_df[filtered_df[metric].notna()].reset_index(drop=True)
+                        if len(trend_data) > 1:
+                            x_numeric = np.arange(len(trend_data))
+                            z = np.polyfit(x_numeric, trend_data[metric], 1)
+                            p = np.poly1d(z)
+                            
+                            # Determine trend direction for color
+                            trend_color = '#28a745' if z[0] > 0 else '#dc3545' if z[0] < 0 else '#6c757d'
+                            
+                            fig.add_trace(go.Scatter(
+                                x=trend_data['date'],
+                                y=p(x_numeric),
+                                mode='lines',
+                                name='Trend',
+                                line=dict(dash='dashdot', width=2, color=trend_color),
+                                opacity=0.8,
+                                hovertemplate='Trend: <b>%{y:.1f}</b> ' + config['unit'] + '<extra></extra>'
+                            ))
+                    
+                    # Enhanced layout
+                    fig.update_layout(
+                        title={
+                            'text': f"{metric.replace('_', ' ').title()} Over Time ({aggregation} View)",
+                            'x': 0.5,
+                            'font': {'size': 18}
+                        },
+                        xaxis_title="Date",
+                        yaxis_title=f"{metric.replace('_', ' ').title()} ({config['unit']})",
+                        height=450,
+                        hovermode='x unified',
+                        legend=dict(
+                            orientation="h",
+                            yanchor="bottom",
+                            y=1.02,
+                            xanchor="right",
+                            x=1
+                        ),
+                        plot_bgcolor='rgba(0,0,0,0)',
+                        paper_bgcolor='rgba(0,0,0,0)',
+                    )
+                    
+                    # Add grid
+                    fig.update_xaxes(showgrid=True, gridwidth=1, gridcolor='lightgray', griddash='dot')
+                    fig.update_yaxes(showgrid=True, gridwidth=1, gridcolor='lightgray', griddash='dot')
+                    
+                    st.plotly_chart(fig, use_container_width=True)
+            
+            # ==================== SPECIAL COMBINED VISUALIZATIONS ====================
+            
+            # Enhanced Calorie Balance Chart (always show if data available)
+            if (daily_df['calories_burned'].notna().any() and daily_df['calories_consumed'].notna().any()):
+                st.subheader("🔥 Calorie Balance Analysis")
                 
-                # Create figure with dual lines
                 fig = go.Figure()
                 
-                # Add calories burned line
-                fig.add_trace(go.Scatter(
-                    x=filtered_df['date'],
-                    y=filtered_df['calories_burned'],
-                    mode='lines+markers',
-                    name='🔥 Burned',
-                    line=dict(color='#FF6B6B', width=2),
-                    marker=dict(size=6)
-                ))
-                
-                # Add calories consumed line
-                fig.add_trace(go.Scatter(
-                    x=filtered_df['date'],
-                    y=filtered_df['calories_consumed'],
-                    mode='lines+markers',
-                    name='🍽️ Consumed',
-                    line=dict(color='#4ECDC4', width=2),
-                    marker=dict(size=6)
-                ))
-                
-                # Calculate and add balance area (optional)
+                # Use aggregated data for the chart
                 calories_df = filtered_df[['date', 'calories_burned', 'calories_consumed']].dropna()
+                
                 if not calories_df.empty:
-                    # Add fill between curves to show surplus/deficit
+                    # Calculate balance
+                    calories_df['balance'] = calories_df['calories_burned'] - calories_df['calories_consumed']
+                    
+                    # Add calories burned
                     fig.add_trace(go.Scatter(
-                        x=calories_df['date'].tolist() + calories_df['date'].tolist()[::-1],
-                        y=calories_df['calories_burned'].tolist() + calories_df['calories_consumed'].tolist()[::-1],
-                        fill='toself',
-                        fillcolor='rgba(255, 107, 107, 0.1)',  # Light red for deficit
-                        line=dict(color='rgba(255,255,255,0)'),
-                        showlegend=False,
-                        hoverinfo='skip'
+                        x=calories_df['date'],
+                        y=calories_df['calories_burned'],
+                        mode='lines+markers',
+                        name='🔥 Burned',
+                        line=dict(color='#FF6B6B', width=3),
+                        marker=dict(size=8),
+                        fill='tonexty',
+                        hovertemplate='Burned: <b>%{y:.0f}</b> kcal<extra></extra>'
                     ))
-                
-                fig.update_layout(
-                    title='Calorie Balance',
-                    xaxis_title='Date',
-                    yaxis_title='Calories (kcal)',
-                    height=350,
-                    hovermode='x unified',
-                    legend=dict(
-                        orientation="h",
-                        yanchor="bottom",
-                        y=1.02,
-                        xanchor="right",
-                        x=1
+                    
+                    # Add calories consumed
+                    fig.add_trace(go.Scatter(
+                        x=calories_df['date'],
+                        y=calories_df['calories_consumed'],
+                        mode='lines+markers',
+                        name='🍽️ Consumed',
+                        line=dict(color='#4ECDC4', width=3),
+                        marker=dict(size=8),
+                        hovertemplate='Consumed: <b>%{y:.0f}</b> kcal<extra></extra>'
+                    ))
+                    
+                    # Add balance as bar chart on secondary y-axis
+                    fig.add_trace(go.Bar(
+                        x=calories_df['date'],
+                        y=calories_df['balance'],
+                        name='Balance',
+                        marker_color=['#28a745' if x < 0 else '#dc3545' for x in calories_df['balance']],
+                        opacity=0.3,
+                        yaxis='y2',
+                        hovertemplate='Balance: <b>%{y:+.0f}</b> kcal<extra></extra>'
+                    ))
+                    
+                    # Calculate average balance for insight
+                    avg_balance = calories_df['balance'].mean()
+                    
+                    fig.update_layout(
+                        title='Calorie Balance Analysis',
+                        xaxis_title='Date',
+                        yaxis=dict(title='Calories (kcal)', side='left'),
+                        yaxis2=dict(title='Balance (kcal)', side='right', overlaying='y'),
+                        height=400,
+                        hovermode='x unified',
+                        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1)
                     )
-                )
+                    
+                    st.plotly_chart(fig, use_container_width=True)
+                    
+                    # Balance insight
+                    col_insight = st.columns(1)[0]
+                    with col_insight:
+                        if avg_balance > 200:
+                            st.success(f"📉 Average daily deficit: {abs(avg_balance):.0f} kcal - Good for weight loss")
+                        elif avg_balance < -200:
+                            st.warning(f"📈 Average daily surplus: {abs(avg_balance):.0f} kcal - Good for weight gain")
+                        else:
+                            st.info(f"⚖️ Balanced caloric intake (±{abs(avg_balance):.0f} kcal)")
+            
+            # Sleep Consistency Analysis
+            if daily_df['sleep_min'].notna().sum() >= 7:
+                st.subheader("😴 Sleep Consistency Analysis")
                 
-                st.plotly_chart(fig, use_container_width=True)
-            
-            elif filtered_df['calories_burned'].notna().any():
-                # Show only calories burned if consumed data is missing
-                fig = px.line(filtered_df, x='date', y='calories_burned', 
-                             title='Calories Burned', markers=True)
-                fig.update_layout(height=350)
-                st.plotly_chart(fig, use_container_width=True)
-            
-            elif filtered_df['calories_consumed'].notna().any():
-                # Show only calories consumed if burned data is missing
-                fig = px.line(filtered_df, x='date', y='calories_consumed', 
-                             title='Calories Consumed', markers=True)
-                fig.update_layout(height=350)
-                st.plotly_chart(fig, use_container_width=True)
-            
-            # Additional insights
-            st.subheader("📋 Quick Insights")
-            insights_col1, insights_col2 = st.columns(2)
-            
-            with insights_col1:
-                # Sleep consistency
-                if filtered_df['sleep_min'].notna().sum() >= 7:
-                    sleep_std = filtered_df['sleep_min'].std()
-                    if sleep_std < 30:
-                        st.success("🎯 Great sleep consistency!")
-                    elif sleep_std < 60:
-                        st.warning("⚠️ Moderate sleep variability")
+                sleep_data = daily_df[daily_df['sleep_min'].notna()].copy()
+                sleep_data['sleep_hours'] = sleep_data['sleep_min'] / 60
+                
+                sleep_std = sleep_data['sleep_hours'].std()
+                sleep_mean = sleep_data['sleep_hours'].mean()
+                
+                col1, col2 = st.columns(2)
+                
+                with col1:
+                    if sleep_std < 0.5:  # Less than 30 minutes variation
+                        st.success(f"🎯 Excellent sleep consistency! (±{sleep_std*60:.0f} minutes)")
+                    elif sleep_std < 1:  # Less than 1 hour variation
+                        st.warning(f"⚠️ Moderate sleep variability (±{sleep_std*60:.0f} minutes)")
                     else:
-                        st.error("❗ High sleep variability - consider a more regular schedule")
-            
-            with insights_col2:
-                # Calorie balance trend
-                if (filtered_df['calories_burned'].notna().any() and 
-                    filtered_df['calories_consumed'].notna().any()):
-                    avg_balance = (filtered_df['calories_burned'].mean() - 
-                                 filtered_df['calories_consumed'].mean())
-                    if avg_balance > 200:
-                        st.info("📉 Caloric deficit - good for weight loss")
-                    elif avg_balance < -200:
-                        st.info("📈 Caloric surplus - good for weight gain")
+                        st.error(f"❗ High sleep variability (±{sleep_std*60:.0f} minutes)")
+                
+                with col2:
+                    if sleep_mean >= 7 and sleep_mean <= 9:
+                        st.success(f"✅ Healthy average sleep: {sleep_mean:.1f} hours")
+                    elif sleep_mean < 7:
+                        st.warning(f"😴 Below recommended: {sleep_mean:.1f} hours")
                     else:
-                        st.info("⚖️ Balanced caloric intake")
+                        st.info(f"😴 Above average: {sleep_mean:.1f} hours")
 # Data Entry Page
 elif page == "➕ Data Entry":
     st.title("➕ Data Entry & Management")
@@ -585,170 +699,6 @@ elif page == "➕ Data Entry":
             total_records = len(df)
             st.metric("📊 Total Records", total_records)
         
-# Visualization Page
-elif page == "📈 Visualization":
-    st.title("📈 Data Visualization")
-    
-    if df.empty:
-        st.warning("No data available. Please add records in the Data Entry page.")
-    else:
-        # Quick Date Filter - Same as Dashboard
-        st.subheader("📅 Time Period")
-        
-        # Quick selection buttons
-        col1, col2, col3, col4, col5, col6 = st.columns(6)
-        
-        today = date.today()
-        
-        with col1:
-            if st.button("7 Days", use_container_width=True, key="viz_7d"):
-                st.session_state.viz_date_range = (today - timedelta(days=7), today)
-        with col2:
-            if st.button("14 Days", use_container_width=True, key="viz_14d"):
-                st.session_state.viz_date_range = (today - timedelta(days=14), today)
-        with col3:
-            if st.button("30 Days", use_container_width=True, key="viz_30d"):
-                st.session_state.viz_date_range = (today - timedelta(days=30), today)
-        with col4:
-            if st.button("3 Months", use_container_width=True, key="viz_3m"):
-                st.session_state.viz_date_range = (today - timedelta(days=90), today)
-        with col5:
-            if st.button("This Year", use_container_width=True, key="viz_year"):
-                st.session_state.viz_date_range = (date(today.year, 1, 1), today)
-        with col6:
-            if st.button("All Time", use_container_width=True, key="viz_all"):
-                if not df.empty:
-                    st.session_state.viz_date_range = (df['date'].min().date(), df['date'].max().date())
-        
-        # Initialize default if not set
-        if 'viz_date_range' not in st.session_state:
-            st.session_state.viz_date_range = (today - timedelta(days=30), today)
-        
-        # Get current selection
-        start_date, end_date = st.session_state.viz_date_range
-        
-        # Show current selection
-        days_shown = (end_date - start_date).days + 1
-        st.info(f"📊 Showing data from **{start_date.strftime('%b %d, %Y')}** to **{end_date.strftime('%b %d, %Y')}** ({days_shown} days)")
-        
-        # Optional: Add custom date range in expander
-        with st.expander("📝 Custom Date Range"):
-            col_start, col_end = st.columns(2)
-            with col_start:
-                custom_start = st.date_input("Start Date", value=start_date, key="viz_custom_start")
-            with col_end:
-                custom_end = st.date_input("End Date", value=end_date, key="viz_custom_end")
-            
-            if st.button("Apply Custom Range", type="primary", key="viz_custom_apply"):
-                st.session_state.viz_date_range = (custom_start, custom_end)
-                st.rerun()
-        
-        # Aggregation control
-        col_agg = st.columns([1, 2])[0]  # Take only first column for aggregation
-        with col_agg:
-            aggregation = st.selectbox("Aggregation", ["Daily", "Weekly", "Monthly"])
-        
-        # Filter data by date range
-        mask = (df['date'] >= pd.Timestamp(start_date)) & (df['date'] <= pd.Timestamp(end_date))
-        filtered_df = df[mask].copy()
-        
-        if filtered_df.empty:
-            st.warning("No data in selected date range.")
-        else:
-            # Aggregation
-            if aggregation == "Weekly":
-                filtered_df = filtered_df.set_index('date').resample('W').agg({
-                    'steps': 'sum',
-                    'sleep_min': 'mean',
-                    'workout_duration_min_tot': 'sum',
-                    'weight': 'mean',
-                    'calories_burned': 'sum',
-                    'calories_consumed': 'sum'
-                }).reset_index()
-            elif aggregation == "Monthly":
-                filtered_df = filtered_df.set_index('date').resample('M').agg({
-                    'steps': 'sum',
-                    'sleep_min': 'mean',
-                    'workout_duration_min_tot': 'sum',
-                    'weight': 'mean',
-                    'calories_burned': 'sum',
-                    'calories_consumed': 'sum'
-                }).reset_index()
-            
-            # Time series plots with moving averages
-            st.subheader("Time Series Analysis")
-            
-            metrics_to_plot = st.multiselect(
-                "Select metrics to plot",
-                ['steps', 'sleep_min', 'workout_duration_min_tot', 'weight', 'calories_burned', 'calories_consumed'],
-                default=['calories_burned', 'calories_consumed']
-            )
-            
-            for metric in metrics_to_plot:
-                if filtered_df[metric].notna().any():
-                    fig = go.Figure()
-                    
-                    # Original data
-                    fig.add_trace(go.Scatter(
-                        x=filtered_df['date'],
-                        y=filtered_df[metric],
-                        mode='lines+markers',
-                        name=metric.replace('_', ' ').title(),
-                        line=dict(width=2)
-                    ))
-                    
-                    # Add moving averages if daily data
-                    if aggregation == "Daily" and len(filtered_df) > 7:
-                        # 7-day moving average
-                        ma7 = filtered_df[metric].rolling(window=7, min_periods=1).mean()
-                        fig.add_trace(go.Scatter(
-                            x=filtered_df['date'],
-                            y=ma7,
-                            mode='lines',
-                            name='7-day MA',
-                            line=dict(dash='dash', width=1)
-                        ))
-                        
-                        # 30-day moving average
-                        if len(filtered_df) > 30:
-                            ma30 = filtered_df[metric].rolling(window=30, min_periods=1).mean()
-                            fig.add_trace(go.Scatter(
-                                x=filtered_df['date'],
-                                y=ma30,
-                                mode='lines',
-                                name='30-day MA',
-                                line=dict(dash='dot', width=1)
-                            ))
-                    
-                    fig.update_layout(
-                        title=f"{metric.replace('_', ' ').title()} Over Time",
-                        xaxis_title="Date",
-                        yaxis_title=metric.replace('_', ' ').title(),
-                        height=400,
-                        hovermode='x unified'
-                    )
-                    
-                    st.plotly_chart(fig, use_container_width=True)
-            
-            # Distribution plots
-            st.subheader("Distribution Analysis")
-            
-            col1, col2 = st.columns(2)
-            
-            with col1:
-                if filtered_df['steps'].notna().any():
-                    fig = px.histogram(filtered_df, x='steps', title='Steps Distribution',
-                                      nbins=20, marginal='box')
-                    fig.update_layout(height=400)
-                    st.plotly_chart(fig, use_container_width=True)
-            
-            with col2:
-                if filtered_df['sleep_min'].notna().any():
-                    fig = px.histogram(filtered_df, x='sleep_min', title='Sleep Distribution',
-                                      nbins=20, marginal='box')
-                    fig.update_layout(height=400)
-                    st.plotly_chart(fig, use_container_width=True)
-
 # Deep Dive Page - Complete with Weekly Analysis
 elif page == "🔬 Deep Dive":
     st.title("🔬 Deep Dive Analytics")
