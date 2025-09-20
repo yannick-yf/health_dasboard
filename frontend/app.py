@@ -802,19 +802,19 @@ elif page == "🔬 Deep Dive":
             st.warning("Create a personal_info.json file in the data folder to unlock advanced body composition and metabolic analytics.")
             with st.expander("Personal Info JSON Format"):
                 st.code('''
-{
-  "birth_date": "21-01-1992",
-  "height_cm": 185,
-  "sex": "Male",
-  "body_fat_prct": 13
-}''')
+                        {
+                        "birth_date": "21-01-1992",
+                        "height_cm": 185,
+                        "sex": "Male",
+                        "body_fat_prct": 13
+                        }'''
+                    )
         
         # Calculate daily-level metrics for all records
         df_enhanced = df.copy()
         
         if has_complete_profile:
             # Calculate age
-            from datetime import datetime
             birth_date = datetime.strptime(personal_info['birth_date'], '%d-%m-%Y').date()
             today = date.today()
             age = today.year - birth_date.year - ((today.month, today.day) < (birth_date.month, birth_date.day))
@@ -824,10 +824,10 @@ elif page == "🔬 Deep Dive":
             sex = personal_info['sex']
             body_fat_prct = personal_info.get('body_fat_prct', None)
             
-            # Calculate daily BMI (using current day's weight for body composition metrics)
+            # Calculate daily BMI
             df_enhanced['bmi'] = df_enhanced['weight'] / (height_m ** 2)
             
-            # Calculate Fat-Free Mass Index (FFMI) if body fat is provided (using current day's weight)
+            # Calculate Fat-Free Mass Index (FFMI) if body fat is provided
             if body_fat_prct is not None:
                 df_enhanced['fat_mass'] = df_enhanced['weight'] * (body_fat_prct / 100)
                 df_enhanced['fat_free_mass'] = df_enhanced['weight'] * (1 - body_fat_prct/100)
@@ -836,7 +836,6 @@ elif page == "🔬 Deep Dive":
                 df_enhanced['normalized_ffmi'] = df_enhanced['ffmi'] + 6.1 * (1.8 - height_m)
             
             # For metabolic calculations, use previous day's weight (lag by 1)
-            # Today's calories burned are based on yesterday's body composition
             df_enhanced['prev_weight'] = df_enhanced['weight'].shift(1)
             
             # Calculate daily BMR using previous day's weight (Mifflin-St Jeor equation)
@@ -850,42 +849,36 @@ elif page == "🔬 Deep Dive":
                 10 * df_enhanced['weight'] + 6.25 * height_cm - 5 * age + (5 if sex.lower() == 'male' else -161)
             )
             
-            # Calculate daily TDEE based on actual calories burned (NO LAG - current day values)
+            # Calculate daily TDEE and energy balance
             df_enhanced['actual_tdee'] = df_enhanced['calories_burned']
-            
-            # Calculate daily energy balance (NO LAG - current day values)
             df_enhanced['energy_balance'] = df_enhanced['calories_burned'] - df_enhanced['calories_consumed']
-            
-            # Calculate daily deficit/surplus relative to BMR (using lagged BMR with current intake)
             df_enhanced['bmr_surplus'] = df_enhanced['calories_consumed'] - df_enhanced['bmr']
+            df_enhanced['bmr_ratio'] = df_enhanced['calories_burned'] / df_enhanced['bmr']
             
-            # Calculate additional metabolic metrics (using lagged BMR with current values)
-            df_enhanced['bmr_ratio'] = df_enhanced['calories_burned'] / df_enhanced['bmr']  # Metabolic multiple
-            df_enhanced['calories_per_step'] = df_enhanced['calories_burned'] / df_enhanced['steps']  # Calorie efficiency
+            # Enhanced NEAT calculation based on steps
+            # Research shows approximately 0.04-0.05 kcal per step for average adults
+            # This varies by weight, so we'll use 0.04 * weight_kg as baseline
+            kcal_per_step = 0.04 * df_enhanced['weight']
+            estimated_steps_calories = df_enhanced['steps'] * (kcal_per_step / 1000)  # Convert to kcal
             
-            # Estimate NEAT using previous day's weight for BMR calculation
-            # NEAT = Total Calories - BMR - TEF - Exercise Calories
-            # User's activities:
-            # - Weight lifting (6-7/10 intensity): ~8-10 kcal/min
-            # - Basketball (8-9/10 intensity): ~12-15 kcal/min  
-            # - Cycling commute (3-4/10 intensity): ~5-7 kcal/min - borderline NEAT/exercise
-            # - Walking: ~3-4 kcal/min - part of NEAT
-            
-            # Strategy: Only subtract high-intensity structured exercise (gym sessions)
-            # Keep cycling and walking as part of NEAT since they're transportation/lifestyle
-            
-            # Assume structured gym sessions are 60-75 minutes
-            # Cycling commutes and walking remain in NEAT calculation
+            # Calculate structured exercise calories
             structured_exercise_minutes = np.minimum(df_enhanced['workout_duration_min_tot'], 75)
+            estimated_exercise_calories = structured_exercise_minutes * 10  # 10 kcal/min for gym sessions
             
-            # Only subtract calories from deliberate gym training
-            # Use 10 kcal/min for structured gym sessions (weight lifting + basketball average)
-            estimated_exercise_calories = structured_exercise_minutes * 10
+            # Calculate TEF (Thermic Effect of Food)
+            estimated_tef = df_enhanced['calories_consumed'] * 0.1
             
-            estimated_tef = df_enhanced['calories_consumed'] * 0.1  # 10% TEF
-            df_enhanced['neat_estimate'] = df_enhanced['calories_burned'] - df_enhanced['bmr'] - estimated_tef - estimated_exercise_calories
+            # NEAT = Total Calories - BMR - TEF - Exercise - Steps Calories
+            df_enhanced['neat_estimate'] = (df_enhanced['calories_burned'] - df_enhanced['bmr'] - 
+                                          estimated_tef - estimated_exercise_calories - estimated_steps_calories)
+            
+            # Ensure NEAT is not negative (minimum 50 kcal)
+            df_enhanced['neat_estimate'] = np.maximum(df_enhanced['neat_estimate'], 50)
+            
+            # Calculate step efficiency (calories per 1000 steps)
+            df_enhanced['calories_per_1k_steps'] = (df_enhanced['calories_burned'] / df_enhanced['steps']) * 1000
         
-        # Calculate daily sleep efficiency and recovery metrics (NO LAG - current day values)
+        # Calculate sleep and activity metrics
         df_enhanced['sleep_hours'] = df_enhanced['sleep_min'] / 60
         df_enhanced['sleep_efficiency'] = np.where(
             df_enhanced['sleep_min'] >= 420,  # 7+ hours
@@ -893,58 +886,36 @@ elif page == "🔬 Deep Dive":
             (df_enhanced['sleep_min'] / 420) * 100  # Scale below 7 hours
         )
         
-        # Calculate daily activity intensity (NO LAG - current day values)
         df_enhanced['steps_per_workout_min'] = np.where(
             df_enhanced['workout_duration_min_tot'] > 0,
             df_enhanced['steps'] / df_enhanced['workout_duration_min_tot'],
             np.nan
         )
         
-        # Weekly Analysis Dashboard
-        st.subheader("📊 Weekly Health Analysis")
+        # Week Selection Interface
+        st.markdown("---")
         
-        # Week selection interface
-        col1, col2, col3 = st.columns([2, 1, 1])
+        # Calculate available weeks
+        df_enhanced['week_start'] = df_enhanced['date'].dt.to_period('W').dt.start_time
+        available_weeks = sorted(df_enhanced['week_start'].unique(), reverse=True)
         
-        available_weeks = []
-        selected_week_start = None
-        
-        with col1:
-            # Calculate available weeks
-            if not df_enhanced.empty:
-                df_enhanced['week_start'] = df_enhanced['date'].dt.to_period('W').dt.start_time
-                available_weeks = sorted(df_enhanced['week_start'].unique(), reverse=True)
+        if len(available_weeks) > 0:
+            # Create week selection in a centered column
+            col1, col2, col3 = st.columns([1, 2, 1])
+            with col2:
+                # Format week options for display
+                week_options = []
+                for week in available_weeks:
+                    week_end = week + pd.Timedelta(days=6)
+                    if week == available_weeks[0]:
+                        week_options.append(f"Current Week ({week.strftime('%b %d')} - {week_end.strftime('%b %d')})")
+                    else:
+                        week_options.append(f"{week.strftime('%b %d')} - {week_end.strftime('%b %d')}")
                 
-                if len(available_weeks) > 0:
-                    # Format week options for display
-                    week_options = []
-                    for week in available_weeks:
-                        week_end = week + pd.Timedelta(days=6)
-                        if week == available_weeks[0]:
-                            week_options.append(f"Current Week ({week.strftime('%b %d')} - {week_end.strftime('%b %d')})")
-                        else:
-                            week_options.append(f"{week.strftime('%b %d')} - {week_end.strftime('%b %d')}")
-                    
-                    selected_week_idx = st.selectbox("Select Week", range(len(week_options)), 
-                                                   format_func=lambda x: week_options[x])
-                    selected_week_start = available_weeks[selected_week_idx]
-                else:
-                    st.warning("No data available for weekly analysis")
-                    selected_week_start = None
-        
-        with col2:
-            if len(available_weeks) > 0 and st.button("📅 Previous Week", use_container_width=True):
-                if selected_week_idx < len(available_weeks) - 1:
-                    st.session_state.week_offset = selected_week_idx + 1
-                    st.rerun()
-        
-        with col3:
-            if len(available_weeks) > 0 and st.button("📅 Next Week", use_container_width=True):
-                if selected_week_idx > 0:
-                    st.session_state.week_offset = selected_week_idx - 1
-                    st.rerun()
-        
-        if selected_week_start is not None:
+                selected_week_idx = st.selectbox("📅 Select Analysis Period", range(len(week_options)), 
+                                               format_func=lambda x: week_options[x])
+                selected_week_start = available_weeks[selected_week_idx]
+            
             # Filter data for selected week
             week_end = selected_week_start + pd.Timedelta(days=6)
             week_mask = (df_enhanced['date'] >= selected_week_start) & (df_enhanced['date'] <= week_end)
@@ -954,183 +925,221 @@ elif page == "🔬 Deep Dive":
             complete_week_data = week_data.dropna(subset=['steps', 'calories_burned', 'calories_consumed'])
             days_with_data = len(complete_week_data)
             
-            st.info(f"📊 Analyzing {days_with_data} days of complete data from {selected_week_start.strftime('%b %d')} to {week_end.strftime('%b %d')}")
+            # Header with period info
+            st.markdown(f"""
+            <div style="background: linear-gradient(90deg, #667eea 0%, #764ba2 100%); 
+                        padding: 1rem; border-radius: 10px; margin: 1rem 0;">
+                <h3 style="color: white; margin: 0; text-align: center;">
+                    📊 Weekly Analysis: {selected_week_start.strftime('%B %d')} - {week_end.strftime('%B %d, %Y')}
+                </h3>
+                <p style="color: white; margin: 0.5rem 0 0 0; text-align: center; opacity: 0.9;">
+                    Analyzing {days_with_data} days of complete data
+                </p>
+            </div>
+            """, unsafe_allow_html=True)
             
             if days_with_data > 0:
-                # Weekly Health Status
-                col1, col2, col3, col4 = st.columns(4)
+                # === WEEKLY OVERVIEW METRICS ===
+                st.subheader("📈 Weekly Overview")
+                
+                col1, col2, col3, col4, col5 = st.columns(5)
                 
                 with col1:
                     if has_complete_profile and complete_week_data['bmr'].notna().any():
                         avg_bmr = complete_week_data['bmr'].mean()
-                        st.metric("Avg BMR", f"{avg_bmr:.0f} kcal", 
-                                help=f"Based on {days_with_data} days")
+                        st.metric("Avg BMR", f"{avg_bmr:.0f}", help="Basal Metabolic Rate")
                     else:
                         st.metric("Avg BMR", "N/A")
                 
                 with col2:
-                    if complete_week_data['sleep_efficiency'].notna().any():
-                        avg_sleep_eff = complete_week_data['sleep_efficiency'].mean()
-                        st.metric("Avg Sleep Efficiency", f"{avg_sleep_eff:.0f}%",
-                                help=f"Based on {days_with_data} days")
-                        
-                        if avg_sleep_eff >= 90:
-                            st.success("Excellent week")
-                        elif avg_sleep_eff >= 75:
-                            st.info("Good week")
-                        else:
-                            st.warning("Needs improvement")
-                    else:
-                        st.metric("Avg Sleep Efficiency", "N/A")
-                
-                with col3:
                     if complete_week_data['energy_balance'].notna().any():
                         avg_balance = complete_week_data['energy_balance'].mean()
-                        st.metric("Avg Energy Balance", f"{avg_balance:+.0f} kcal",
-                                help=f"Based on {days_with_data} days")
-                        
-                        if avg_balance > 200:
-                            st.info("Weekly deficit")
-                        elif avg_balance < -200:
-                            st.warning("Weekly surplus")
-                        else:
-                            st.success("Balanced week")
+                        delta = "Deficit" if avg_balance > 0 else "Surplus" if avg_balance < 0 else "Balanced"
+                        st.metric("Energy Balance", f"{avg_balance:+.0f}", delta=delta)
                     else:
-                        st.metric("Avg Energy Balance", "N/A")
+                        st.metric("Energy Balance", "N/A")
+                
+                with col3:
+                    if complete_week_data['sleep_efficiency'].notna().any():
+                        avg_sleep_eff = complete_week_data['sleep_efficiency'].mean()
+                        st.metric("Sleep Quality", f"{avg_sleep_eff:.0f}%", 
+                                help="Sleep efficiency score")
+                    else:
+                        st.metric("Sleep Quality", "N/A")
                 
                 with col4:
+                    if complete_week_data['steps'].notna().any():
+                        avg_steps = complete_week_data['steps'].mean()
+                        st.metric("Daily Steps", f"{avg_steps:,.0f}", 
+                                help="Average daily step count")
+                    else:
+                        st.metric("Daily Steps", "N/A")
+                
+                with col5:
                     if complete_week_data['weight'].notna().any():
-                        # Show weight change over the week
                         week_weights = complete_week_data['weight'].dropna()
                         if len(week_weights) >= 2:
                             weight_change = week_weights.iloc[-1] - week_weights.iloc[0]
-                            st.metric("Weight Change", f"{weight_change:+.1f} kg",
-                                    help=f"First to last measurement this week")
+                            delta_color = "inverse" if weight_change > 0 else "normal"
+                            st.metric("Weight Change", f"{weight_change:+.1f} kg", 
+                                    delta=f"{weight_change:+.1f}", delta_color=delta_color)
                         else:
                             avg_weight = week_weights.mean()
                             st.metric("Avg Weight", f"{avg_weight:.1f} kg")
                     else:
                         st.metric("Weight", "N/A")
                 
-                # Body Composition Analysis (weekly averages)
+                
+                # === BODY COMPOSITION ANALYSIS ===
+                st.markdown("---")
                 st.subheader("💪 Weekly Body Composition Analysis")
                 
                 if has_complete_profile and has_body_fat:
-                    col1, col2, col3, col4 = st.columns(4)
+                    # Create body composition visualization
+                    fig_composition = make_subplots(
+                        rows=1, cols=3,
+                        subplot_titles=("Fat-Free Mass Index", "Fat Mass Index", "Normalized FFMI"),
+                        specs=[[{"type": "indicator"}, {"type": "indicator"}, {"type": "indicator"}]]
+                    )
                     
+                    if complete_week_data['ffmi'].notna().any():
+                        avg_ffmi = complete_week_data['ffmi'].mean()
+                        
+                        # FFMI ranges for interpretation
+                        if sex.lower() == 'male':
+                            ffmi_max, ffmi_good = 25, 20
+                        else:
+                            ffmi_max, ffmi_good = 21, 17
+                        
+                        fig_composition.add_trace(
+                            go.Indicator(
+                                mode="gauge+number+delta",
+                                value=avg_ffmi,
+                                domain={'x': [0, 1], 'y': [0, 1]},
+                                title={'text': "FFMI"},
+                                gauge={
+                                    'axis': {'range': [None, ffmi_max]},
+                                    'bar': {'color': "darkblue"},
+                                    'steps': [
+                                        {'range': [0, ffmi_good*0.8], 'color': "lightgray"},
+                                        {'range': [ffmi_good*0.8, ffmi_good], 'color': "yellow"},
+                                        {'range': [ffmi_good, ffmi_max*0.9], 'color': "green"},
+                                        {'range': [ffmi_max*0.9, ffmi_max], 'color': "red"}
+                                    ],
+                                    'threshold': {
+                                        'line': {'color': "red", 'width': 4},
+                                        'thickness': 0.75,
+                                        'value': ffmi_max*0.9
+                                    }
+                                }
+                            ),
+                            row=1, col=1
+                        )
+                    
+                    if complete_week_data['fmi'].notna().any():
+                        avg_fmi = complete_week_data['fmi'].mean()
+                        
+                        if sex.lower() == 'male':
+                            fmi_max, fmi_good = 12, 6
+                        else:
+                            fmi_max, fmi_good = 15, 9
+                        
+                        fig_composition.add_trace(
+                            go.Indicator(
+                                mode="gauge+number",
+                                value=avg_fmi,
+                                domain={'x': [0, 1], 'y': [0, 1]},
+                                title={'text': "FMI"},
+                                gauge={
+                                    'axis': {'range': [0, fmi_max]},
+                                    'bar': {'color': "orange"},
+                                    'steps': [
+                                        {'range': [0, fmi_good*0.8], 'color': "green"},
+                                        {'range': [fmi_good*0.8, fmi_good], 'color': "yellow"},
+                                        {'range': [fmi_good, fmi_max], 'color': "red"}
+                                    ]
+                                }
+                            ),
+                            row=1, col=2
+                        )
+                    
+                    if complete_week_data['normalized_ffmi'].notna().any():
+                        avg_norm_ffmi = complete_week_data['normalized_ffmi'].mean()
+                        
+                        fig_composition.add_trace(
+                            go.Indicator(
+                                mode="gauge+number",
+                                value=avg_norm_ffmi,
+                                domain={'x': [0, 1], 'y': [0, 1]},
+                                title={'text': "Normalized FFMI"},
+                                gauge={
+                                    'axis': {'range': [0, 30]},
+                                    'bar': {'color': "purple"},
+                                    'steps': [
+                                        {'range': [0, 18], 'color': "lightgray"},
+                                        {'range': [18, 22], 'color': "yellow"},
+                                        {'range': [22, 25], 'color': "green"},
+                                        {'range': [25, 30], 'color': "red"}
+                                    ]
+                                }
+                            ),
+                            row=1, col=3
+                        )
+                    
+                    fig_composition.update_layout(height=300, showlegend=False)
+                    st.plotly_chart(fig_composition, use_container_width=True)
+                    
+                    # Additional metrics in columns
+                    col1, col2, col3 = st.columns(3)
                     with col1:
-                        if complete_week_data['ffmi'].notna().any():
-                            avg_ffmi = complete_week_data['ffmi'].mean()
-                            st.metric("Avg FFMI", f"{avg_ffmi:.1f}",
-                                    help=f"Based on {days_with_data} days")
-                            
-                            # FFMI interpretation
-                            if sex.lower() == 'male':
-                                if avg_ffmi < 17:
-                                    st.info("Below average muscle mass")
-                                elif avg_ffmi < 20:
-                                    st.success("Average muscle mass")
-                                elif avg_ffmi < 23:
-                                    st.success("Above average muscle mass")
-                                elif avg_ffmi < 25:
-                                    st.warning("Excellent muscle mass")
-                                else:
-                                    st.error("Exceptional (may indicate PED use)")
-                            else:
-                                if avg_ffmi < 14:
-                                    st.info("Below average muscle mass")
-                                elif avg_ffmi < 17:
-                                    st.success("Average muscle mass")
-                                elif avg_ffmi < 19:
-                                    st.success("Above average muscle mass")
-                                elif avg_ffmi < 21:
-                                    st.warning("Excellent muscle mass")
-                                else:
-                                    st.error("Exceptional (may indicate PED use)")
-                            
-                            st.caption("Fat-Free Mass Index")
-                        else:
-                            st.metric("Avg FFMI", "N/A")
-                    
-                    with col2:
-                        if complete_week_data['fmi'].notna().any():
-                            avg_fmi = complete_week_data['fmi'].mean()
-                            st.metric("Avg FMI", f"{avg_fmi:.1f}",
-                                    help=f"Based on {days_with_data} days")
-                            
-                            # FMI interpretation
-                            if sex.lower() == 'male':
-                                if avg_fmi < 3:
-                                    st.warning("Very low body fat")
-                                elif avg_fmi < 6:
-                                    st.success("Healthy range")
-                                elif avg_fmi < 9:
-                                    st.info("Moderate")
-                                else:
-                                    st.warning("High fat mass")
-                            else:
-                                if avg_fmi < 5:
-                                    st.warning("Very low body fat")
-                                elif avg_fmi < 9:
-                                    st.success("Healthy range")
-                                elif avg_fmi < 13:
-                                    st.info("Moderate")
-                                else:
-                                    st.warning("High fat mass")
-                            
-                            st.caption("Fat Mass Index")
-                        else:
-                            st.metric("Avg FMI", "N/A")
-                    
-                    with col3:
                         if complete_week_data['fat_free_mass'].notna().any():
                             avg_ffm = complete_week_data['fat_free_mass'].mean()
-                            st.metric("Avg Fat-Free Mass", f"{avg_ffm:.1f} kg",
-                                    help=f"Based on {days_with_data} days")
-                            st.caption(f"Body fat: {body_fat_prct}%")
-                        else:
-                            st.metric("Avg Fat-Free Mass", "N/A")
+                            st.metric("Fat-Free Mass", f"{avg_ffm:.1f} kg", 
+                                    help=f"Body fat: {body_fat_prct}%")
                     
-                    with col4:
-                        if complete_week_data['normalized_ffmi'].notna().any():
-                            avg_norm_ffmi = complete_week_data['normalized_ffmi'].mean()
-                            st.metric("Avg Normalized FFMI", f"{avg_norm_ffmi:.1f}",
-                                    help=f"Based on {days_with_data} days")
-                            st.caption("Height-adjusted FFMI")
-                        else:
-                            st.metric("Avg Normalized FFMI", "N/A")
+                    with col2:
+                        if complete_week_data['fat_mass'].notna().any():
+                            avg_fm = complete_week_data['fat_mass'].mean()
+                            st.metric("Fat Mass", f"{avg_fm:.1f} kg")
+                    
+                    with col3:
+                        muscle_mass_trend = "📈 Building" if avg_ffmi > 20 else "📊 Maintaining" if avg_ffmi > 17 else "📉 Low"
+                        st.metric("Muscle Status", muscle_mass_trend)
                 
                 else:
-                    st.info("Add 'body_fat_prct' to your personal_info.json to unlock advanced body composition metrics")
+                    st.info("💡 Add 'body_fat_prct' to your personal_info.json to unlock advanced body composition metrics")
                     
-                    # Show BMI only when body composition data is unavailable
-                    if has_complete_profile:
-                        st.subheader("⚠️ Basic Body Weight Analysis")
+                    if has_complete_profile and complete_week_data['bmi'].notna().any():
+                        avg_bmi = complete_week_data['bmi'].mean()
                         
-                        col1, col2 = st.columns([2, 1])
+                        # BMI Gauge
+                        fig_bmi = go.Figure(go.Indicator(
+                            mode="gauge+number+delta",
+                            value=avg_bmi,
+                            title={'text': "BMI (Limited Metric)"},
+                            gauge={
+                                'axis': {'range': [None, 35]},
+                                'bar': {'color': "darkblue"},
+                                'steps': [
+                                    {'range': [0, 18.5], 'color': "lightgray"},
+                                    {'range': [18.5, 25], 'color': "green"},
+                                    {'range': [25, 30], 'color': "yellow"},
+                                    {'range': [30, 35], 'color': "red"}
+                                ],
+                                'threshold': {
+                                    'line': {'color': "red", 'width': 4},
+                                    'thickness': 0.75,
+                                    'value': 30
+                                }
+                            }
+                        ))
+                        fig_bmi.update_layout(height=300)
+                        st.plotly_chart(fig_bmi, use_container_width=True)
                         
-                        with col1:
-                            if complete_week_data['bmi'].notna().any():
-                                avg_bmi = complete_week_data['bmi'].mean()
-                                st.metric("Avg BMI", f"{avg_bmi:.1f}",
-                                        help=f"Based on {days_with_data} days")
-                                
-                                if avg_bmi < 18.5:
-                                    st.info("BMI: Underweight")
-                                elif avg_bmi < 25:
-                                    st.success("BMI: Normal range")
-                                elif avg_bmi < 30:
-                                    st.warning("BMI: Overweight")
-                                else:
-                                    st.error("BMI: Obese range")
-                            else:
-                                st.metric("Avg BMI", "N/A")
-                        
-                        with col2:
-                            st.warning("⚠️ BMI Limitations")
-                            st.caption("BMI doesn't distinguish between muscle and fat mass. For athletes and those building muscle, body composition metrics (FFMI, body fat %) are far more meaningful.")
+                        st.warning("⚠️ BMI doesn't distinguish between muscle and fat. For athletes, body composition metrics (FFMI) are more meaningful.")
                 
-                # Weekly Metabolic Health Analysis
+                # === METABOLIC ANALYSIS ===
+                st.markdown("---")
                 st.subheader("🔥 Weekly Metabolic Analysis")
                 
                 col1, col2, col3, col4 = st.columns(4)
@@ -1138,66 +1147,52 @@ elif page == "🔬 Deep Dive":
                 with col1:
                     if has_complete_profile and complete_week_data['bmr_ratio'].notna().any():
                         avg_ratio = complete_week_data['bmr_ratio'].mean()
-                        st.metric("Avg Metabolic Multiple", f"{avg_ratio:.1f}x",
-                                help=f"Based on {days_with_data} days")
+                        st.metric("Metabolic Multiple", f"{avg_ratio:.2f}x", 
+                                help="Total daily energy expenditure / BMR")
                         
                         if avg_ratio < 1.3:
-                            st.warning("Low activity week")
+                            st.error("🟥 Low Activity")
                         elif avg_ratio < 1.6:
-                            st.info("Moderate activity")
+                            st.warning("🟨 Moderate Activity")
                         elif avg_ratio < 2.0:
-                            st.success("Active week")
+                            st.success("🟩 Active")
                         else:
-                            st.success("Very active week")
-                        
-                        st.caption("Total burn / BMR")
-                    else:
-                        st.metric("Avg Metabolic Multiple", "N/A")
+                            st.success("🟢 Very Active")
                 
                 with col2:
                     if has_complete_profile and complete_week_data['neat_estimate'].notna().any():
                         avg_neat = complete_week_data['neat_estimate'].mean()
-                        st.metric("Avg NEAT", f"{avg_neat:.0f} kcal",
-                                help=f"Based on {days_with_data} days")
+                        st.metric("NEAT", f"{avg_neat:.0f} kcal", 
+                                help="Non-Exercise Activity Thermogenesis")
                         
                         if avg_neat < 200:
-                            st.warning("Low NEAT week")
+                            st.error("🟥 Low NEAT")
                         elif avg_neat < 400:
-                            st.info("Moderate NEAT")
+                            st.warning("🟨 Moderate NEAT")
                         else:
-                            st.success("High NEAT week")
-                        
-                        st.caption("Non-Exercise Activity")
-                    else:
-                        st.metric("Avg NEAT", "N/A")
+                            st.success("🟩 High NEAT")
                 
                 with col3:
-                    if complete_week_data['calories_per_step'].notna().any():
-                        avg_cal_per_step = complete_week_data['calories_per_step'].mean()
-                        st.metric("Avg Calorie Efficiency", f"{avg_cal_per_step:.3f}",
-                                help=f"Based on {days_with_data} days")
-                        st.caption("Calories per step")
-                    else:
-                        st.metric("Avg Calorie Efficiency", "N/A")
+                    if complete_week_data['calories_per_1k_steps'].notna().any():
+                        avg_cal_per_1k = complete_week_data['calories_per_1k_steps'].mean()
+                        st.metric("Step Efficiency", f"{avg_cal_per_1k:.0f} kcal/1k", 
+                                help="Calories burned per 1000 steps")
                 
                 with col4:
                     if has_complete_profile and complete_week_data['bmr_surplus'].notna().any():
                         avg_surplus = complete_week_data['bmr_surplus'].mean()
-                        st.metric("Avg BMR Surplus", f"{avg_surplus:+.0f} kcal",
-                                help=f"Based on {days_with_data} days")
+                        st.metric("BMR Surplus", f"{avg_surplus:+.0f} kcal", 
+                                help="Daily intake above BMR")
                         
                         if avg_surplus < 0:
-                            st.error("Eating below BMR")
+                            st.error("🚨 Below BMR")
                         elif avg_surplus < 200:
-                            st.warning("Very low intake")
+                            st.warning("⚠️ Very Low")
                         else:
-                            st.success("Adequate intake")
-                        
-                        st.caption("Intake above BMR")
-                    else:
-                        st.metric("Avg BMR Surplus", "N/A")
+                            st.success("✅ Adequate")
                 
-                # Weekly Activity & Performance Metrics
+                # === ACTIVITY & PERFORMANCE ===
+                st.markdown("---")
                 st.subheader("🏃 Weekly Activity & Performance")
                 
                 col1, col2, col3 = st.columns(3)
@@ -1206,264 +1201,308 @@ elif page == "🔬 Deep Dive":
                     if complete_week_data['steps'].notna().any():
                         avg_steps = complete_week_data['steps'].mean()
                         total_steps = complete_week_data['steps'].sum()
-                        st.metric("Avg Daily Steps", f"{avg_steps:,.0f}",
-                                help=f"Total week: {total_steps:,} steps")
+                        st.metric("Daily Steps", f"{avg_steps:,.0f}", 
+                                help=f"Weekly total: {total_steps:,}")
                         
                         if avg_steps >= 12000:
-                            st.success("Very active week")
+                            st.success("🟢 Very Active")
                         elif avg_steps >= 8000:
-                            st.info("Active week")
+                            st.info("🔵 Active")
                         elif avg_steps >= 5000:
-                            st.warning("Moderately active")
+                            st.warning("🟡 Moderate")
                         else:
-                            st.error("Sedentary week")
-                    else:
-                        st.metric("Avg Daily Steps", "N/A")
+                            st.error("🔴 Sedentary")
                 
                 with col2:
                     if complete_week_data['workout_duration_min_tot'].notna().any():
                         avg_workout = complete_week_data['workout_duration_min_tot'].mean()
                         total_workout = complete_week_data['workout_duration_min_tot'].sum()
-                        st.metric("Avg Workout Duration", f"{avg_workout:.0f} min",
-                                help=f"Total week: {total_workout:.0f} min")
+                        st.metric("Workout Duration", f"{avg_workout:.0f} min", 
+                                help=f"Weekly total: {total_workout:.0f} min")
                         
                         if avg_workout >= 60:
-                            st.success("High volume week")
+                            st.success("🟢 High Volume")
                         elif avg_workout >= 30:
-                            st.info("Moderate volume")
+                            st.info("🔵 Moderate")
                         elif avg_workout > 0:
-                            st.warning("Light activity")
+                            st.warning("🟡 Light")
                         else:
-                            st.error("Rest week")
-                    else:
-                        st.metric("Avg Workout Duration", "N/A")
+                            st.error("🔴 Rest Week")
                 
                 with col3:
                     if complete_week_data['steps_per_workout_min'].notna().any():
                         avg_intensity = complete_week_data['steps_per_workout_min'].mean()
-                        st.metric("Avg Activity Intensity", f"{avg_intensity:.0f} steps/min",
-                                help=f"Based on {days_with_data} days")
+                        st.metric("Workout Intensity", f"{avg_intensity:.0f} steps/min", 
+                                help="Activity intensity during workouts")
                         
                         if avg_intensity >= 100:
-                            st.success("High intensity week")
+                            st.success("🟢 High Intensity")
                         elif avg_intensity >= 50:
-                            st.info("Moderate intensity")
+                            st.info("🔵 Moderate")
                         else:
-                            st.warning("Low intensity")
-                        st.caption("During workout periods")
-                    else:
-                        st.metric("Avg Activity Intensity", "N/A")
-            
-            else:
-                st.warning("No complete data available for the selected week.")
-        else:
-            st.warning("No data available for analysis.")
+                            st.warning("🟡 Low Intensity")
         
-        # Metabolic Health Trends
-        st.subheader("🔥 Metabolic Health Trends")
+        # === DAILY TRENDS VISUALIZATION ===
+        st.markdown("---")
+        st.subheader("📈 Daily Health Trends (Last 30 Days)")
         
         # Filter last 30 days for trend analysis
         last_30_days = df_enhanced.tail(30)
         
         if len(last_30_days) > 7:
-            # Create metabolic health visualization
-            fig = make_subplots(
-                rows=2, cols=2,
-                subplot_titles=(
-                    "Energy Balance Trend", 
-                    "BMR vs Actual Intake",
-                    "Sleep Efficiency", 
-                    "Weight Trend"
-                ),
-                specs=[[{"secondary_y": False}, {"secondary_y": False}],
-                       [{"secondary_y": False}, {"secondary_y": True}]]
-            )
+            # Tab system for different trend views
+            tab1, tab2, tab3, tab4 = st.tabs(["🔥 Metabolic Trends", "💪 Body Composition", "🏃 Activity Patterns", "😴 Recovery Metrics"])
             
-            # Energy Balance
-            if last_30_days['energy_balance'].notna().any():
-                fig.add_trace(
-                    go.Scatter(
-                        x=last_30_days['date'],
-                        y=last_30_days['energy_balance'],
-                        mode='lines+markers',
-                        name='Energy Balance',
-                        line=dict(color='blue')
-                    ),
-                    row=1, col=1
-                )
-                fig.add_hline(y=0, line_dash="dash", line_color="gray", row=1, col=1)
-            
-            # BMR vs Intake
-            if has_complete_profile and last_30_days['bmr'].notna().any():
-                fig.add_trace(
-                    go.Scatter(
-                        x=last_30_days['date'],
-                        y=last_30_days['bmr'],
-                        mode='lines',
-                        name='BMR',
-                        line=dict(color='red', dash='dash')
-                    ),
-                    row=1, col=2
+            with tab1:
+                # Metabolic trends
+                fig_metabolic = make_subplots(
+                    rows=2, cols=2,
+                    subplot_titles=("Energy Balance", "BMR vs Intake", "Metabolic Multiple", "NEAT Estimation"),
+                    specs=[[{"secondary_y": False}, {"secondary_y": False}],
+                           [{"secondary_y": False}, {"secondary_y": False}]]
                 )
                 
-                if last_30_days['calories_consumed'].notna().any():
-                    fig.add_trace(
-                        go.Scatter(
-                            x=last_30_days['date'],
-                            y=last_30_days['calories_consumed'],
-                            mode='lines+markers',
-                            name='Intake',
-                            line=dict(color='green')
-                        ),
+                # Energy Balance
+                if last_30_days['energy_balance'].notna().any():
+                    fig_metabolic.add_trace(
+                        go.Scatter(x=last_30_days['date'], y=last_30_days['energy_balance'],
+                                 mode='lines+markers', name='Energy Balance',
+                                 line=dict(color='#3498db', width=2), marker=dict(size=4)),
+                        row=1, col=1
+                    )
+                    fig_metabolic.add_hline(y=0, line_dash="dash", line_color="gray", row=1, col=1)
+                
+                # BMR vs Intake
+                if has_complete_profile and last_30_days['bmr'].notna().any():
+                    fig_metabolic.add_trace(
+                        go.Scatter(x=last_30_days['date'], y=last_30_days['bmr'],
+                                 mode='lines', name='BMR', line=dict(color='#e74c3c', dash='dash')),
                         row=1, col=2
                     )
-            
-            # Sleep Efficiency
-            if last_30_days['sleep_efficiency'].notna().any():
-                fig.add_trace(
-                    go.Scatter(
-                        x=last_30_days['date'],
-                        y=last_30_days['sleep_efficiency'],
-                        mode='lines+markers',
-                        name='Sleep Efficiency',
-                        line=dict(color='purple')
-                    ),
-                    row=2, col=1
-                )
-                fig.add_hline(y=75, line_dash="dash", line_color="orange", row=2, col=1)
-            
-            # Weight and BMI trends
-            if last_30_days['weight'].notna().any():
-                fig.add_trace(
-                    go.Scatter(
-                        x=last_30_days['date'],
-                        y=last_30_days['weight'],
-                        mode='lines+markers',
-                        name='Weight',
-                        line=dict(color='black')
-                    ),
-                    row=2, col=2
-                )
-            
-            if has_complete_profile and last_30_days['bmi'].notna().any():
-                fig.add_trace(
-                    go.Scatter(
-                        x=last_30_days['date'],
-                        y=last_30_days['bmi'],
-                        mode='lines',
-                        name='BMI',
-                        line=dict(color='orange'),
-                        yaxis='y2'
-                    ),
-                    row=2, col=2, secondary_y=True
-                )
-            
-            fig.update_layout(height=600, showlegend=True)
-            fig.update_xaxes(title_text="Date")
-            fig.update_yaxes(title_text="kcal", row=1, col=1)
-            fig.update_yaxes(title_text="kcal/day", row=1, col=2)
-            fig.update_yaxes(title_text="%", row=2, col=1)
-            fig.update_yaxes(title_text="kg", row=2, col=2)
-            fig.update_yaxes(title_text="BMI", row=2, col=2, secondary_y=True)
-            
-            st.plotly_chart(fig, use_container_width=True)
-        
-        # Recovery and Performance Analysis
-        st.subheader("🛌 Recovery & Performance Analysis")
-        
-        col1, col2 = st.columns(2)
-        
-        with col1:
-            # Sleep quality correlation with next-day performance
-            if len(df_enhanced) > 1:
-                # Create shifted data to compare sleep with next day activity
-                df_shifted = df_enhanced.copy()
-                df_shifted['next_day_steps'] = df_shifted['steps'].shift(-1)
-                df_shifted['next_day_calories'] = df_shifted['calories_burned'].shift(-1)
+                    if last_30_days['calories_consumed'].notna().any():
+                        fig_metabolic.add_trace(
+                            go.Scatter(x=last_30_days['date'], y=last_30_days['calories_consumed'],
+                                     mode='lines+markers', name='Intake',
+                                     line=dict(color='#27ae60', width=2), marker=dict(size=4)),
+                            row=1, col=2
+                        )
                 
-                sleep_performance_corr = df_shifted[['sleep_hours', 'next_day_steps']].corr().iloc[0, 1]
+                # Metabolic Multiple
+                if has_complete_profile and last_30_days['bmr_ratio'].notna().any():
+                    fig_metabolic.add_trace(
+                        go.Scatter(x=last_30_days['date'], y=last_30_days['bmr_ratio'],
+                                 mode='lines+markers', name='Metabolic Multiple',
+                                 line=dict(color='#9b59b6', width=2), marker=dict(size=4)),
+                        row=2, col=1
+                    )
+                    fig_metabolic.add_hline(y=1.5, line_dash="dash", line_color="orange", row=2, col=1)
                 
-                if pd.notna(sleep_performance_corr):
-                    st.metric("Sleep-Performance Correlation", f"{sleep_performance_corr:.2f}")
+                # NEAT
+                if has_complete_profile and last_30_days['neat_estimate'].notna().any():
+                    fig_metabolic.add_trace(
+                        go.Scatter(x=last_30_days['date'], y=last_30_days['neat_estimate'],
+                                 mode='lines+markers', name='NEAT',
+                                 line=dict(color='#f39c12', width=2), marker=dict(size=4)),
+                        row=2, col=2
+                    )
+                
+                fig_metabolic.update_layout(height=500, showlegend=False, 
+                                          title_text="Daily Metabolic Health Indicators")
+                fig_metabolic.update_xaxes(title_text="Date")
+                fig_metabolic.update_yaxes(title_text="kcal", row=1, col=1)
+                fig_metabolic.update_yaxes(title_text="kcal/day", row=1, col=2)
+                fig_metabolic.update_yaxes(title_text="Ratio", row=2, col=1)
+                fig_metabolic.update_yaxes(title_text="kcal", row=2, col=2)
+                
+                st.plotly_chart(fig_metabolic, use_container_width=True)
+
+            with tab2:
+                # Body composition trends
+                if has_complete_profile:
+                    fig_body = make_subplots(
+                        rows=1, cols=2,
+                        subplot_titles=("Weight & BMI Trends", "Body Composition Indices"),
+                        specs=[[{"secondary_y": True}, {"secondary_y": False}]]
+                    )
                     
-                    if sleep_performance_corr > 0.3:
-                        st.success("Strong positive correlation - good sleep improves performance")
-                    elif sleep_performance_corr > 0.1:
-                        st.info("Moderate correlation between sleep and performance")
-                    else:
-                        st.warning("Weak correlation - other factors may dominate performance")
+                    # Weight and BMI
+                    if last_30_days['weight'].notna().any():
+                        fig_body.add_trace(
+                            go.Scatter(x=last_30_days['date'], y=last_30_days['weight'],
+                                     mode='lines+markers', name='Weight',
+                                     line=dict(color='#2c3e50', width=3), marker=dict(size=5)),
+                            row=1, col=1
+                        )
+                    
+                    if last_30_days['bmi'].notna().any():
+                        fig_body.add_trace(
+                            go.Scatter(x=last_30_days['date'], y=last_30_days['bmi'],
+                                     mode='lines', name='BMI',
+                                     line=dict(color='#e67e22', width=2, dash='dot')),
+                            row=1, col=1, secondary_y=True
+                        )
+                    
+                    # Body composition indices (if available)
+                    if has_body_fat:
+                        if last_30_days['ffmi'].notna().any():
+                            fig_body.add_trace(
+                                go.Scatter(x=last_30_days['date'], y=last_30_days['ffmi'],
+                                         mode='lines+markers', name='FFMI',
+                                         line=dict(color='#8e44ad', width=2), marker=dict(size=4)),
+                                row=1, col=2
+                            )
+                        
+                        if last_30_days['fmi'].notna().any():
+                            fig_body.add_trace(
+                                go.Scatter(x=last_30_days['date'], y=last_30_days['fmi'],
+                                         mode='lines+markers', name='FMI',
+                                         line=dict(color='#e74c3c', width=2), marker=dict(size=4)),
+                                row=1, col=2
+                            )
+                    
+                    fig_body.update_layout(height=400, showlegend=True)
+                    fig_body.update_xaxes(title_text="Date")
+                    fig_body.update_yaxes(title_text="Weight (kg)", row=1, col=1)
+                    fig_body.update_yaxes(title_text="BMI", row=1, col=1, secondary_y=True)
+                    fig_body.update_yaxes(title_text="Index", row=1, col=2)
+                    
+                    st.plotly_chart(fig_body, use_container_width=True)
                 else:
-                    st.metric("Sleep-Performance Correlation", "N/A")
-        
-        with col2:
-            # Weekly recovery score based on sleep consistency and energy balance
-            if len(last_30_days) >= 7:
-                sleep_consistency = 100 - (last_30_days['sleep_hours'].std() * 10)  # Lower std = higher score
-                energy_stability = 100 - (abs(last_30_days['energy_balance'].std()) / 50)  # More stable = higher score
+                    st.info("Complete your personal profile to unlock body composition trends")
+            
+            with tab3:
+                # Activity patterns
+                fig_activity = make_subplots(
+                    rows=2, cols=2,
+                    subplot_titles=("Daily Steps", "Workout Duration", "Step Efficiency", "Activity Intensity"),
+                    specs=[[{"secondary_y": False}, {"secondary_y": False}],
+                           [{"secondary_y": False}, {"secondary_y": False}]]
+                )
                 
-                recovery_score = (sleep_consistency + energy_stability) / 2
-                recovery_score = max(0, min(100, recovery_score))  # Cap between 0-100
+                # Daily Steps
+                if last_30_days['steps'].notna().any():
+                    fig_activity.add_trace(
+                        go.Scatter(x=last_30_days['date'], y=last_30_days['steps'],
+                                 mode='lines+markers', name='Steps',
+                                 line=dict(color='#3498db', width=2), marker=dict(size=4)),
+                        row=1, col=1
+                    )
+                    fig_activity.add_hline(y=10000, line_dash="dash", line_color="green", row=1, col=1)
                 
-                st.metric("Recovery Score", f"{recovery_score:.0f}/100")
+                # Workout Duration
+                if last_30_days['workout_duration_min_tot'].notna().any():
+                    fig_activity.add_trace(
+                        go.Bar(x=last_30_days['date'], y=last_30_days['workout_duration_min_tot'],
+                               name='Workout Duration', marker_color='#e74c3c'),
+                        row=1, col=2
+                    )
                 
-                if recovery_score >= 80:
-                    st.success("Excellent recovery patterns")
-                elif recovery_score >= 60:
-                    st.info("Good recovery patterns")
-                else:
-                    st.warning("Recovery patterns need attention")
-        
-        # Recommendations Section
-        st.subheader("💡 Personalized Recommendations")
-        
-        recommendations = []
-        
-        # Get latest complete data for recommendations
-        df_complete = df_enhanced.dropna(subset=['steps', 'calories_burned', 'calories_consumed']).sort_values('date')
-        
-        if len(df_complete) > 0:
-            latest_data = df_complete.iloc[-1]
+                # Step Efficiency
+                if last_30_days['calories_per_1k_steps'].notna().any():
+                    fig_activity.add_trace(
+                        go.Scatter(x=last_30_days['date'], y=last_30_days['calories_per_1k_steps'],
+                                 mode='lines+markers', name='Cal/1k Steps',
+                                 line=dict(color='#f39c12', width=2), marker=dict(size=4)),
+                        row=2, col=1
+                    )
+                
+                # Activity Intensity
+                if last_30_days['steps_per_workout_min'].notna().any():
+                    fig_activity.add_trace(
+                        go.Scatter(x=last_30_days['date'], y=last_30_days['steps_per_workout_min'],
+                                 mode='lines+markers', name='Steps/Min',
+                                 line=dict(color='#9b59b6', width=2), marker=dict(size=4)),
+                        row=2, col=2
+                    )
+                
+                fig_activity.update_layout(height=500, showlegend=False)
+                fig_activity.update_xaxes(title_text="Date")
+                fig_activity.update_yaxes(title_text="Steps", row=1, col=1)
+                fig_activity.update_yaxes(title_text="Minutes", row=1, col=2)
+                fig_activity.update_yaxes(title_text="kcal/1k steps", row=2, col=1)
+                fig_activity.update_yaxes(title_text="Steps/min", row=2, col=2)
+                
+                st.plotly_chart(fig_activity, use_container_width=True)
+                
+                # Activity summary metrics
+                col1, col2, col3 = st.columns(3)
+                with col1:
+                    avg_daily_steps = last_30_days['steps'].mean()
+                    st.metric("30-Day Avg Steps", f"{avg_daily_steps:,.0f}")
+                
+                with col2:
+                    total_workout_time = last_30_days['workout_duration_min_tot'].sum()
+                    st.metric("Total Workout Time", f"{total_workout_time:.0f} min")
+                
+                with col3:
+                    active_days = len(last_30_days[last_30_days['workout_duration_min_tot'] > 0])
+                    st.metric("Active Days", f"{active_days}/30")
             
-            # Energy balance recommendations
-            if pd.notna(latest_data.get('energy_balance')):
-                balance = latest_data['energy_balance']
-                if balance > 500:
-                    recommendations.append("Consider reducing caloric deficit to prevent metabolic slowdown. Aim for 300-500 kcal deficit for sustainable fat loss.")
-                elif balance < -500:
-                    recommendations.append("Large caloric surplus detected. Consider reducing intake if weight gain is not your goal.")
-            
-            # Sleep recommendations
-            if pd.notna(latest_data.get('sleep_hours')):
-                sleep_hrs = latest_data['sleep_hours']
-                if sleep_hrs < 7:
-                    recommendations.append("Aim for 7-9 hours of sleep per night for optimal recovery and metabolic health.")
-                elif sleep_hrs > 9:
-                    recommendations.append("You're getting plenty of sleep. Ensure sleep quality is high rather than just quantity.")
-            
-            # BMI recommendations (only if no body fat data available)
-            if has_complete_profile and not has_body_fat and pd.notna(latest_data.get('bmi')):
-                bmi_val = latest_data['bmi']
-                if bmi_val > 25:
-                    recommendations.append("Consider consulting a healthcare provider about healthy weight management strategies. Note: BMI may not be accurate for muscular individuals.")
-                elif bmi_val < 18.5:
-                    recommendations.append("Consider consulting a healthcare provider about healthy weight gain strategies.")
-            
-            # Activity recommendations
-            if pd.notna(latest_data.get('steps')):
-                steps = latest_data['steps']
-                if steps < 8000:
-                    recommendations.append("Try to increase daily activity. Aim for 8,000-10,000 steps per day for general health.")
-            
-            # FFMI-based recommendations
-            if has_body_fat and pd.notna(latest_data.get('ffmi')):
-                ffmi_val = latest_data['ffmi']
-                if sex.lower() == 'male' and ffmi_val < 18:
-                    recommendations.append("Consider incorporating resistance training to build lean muscle mass. Your FFMI suggests room for muscle development.")
-                elif sex.lower() == 'female' and ffmi_val < 15:
-                    recommendations.append("Consider incorporating resistance training to build lean muscle mass. Your FFMI suggests room for muscle development.")
-        
-        if recommendations:
-            for i, rec in enumerate(recommendations, 1):
-                st.write(f"{i}. {rec}")
-        else:
-            st.success("Your current metrics look well-balanced. Keep up the good work!")
+            with tab4:
+                # Recovery metrics
+                fig_recovery = make_subplots(
+                    rows=1, cols=2,
+                    subplot_titles=("Sleep Duration & Efficiency", "Recovery Score"),
+                    specs=[[{"secondary_y": True}, {"secondary_y": False}]]
+                )
+                
+                # Sleep metrics
+                if last_30_days['sleep_hours'].notna().any():
+                    fig_recovery.add_trace(
+                        go.Scatter(x=last_30_days['date'], y=last_30_days['sleep_hours'],
+                                 mode='lines+markers', name='Sleep Hours',
+                                 line=dict(color='#2980b9', width=2), marker=dict(size=4)),
+                        row=1, col=1
+                    )
+                    fig_recovery.add_hline(y=7, line_dash="dash", line_color="green", row=1, col=1)
+                    fig_recovery.add_hline(y=8, line_dash="dash", line_color="blue", row=1, col=1)
+                
+                if last_30_days['sleep_efficiency'].notna().any():
+                    fig_recovery.add_trace(
+                        go.Scatter(x=last_30_days['date'], y=last_30_days['sleep_efficiency'],
+                                 mode='lines+markers', name='Sleep Efficiency %',
+                                 line=dict(color='#8e44ad', width=2), marker=dict(size=4)),
+                        row=1, col=1, secondary_y=True
+                    )
+                    fig_recovery.add_hline(y=75, line_dash="dash", line_color="orange", 
+                                         row=1, col=1, secondary_y=True)
+                
+                # Recovery score (combining sleep and activity)
+                if (last_30_days['sleep_efficiency'].notna().any() and 
+                    last_30_days['energy_balance'].notna().any()):
+                    
+                    # Create a simple recovery score
+                    recovery_score = (
+                        (last_30_days['sleep_efficiency'] / 100) * 0.6 +  # 60% weight to sleep
+                        (np.minimum(np.abs(last_30_days['energy_balance']) / 500, 1)) * 0.4  # 40% to energy balance
+                    ) * 100
+                    
+                    fig_recovery.add_trace(
+                        go.Scatter(x=last_30_days['date'], y=recovery_score,
+                                 mode='lines+markers', name='Recovery Score',
+                                 line=dict(color='#27ae60', width=3), marker=dict(size=5)),
+                        row=1, col=2
+                    )
+                    fig_recovery.add_hline(y=80, line_dash="dash", line_color="green", row=1, col=2)
+                
+                fig_recovery.update_layout(height=400, showlegend=True)
+                fig_recovery.update_xaxes(title_text="Date")
+                fig_recovery.update_yaxes(title_text="Hours", row=1, col=1)
+                fig_recovery.update_yaxes(title_text="Efficiency %", row=1, col=1, secondary_y=True)
+                fig_recovery.update_yaxes(title_text="Score", row=1, col=2)
+                
+                st.plotly_chart(fig_recovery, use_container_width=True)
+                
+                # Sleep summary
+                col1, col2, col3 = st.columns(3)
+                with col1:
+                    avg_sleep = last_30_days['sleep_hours'].mean()
+                    st.metric("Avg Sleep", f"{avg_sleep:.1f} hours")
+                
+                with col2:
+                    avg_efficiency = last_30_days['sleep_efficiency'].mean()
+                    st.metric("Avg Efficiency", f"{avg_efficiency:.0f}%")
+                
+                with col3:
+                    good_sleep_days = len(last_30_days[last_30_days['sleep_hours'] >= 7])
+                    st.metric("Good Sleep Days", f"{good_sleep_days}/30")
