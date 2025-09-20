@@ -989,6 +989,7 @@ elif page == "🔬 Deep Dive":
                     else:
                         st.metric("Weight", "N/A")
                 
+                
                 # === BODY COMPOSITION ANALYSIS ===
                 st.markdown("---")
                 st.subheader("💪 Weekly Body Composition Analysis")
