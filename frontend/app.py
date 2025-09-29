@@ -1210,11 +1210,11 @@ elif page == "🔬 Deep Dive":
                             st.metric("NEAT", f"{avg_neat:.0f} kcal", 
                                     help="Non-Exercise Activity Thermogenesis")
                             
-                            if avg_neat < 300:
+                            if avg_neat < 250:
                                 st.error("🟥 Very Low NEAT - Consider increasing daily movement")
-                            elif avg_neat < 500:
+                            elif avg_neat < 400:
                                 st.warning("🟨 Low NEAT - Typical sedentary lifestyle")
-                            elif avg_neat < 800:
+                            elif avg_neat < 600:
                                 st.info("🟦 Moderate NEAT - Good daily activity level")
                             else:
                                 st.success("🟩 High NEAT - Excellent daily movement!")
