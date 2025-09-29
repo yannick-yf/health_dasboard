@@ -18,18 +18,8 @@ warnings.filterwarnings('ignore')
 
 # Import utility modules (we'll create these next)
 from data_utils import (
-    load_data, save_data, append_record, update_record, delete_record,
-    validate_record, create_backup, parse_date
-)
-from analytics import (
-    compute_bmi, estimate_bmr, compute_tdee, compute_energy_balance,
-    compute_sleep_consistency, compute_activity_load, detect_anomalies,
-    compute_trend_with_significance, rolling_stats
-)
-from visualization import (
-    create_time_series_plot, create_correlation_heatmap,
-    create_distribution_plot, create_kpi_cards
-)
+    load_data, save_data
+    )
 
 # Page configuration
 st.set_page_config(
