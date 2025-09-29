@@ -24,7 +24,6 @@ from utils.deep_dive_helpers import (
     calculate_enhanced_metrics
 )
 
-
 @pytest.fixture
 def real_health_data():
     """Create real health data matching CSV format"""
