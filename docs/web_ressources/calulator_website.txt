@@ -1,0 +1,11 @@
+BMI:
+https://www.calculator.net/bmi-calculator.html?cage=33&csex=m&cheightfeet=5&cheightinch=10&cpound=160&cheightmeter=185&ckg=72&printit=0&ctype=metric&x=Calculate
+
+Body Fat Calculator:
+https://www.calculator.net/body-fat-calculator.html
+
+Weight Calcuator:
+https://www.calculator.net/calorie-calculator.html?cage=33&csex=m&cheightfeet=5&cheightinch=10&cpound=165&cheightmeter=185&ckg=72&cactivity=1.55&cmop=0&coutunit=c&cformula=m&cfatpct=20&printit=0&ctype=metric&x=Calculate
+
+BMR Calculator
+https://www.calculator.net/bmr-calculator.html?cage=33&csex=m&cheightfeet=5&cheightinch=10&cpound=160&cheightmeter=185&ckg=71.6&cmop=0&coutunit=c&cformula=m&cfatpct=20&ctype=metric&x=Calculate

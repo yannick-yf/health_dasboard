@@ -855,22 +855,67 @@ elif page == "🔬 Deep Dive":
             df_enhanced['bmr_surplus'] = df_enhanced['calories_consumed'] - df_enhanced['bmr']
             df_enhanced['bmr_ratio'] = df_enhanced['calories_burned'] / df_enhanced['bmr']
             
-            # Enhanced NEAT calculation based on steps
-            # Research shows approximately 0.04-0.05 kcal per step for average adults
-            # This varies by weight, so we'll use 0.04 * weight_kg as baseline
-            kcal_per_step = 0.04 * df_enhanced['weight']
-            estimated_steps_calories = df_enhanced['steps'] * (kcal_per_step / 1000)  # Convert to kcal
+            # # Enhanced NEAT calculation based on steps
+            # # Research shows approximately 0.04-0.05 kcal per step for average adults
+            # # This varies by weight, so we'll use 0.04 * weight_kg as baseline
+            # kcal_per_step = 0.04 * df_enhanced['weight']
+            # estimated_steps_calories = df_enhanced['steps'] * (kcal_per_step / 1000)  # Convert to kcal
             
-            # Calculate structured exercise calories
-            structured_exercise_minutes = np.minimum(df_enhanced['workout_duration_min_tot'], 75)
-            estimated_exercise_calories = structured_exercise_minutes * 10  # 10 kcal/min for gym sessions
+            # # Calculate structured exercise calories
+            # structured_exercise_minutes = np.minimum(df_enhanced['workout_duration_min_tot'], 75)
+            # estimated_exercise_calories = structured_exercise_minutes * 10  # 10 kcal/min for gym sessions
             
-            # Calculate TEF (Thermic Effect of Food)
+            # # Calculate TEF (Thermic Effect of Food)
+            # estimated_tef = df_enhanced['calories_consumed'] * 0.1
+            
+            # # NEAT = Total Calories - BMR - TEF - Exercise - Steps Calories
+            # df_enhanced['neat_estimate'] = (df_enhanced['calories_burned'] - df_enhanced['bmr'] - 
+            #                             estimated_tef - estimated_exercise_calories - estimated_steps_calories)
+
+            # Constants
+            KCAL_PER_STEP = 0.04  # Research-based average
+            COMMUTE_BIKE_DAYS_PER_WEEK = 5
+            COMMUTE_BIKE_MINUTES_PER_DAY = 40
+            COMMUTE_BIKE_KCAL_PER_MIN = 7  # Moderate cycling
+
+            # Calculate weekly averages for commute biking
+            avg_commute_kcal_per_day = (COMMUTE_BIKE_DAYS_PER_WEEK * COMMUTE_BIKE_MINUTES_PER_DAY * COMMUTE_BIKE_KCAL_PER_MIN) / 7
+
+            # Estimate biking calories (proportional allocation based on your weekly pattern)
+            # This is a rough heuristic - ideally you'd have separate tracking
+            estimated_commute_bike_kcal = np.where(
+                df_enhanced['workout_duration_min_tot'] > 0,
+                np.minimum(avg_commute_kcal_per_day * 1.5, df_enhanced['workout_duration_min_tot'] * COMMUTE_BIKE_KCAL_PER_MIN),
+                0
+            )
+
+            # Structured exercise (excluding commute biking)
+            # Cap at 75 min and assume remaining workout time after bike commute
+            structured_exercise_minutes = np.maximum(
+                0, 
+                np.minimum(df_enhanced['workout_duration_min_tot'] - COMMUTE_BIKE_MINUTES_PER_DAY, 65)
+            )
+            estimated_exercise_calories = structured_exercise_minutes * 10  # ~10 kcal/min for gym
+
+            # Step-based activity (part of NEAT)
+            estimated_steps_calories = df_enhanced['steps'] * KCAL_PER_STEP
+
+            # Thermic Effect of Food (TEF)
             estimated_tef = df_enhanced['calories_consumed'] * 0.1
-            
-            # NEAT = Total Calories - BMR - TEF - Exercise - Steps Calories
-            df_enhanced['neat_estimate'] = (df_enhanced['calories_burned'] - df_enhanced['bmr'] - 
-                                          estimated_tef - estimated_exercise_calories - estimated_steps_calories)
+
+            # NEAT = Total - BMR - TEF - Structured Exercise
+            # Note: Steps and commute biking are INCLUDED in NEAT, not subtracted
+            df_enhanced['neat_estimate'] = (
+                df_enhanced['calories_burned']
+                - df_enhanced['bmr']
+                - estimated_tef
+                - estimated_exercise_calories
+            )
+
+            # Optional: Break down NEAT components for analysis
+            df_enhanced['neat_from_steps'] = estimated_steps_calories
+            df_enhanced['neat_from_commute_bike'] = estimated_commute_bike_kcal
+            df_enhanced['neat_other'] = df_enhanced['neat_estimate'] - estimated_steps_calories - estimated_commute_bike_kcal
             
             # Ensure NEAT is not negative (minimum 50 kcal)
             df_enhanced['neat_estimate'] = np.maximum(df_enhanced['neat_estimate'], 50)
@@ -1161,16 +1206,18 @@ elif page == "🔬 Deep Dive":
                 
                 with col2:
                     if has_complete_profile and complete_week_data['neat_estimate'].notna().any():
-                        avg_neat = complete_week_data['neat_estimate'].mean()
-                        st.metric("NEAT", f"{avg_neat:.0f} kcal", 
-                                help="Non-Exercise Activity Thermogenesis")
-                        
-                        if avg_neat < 200:
-                            st.error("🟥 Low NEAT")
-                        elif avg_neat < 400:
-                            st.warning("🟨 Moderate NEAT")
-                        else:
-                            st.success("🟩 High NEAT")
+                            avg_neat = complete_week_data['neat_estimate'].mean()
+                            st.metric("NEAT", f"{avg_neat:.0f} kcal", 
+                                    help="Non-Exercise Activity Thermogenesis")
+                            
+                            if avg_neat < 250:
+                                st.error("🟥 Very Low NEAT - Consider increasing daily movement")
+                            elif avg_neat < 400:
+                                st.warning("🟨 Low NEAT - Typical sedentary lifestyle")
+                            elif avg_neat < 600:
+                                st.info("🟦 Moderate NEAT - Good daily activity level")
+                            else:
+                                st.success("🟩 High NEAT - Excellent daily movement!")
                 
                 with col3:
                     if complete_week_data['calories_per_1k_steps'].notna().any():
