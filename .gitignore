@@ -46,3 +46,5 @@ my-health-data.*
 # Temporary files
 temp/
 tmp/
+notebooks/*
+.env
