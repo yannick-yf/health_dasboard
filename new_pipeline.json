@@ -1,0 +1,71 @@
+{
+  "name": "Multi-PDF Upload to S3 Workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "functionCode": "// Flatten multiple PDF files and generate S3 keys\nreturn $input.all().flatMap(item => {\n  const files = item.binary?.pdf_files || [];\n\n  if (!files.length) {\n    throw new Error(\"No binary files found in this item\");\n  }\n\n  // If pdf_files is an array of binaries\n  return files.map(file => {\n    const safeName = file.filename\n      .replace(/[^a-zA-Z0-9_.()-]/g, '_')\n      .trim();\n\n    const timestamp = $now.toFormat('yyyy-MM-dd-HHmmss');\n    const s3Key = `uploads/${timestamp}/${safeName}`;\n\n    return {\n      json: {\n        ...item.json,\n        s3Key\n      },\n      binary: {\n        pdf_files: file\n      }\n    };\n  });\n});"
+      },
+      "name": "Generate S3 Keys",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        400,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "operation": "uploadBinary",
+        "binaryData": "pdf_files",
+        "bucketName": "n8n-textract-temp-cropwise-yf",
+        "key": "={{$json.s3Key}}"
+      },
+      "name": "Upload to S3",
+      "type": "n8n-nodes-base.awsS3",
+      "typeVersion": 1,
+      "position": [
+        700,
+        300
+      ]
+    },
+    {
+      "parameters": {},
+      "name": "Form Input (PDFs)",
+      "type": "n8n-nodes-base.start",
+      "typeVersion": 1,
+      "position": [
+        100,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Form Input (PDFs)": {
+      "main": [
+        [
+          {
+            "node": "Generate S3 Keys",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate S3 Keys": {
+      "main": [
+        [
+          {
+            "node": "Upload to S3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "id": "multi-pdf-upload-s3-workflow"
+}
+}
