@@ -12,7 +12,7 @@ warnings.filterwarnings('ignore')
 from data_utils import load_data, save_data, impute_missing_values
 
 # Import page modules
-from sections import data_entry, analytics_dashboard, deep_dive
+from sections import data_entry, analytics_dashboard, deep_dive, weekly_report
 
 # Page configuration
 st.set_page_config(
@@ -39,7 +39,7 @@ if 'imputation_method' not in st.session_state:
 st.sidebar.title("🏃 Health Tracker")
 page = st.sidebar.selectbox(
     "Navigate to:",
-    ["📊 Analytics Dashboard", "➕ Data Entry", "🔬 Deep Dive"]
+    ["📊 Analytics Dashboard", "➕ Data Entry", "🔬 Deep Dive", "📋 Weekly Report"]
 )
 
 # Load data
@@ -63,3 +63,5 @@ elif page == "➕ Data Entry":
     data_entry.render(df)
 elif page == "🔬 Deep Dive":
     deep_dive.render(df)
+elif page == "📋 Weekly Report":
+    weekly_report.render(df)
