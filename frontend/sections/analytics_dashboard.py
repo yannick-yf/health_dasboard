@@ -25,10 +25,7 @@ def render(df):
         return
 
     # Time Period Selection
-    _render_time_period_selection()
-
-    # Get date range from session state
-    start_date, end_date = st.session_state.date_range
+    start_date, end_date = _render_time_period_selection(df)
     days_shown = (end_date - start_date).days + 1
     st.info(
         f"📊 Showing data from **{start_date.strftime('%b %d, %Y')}** to "
@@ -56,50 +53,21 @@ def render(df):
     _render_chart_grid(filtered_df, daily_df)
 
 
-def _render_time_period_selection():
-    """Render time period selection controls"""
-    st.subheader("📅 Time Period")
-
-    col1, col2, col3, col4, col5, col6 = st.columns(6)
+def _render_time_period_selection(df):
+    """Render time period selection and return (start_date, end_date)."""
     today = date.today()
+    options = ["Last 30 Days", "Last 3 Months", "All Data"]
 
-    with col1:
-        if st.button("7 Days", use_container_width=True):
-            st.session_state.date_range = (today - timedelta(days=7), today)
-    with col2:
-        if st.button("14 Days", use_container_width=True):
-            st.session_state.date_range = (today - timedelta(days=14), today)
-    with col3:
-        if st.button("30 Days", use_container_width=True):
-            st.session_state.date_range = (today - timedelta(days=30), today)
-    with col4:
-        if st.button("3 Months", use_container_width=True):
-            st.session_state.date_range = (today - timedelta(days=90), today)
-    with col5:
-        if st.button("This Year", use_container_width=True):
-            st.session_state.date_range = (date(today.year, 1, 1), today)
-    with col6:
-        if st.button("All Time", use_container_width=True):
-            if 'df' in st.session_state and not st.session_state.df.empty:
-                st.session_state.date_range = (
-                    st.session_state.df['date'].min().date(),
-                    st.session_state.df['date'].max().date(),
-                )
+    col = st.columns([1, 3])[0]
+    with col:
+        selection = st.selectbox("📅 Time Period", options, index=0)
 
-    if 'date_range' not in st.session_state:
-        st.session_state.date_range = (today - timedelta(days=30), today)
-
-    with st.expander("📝 Custom Date Range"):
-        start_date, end_date = st.session_state.date_range
-        col_start, col_end = st.columns(2)
-        with col_start:
-            custom_start = st.date_input("Start Date", value=start_date, key="custom_start")
-        with col_end:
-            custom_end = st.date_input("End Date", value=end_date, key="custom_end")
-
-        if st.button("Apply Custom Range", type="primary"):
-            st.session_state.date_range = (custom_start, custom_end)
-            st.rerun()
+    if selection == "Last 30 Days":
+        return today - timedelta(days=30), today
+    elif selection == "Last 3 Months":
+        return today - timedelta(days=90), today
+    else:  # All Data
+        return df['date'].min().date(), df['date'].max().date()
 
 
 def _apply_aggregation(df, aggregation):
