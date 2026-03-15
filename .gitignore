@@ -51,3 +51,4 @@ notebooks/*
 frontend/__pycache__/*
 frontend/sections/__pycache__/*
 frontend/sections/__pycache__/
+frontend/sections/__pycache__

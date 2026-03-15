@@ -31,6 +31,7 @@ Levine JA (2004). Science 307(5709):584.              [NEAT importance]
 from __future__ import annotations
 
 import json
+from functools import lru_cache
 from pathlib import Path
 from datetime import date
 
@@ -39,6 +40,8 @@ import pandas as pd
 # ─── Personal profile (loaded from personal_info.json) ───────────────────────
 _PROFILE_PATH = Path(__file__).parent.parent.parent / "data" / "personal_info.json"
 
+
+@lru_cache(maxsize=1)
 def _load_profile() -> dict:
     with open(_PROFILE_PATH) as f:
         return json.load(f)
