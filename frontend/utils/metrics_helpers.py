@@ -18,7 +18,7 @@ def _round50(x: float) -> int:
     return int(round(x / 50) * 50)
 
 
-def compute_intake_targets(df, bulk_start_ts=None) -> dict | None:
+def compute_intake_targets(df, bulk_start_ts=None, reference_date=None) -> dict | None:
     """
     Compute recommended daily calorie targets based on the last 28 days of data.
 
@@ -35,6 +35,8 @@ def compute_intake_targets(df, bulk_start_ts=None) -> dict | None:
     ----------
     df             : full health DataFrame (date, weight, calories_consumed, calories_burned)
     bulk_start_ts  : optional pd.Timestamp to restrict to bulk phase only
+    reference_date : optional pd.Timestamp — when set, only data up to this date is used.
+                     Enables historical reports that reflect what was known at that time.
 
     Returns
     -------
@@ -42,7 +44,11 @@ def compute_intake_targets(df, bulk_start_ts=None) -> dict | None:
                     gain_rate_4w, avg_consumed, avg_burned, status, change_from_current
     Returns None if there is insufficient data.
     """
-    work_df = df[df['date'] >= bulk_start_ts].copy() if bulk_start_ts is not None else df.copy()
+    work_df = df.copy()
+    if bulk_start_ts is not None:
+        work_df = work_df[work_df['date'] >= bulk_start_ts]
+    if reference_date is not None:
+        work_df = work_df[work_df['date'] <= reference_date]
     recent = work_df.sort_values('date').tail(28)
 
     if len(recent) < 7:
