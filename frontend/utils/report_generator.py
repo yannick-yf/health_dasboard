@@ -16,31 +16,19 @@ from utils.visualization_helpers import (
     create_sleep_chart,
     create_steps_workout_chart,
 )
-
-# ── Bulk program constants (mirrors deep_dive.py) ────────────────────────────
-BULK_START     = pd.Timestamp("2025-11-05")
-GAIN_MIN       = 0.12
-GAIN_MAX       = 0.18
-GAIN_WARN_HIGH = 0.40
-SURPLUS_LO     = 200
-SURPLUS_HI     = 300
-SLEEP_MIN_H    = 7.0
-NEAT_HIGH      = 12_000
-
-
-def _classify_status(rate):
-    """Return (label, hex_color) for a 4-week gain rate."""
-    if rate is None or pd.isna(rate):
-        return "INSUFFICIENT DATA", "#6b7280"
-    if rate > GAIN_WARN_HIGH:
-        return "TOO FAST", "#ef4444"
-    if rate > GAIN_MAX:
-        return "SLIGHTLY FAST", "#f97316"
-    if rate >= GAIN_MIN:
-        return "ON TRACK", "#10b981"
-    if rate >= 0:
-        return "TOO SLOW", "#f59e0b"
-    return "STALLING", "#8b5cf6"
+from utils.bulk_constants import (
+    BULK_START,
+    GAIN_MIN,
+    GAIN_MAX,
+    GAIN_WARN_HIGH,
+    SURPLUS_LO,
+    SURPLUS_HI,
+    SLEEP_MIN_H,
+    NEAT_HIGH,
+    SHORT_SESSION_WARN_MIN,
+    classify_status,
+    get_mesocycle_context,
+)
 
 
 def generate_weekly_report_data(df: pd.DataFrame, week_start: date) -> dict:
@@ -70,12 +58,13 @@ def generate_weekly_report_data(df: pd.DataFrame, week_start: date) -> dict:
     days_available = len(df_week)
     context_days   = len(df_context)
 
-    # ── Bulk week number ──────────────────────────────────────────────────────
+    # ── Bulk week number + mesocycle context ─────────────────────────────────
     bulk_week_num = (
         max(1, int((week_start_ts - BULK_START).days / 7) + 1)
         if week_start_ts >= BULK_START
         else None
     )
+    mesocycle = get_mesocycle_context(week_end_ts)
 
     # ── KPIs ─────────────────────────────────────────────────────────────────
     avg_weight = df_week["weight"].mean() if df_week["weight"].notna().any() else None
@@ -109,15 +98,24 @@ def generate_weekly_report_data(df: pd.DataFrame, week_start: date) -> dict:
         else None
     )
 
-    # ── 4-week gain rate (from rolling average, scoped to context) ────────────
+    # ── 4-week gain rate + 7-day MA delta ────────────────────────────────────
     df_ma = df_context.copy()
-    df_ma["weight_7d_ma"]  = df_ma["weight"].rolling(7, min_periods=3).mean()
-    df_ma["gain_rate_4w"]  = (df_ma["weight_7d_ma"] - df_ma["weight_7d_ma"].shift(28)) / 4.0
+    df_ma["weight_7d_ma"] = df_ma["weight"].rolling(7, min_periods=3).mean()
+    df_ma["gain_rate_4w"] = (df_ma["weight_7d_ma"] - df_ma["weight_7d_ma"].shift(28)) / 4.0
 
     rate_series = df_ma["gain_rate_4w"].dropna()
     gain_rate   = float(rate_series.iloc[-1]) if len(rate_series) else None
 
-    status_label, status_color = _classify_status(gain_rate)
+    # 7-day MA at end of this week vs end of prior week — the "pulse" signal
+    ma_at_week_end  = df_ma.loc[df_ma["date"] <= week_end_ts,  "weight_7d_ma"].dropna()
+    ma_at_prior_end = df_ma.loc[df_ma["date"] <  week_start_ts, "weight_7d_ma"].dropna()
+    weekly_ma_delta = (
+        float(ma_at_week_end.iloc[-1]) - float(ma_at_prior_end.iloc[-1])
+        if len(ma_at_week_end) and len(ma_at_prior_end)
+        else None
+    )
+
+    status_label, status_color = classify_status(gain_rate)
 
     # ── Calorie targets (data scoped to context = up to week_end) ────────────
     targets = compute_intake_targets(
@@ -153,15 +151,17 @@ def generate_weekly_report_data(df: pd.DataFrame, week_start: date) -> dict:
         "week_start":     week_start_ts,
         "week_end":       week_end_ts,
         "bulk_week_num":  bulk_week_num,
+        "mesocycle":      mesocycle,
         "days_available": days_available,
         "context_days":   context_days,
         "data_note":      data_note,
         # Status
-        "status_label":   status_label,
-        "status_color":   status_color,
+        "status_label":     status_label,
+        "status_color":     status_color,
         # KPIs
-        "avg_weight":    avg_weight,
-        "weight_delta":  weight_delta,
+        "avg_weight":       avg_weight,
+        "weight_delta":     weight_delta,
+        "weekly_ma_delta":  weekly_ma_delta,
         "avg_sleep_h":   avg_sleep_h,
         "avg_steps":     avg_steps,
         "avg_surplus":   avg_surplus,
@@ -229,6 +229,38 @@ def _compute_signals(df_week: pd.DataFrame, gain_rate, avg_surplus, avg_sleep_h)
             signals.append({
                 "type": "info",
                 "msg": f"High NEAT: {high_neat_days}/7 days above {NEAT_HIGH:,} steps — may offset surplus",
+            })
+
+    # Outlier calorie day (> median + 800 kcal)
+    cal_col = df_week["calories_consumed"].dropna()
+    if len(cal_col) >= 3:
+        median_cal = cal_col.median()
+        outlier_rows = df_week[df_week["calories_consumed"] > median_cal + 800]
+        for _, row in outlier_rows.iterrows():
+            delta = int(row["calories_consumed"] - median_cal)
+            day_str = pd.Timestamp(row["date"]).strftime("%b %d")
+            signals.append({
+                "type": "info",
+                "msg": (
+                    f"{day_str}: {int(row['calories_consumed']):,} kcal consumed "
+                    f"(+{delta} above median) — may inflate weekly average"
+                ),
+            })
+
+    # Short training session (> 0 but < SHORT_SESSION_WARN_MIN minutes)
+    if "workout_duration_min_tot" in df_week.columns:
+        short_sessions = df_week[
+            (df_week["workout_duration_min_tot"] > 0) &
+            (df_week["workout_duration_min_tot"] < SHORT_SESSION_WARN_MIN)
+        ]
+        for _, row in short_sessions.iterrows():
+            day_str = pd.Timestamp(row["date"]).strftime("%b %d")
+            signals.append({
+                "type": "warn",
+                "msg": (
+                    f"{day_str}: {int(row['workout_duration_min_tot'])}min workout — "
+                    "unusually short, verify session was complete"
+                ),
             })
 
     return signals

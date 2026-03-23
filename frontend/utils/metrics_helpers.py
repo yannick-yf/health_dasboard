@@ -61,12 +61,13 @@ def compute_intake_targets(df, bulk_start_ts=None, reference_date=None) -> dict 
         return None
 
     # ── Gain rate from 7d rolling average ─────────────────────────────────────
-    weight_ma = recent['weight'].rolling(7, min_periods=3).mean().dropna()
-    if len(weight_ma) < 4:
+    # min_periods=7 ensures both endpoints are full 7-day averages (not noisy 3-point anchors).
+    # Denominator is fixed at 4.0 weeks — consistent with the stated 28-day window.
+    weight_ma = recent['weight'].rolling(7, min_periods=7).mean().dropna()
+    if len(weight_ma) < 2:
         rate = None
     else:
-        elapsed_weeks = (recent['date'].max() - recent['date'].min()).days / 7
-        rate = (weight_ma.iloc[-1] - weight_ma.iloc[0]) / elapsed_weeks if elapsed_weeks > 0 else None
+        rate = (weight_ma.iloc[-1] - weight_ma.iloc[0]) / 4.0
 
     # ── Empirical TDEE ─────────────────────────────────────────────────────────
     if rate is None or pd.isna(rate):

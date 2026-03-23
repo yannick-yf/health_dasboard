@@ -71,6 +71,15 @@ def render_report_html(report_data: dict) -> str:
         if report_data.get("gain_rate") is not None
         else "—"
     )
+    ma_delta = report_data.get("weekly_ma_delta")
+    ma_delta_str   = f"{ma_delta:+.2f} kg" if ma_delta is not None else "—"
+    ma_delta_color = "#ef4444" if (ma_delta or 0) > 0.25 else "#10b981" if (ma_delta or 0) < 0 else "#cbd5e1"
+
+    meso = report_data.get("mesocycle")
+    meso_pill_html = (
+        f'<span class="header-pill" style="color:#a78bfa;">{meso["label"]}</span>'
+        if meso else ""
+    )
 
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -209,8 +218,10 @@ def render_report_html(report_data: dict) -> str:
     <h2>Week of {week_label}</h2>
     <div class="header-meta">
       {f'<span class="header-pill">{bulk_week}</span>' if bulk_week else ''}
+      {meso_pill_html}
       <span class="status-badge">{status_label}</span>
       <span class="header-pill">4-week rate: {gain_rate_str}</span>
+      <span class="header-pill" style="color:{ma_delta_color};">This week (7d MA): {ma_delta_str}</span>
       <span class="header-pill">{report_data.get('days_available', 0)}/7 days of data</span>
     </div>
   </div>
