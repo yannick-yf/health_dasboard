@@ -8,8 +8,7 @@ from datetime import date
 from data_utils import save_data
 from utils.tdee_calculator import estimate_tdee
 from utils.metrics_helpers import compute_intake_targets
-
-BULK_START_TS = pd.Timestamp("2025-11-05")
+from utils.bulk_constants import BULK_START, PPL_DAY_MAP
 
 
 def render(df):
@@ -175,24 +174,21 @@ def _render_today_target(df):
     if df.empty:
         return
 
-    targets = compute_intake_targets(df, bulk_start_ts=BULK_START_TS)
+    targets = compute_intake_targets(df, bulk_start_ts=BULK_START)
     if targets is None:
         return
 
     today = date.today()
-    # Check if today has a logged workout (use yesterday's data if today not entered yet)
+    ppl_session = PPL_DAY_MAP.get(today.weekday(), "Training")
+    is_rest_day = ppl_session == "Rest"
+
+    # Check if today has a logged workout to override the schedule guess
     today_row = df[df['date'].dt.date == today] if not df.empty else pd.DataFrame()
     if not today_row.empty and pd.notna(today_row.iloc[0].get('workout_duration_min_tot')):
         is_training = today_row.iloc[0]['workout_duration_min_tot'] > 30
-        day_label = "Training day" if is_training else "Rest day"
+        day_label = ppl_session if is_training else "Rest day"
         day_kcal = targets['training_day'] if is_training else targets['rest_day']
-    else:
-        # Default: show both if today not yet logged
-        day_label = None
-        day_kcal = None
-
-    if day_label:
-        color = "#6366f1" if "Training" in day_label else "#94a3b8"
+        color = "#6366f1" if is_training else "#94a3b8"
         st.markdown(
             f"""
             <div style="
@@ -210,21 +206,23 @@ def _render_today_target(df):
             unsafe_allow_html=True,
         )
     else:
+        # No logged data yet — use PPL schedule to suggest today's target
+        day_kcal = targets['rest_day'] if is_rest_day else targets['training_day']
+        color = "#94a3b8" if is_rest_day else "#6366f1"
         st.markdown(
             f"""
             <div style="
-                background:#1e293b; border-left:4px solid #667eea;
+                background:#1e293b; border-left:4px solid {color};
                 border-radius:8px; padding:0.65rem 1rem;
                 display:flex; align-items:center; gap:2rem; margin-bottom:1rem;
             ">
-                <span style="color:#9ca3af; font-size:0.8rem;">Calorie targets (28-day trend)</span>
-                <span style="color:#6366f1; font-size:1.1rem; font-weight:700;">
-                    🏋️ Training: {targets['training_day']:,} kcal
+                <span style="color:#9ca3af; font-size:0.8rem;">Today ({ppl_session})</span>
+                <span style="color:{color}; font-size:1.25rem; font-weight:700;">{day_kcal:,} kcal</span>
+                <span style="color:#6b7280; font-size:0.75rem;">
+                    🏋️ Training: {targets['training_day']:,} &nbsp;|&nbsp;
+                    🛋️ Rest: {targets['rest_day']:,} &nbsp;|&nbsp;
+                    TDEE ~{targets['empirical_tdee']:,}
                 </span>
-                <span style="color:#94a3b8; font-size:1.1rem; font-weight:700;">
-                    🛋️ Rest: {targets['rest_day']:,} kcal
-                </span>
-                <span style="color:#6b7280; font-size:0.75rem;">TDEE ~{targets['empirical_tdee']:,} kcal</span>
             </div>
             """,
             unsafe_allow_html=True,

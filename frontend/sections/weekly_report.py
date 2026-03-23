@@ -7,8 +7,9 @@ from datetime import date, timedelta
 import pandas as pd
 import streamlit as st
 
-from utils.report_generator import generate_weekly_report_data, BULK_START, GAIN_MIN, GAIN_MAX
+from utils.report_generator import generate_weekly_report_data
 from utils.html_export import render_report_html
+from utils.bulk_constants import BULK_START, GAIN_MIN, GAIN_MAX
 
 
 def _snap_to_monday(d: date) -> date:
@@ -18,47 +19,62 @@ def _snap_to_monday(d: date) -> date:
 
 def render(df: pd.DataFrame):
     st.title("📋 Weekly Report")
-    st.caption("Generate a self-contained report for any past week. All metrics are scoped to data available up to that week's end.")
+    st.caption("One-click review of your last or current week. All metrics are scoped to data available up to that week's end.")
 
     if df.empty:
         st.warning("No data available. Please add records in the Data Entry page.")
         return
 
-    # ── Week selector ─────────────────────────────────────────────────────────
     today = date.today()
     min_date = df["date"].min().date() if not df.empty else date(2025, 11, 5)
-    default_date = _snap_to_monday(today - timedelta(days=7))  # last completed week
 
-    col_picker, col_info = st.columns([2, 3])
-    with col_picker:
+    last_week_start = _snap_to_monday(today - timedelta(days=7))
+    this_week_start = _snap_to_monday(today)
+
+    # ── Quick-select buttons ──────────────────────────────────────────────────
+    # Initialise session state to last completed week on first load
+    if "report_week_start" not in st.session_state:
+        st.session_state["report_week_start"] = last_week_start
+
+    last_week_end = last_week_start + timedelta(days=6)
+    this_week_end = this_week_start + timedelta(days=6)
+
+    # Count available days for labelling the This Week button
+    this_week_days = len(df[
+        (df["date"] >= pd.Timestamp(this_week_start)) &
+        (df["date"] <= pd.Timestamp(today))
+    ])
+
+    col_last, col_this, col_spacer = st.columns([2, 2, 3])
+    with col_last:
+        last_label = f"⬅ Last Week  ({last_week_start.strftime('%b %d')}–{last_week_end.strftime('%b %d')})"
+        if st.button(last_label, use_container_width=True, type="primary"
+                     if st.session_state["report_week_start"] == last_week_start else "secondary"):
+            st.session_state["report_week_start"] = last_week_start
+            st.rerun()
+    with col_this:
+        this_label = f"This Week ➡  ({this_week_start.strftime('%b %d')}–, {this_week_days}d)"
+        if st.button(this_label, use_container_width=True, type="primary"
+                     if st.session_state["report_week_start"] == this_week_start else "secondary"):
+            st.session_state["report_week_start"] = this_week_start
+            st.rerun()
+
+    # ── Historical lookup expander ────────────────────────────────────────────
+    with st.expander("🗂 Browse a past week"):
         selected_date = st.date_input(
             "Pick any date in the target week:",
-            value=default_date,
+            value=st.session_state["report_week_start"],
             min_value=min_date,
             max_value=today,
             help="The report will cover Monday–Sunday of the week containing this date.",
+            key="history_date_picker",
         )
+        if st.button("Load this week", key="load_history"):
+            st.session_state["report_week_start"] = _snap_to_monday(selected_date)
+            st.rerun()
 
-    week_start = _snap_to_monday(selected_date)
+    week_start = st.session_state["report_week_start"]
     week_end   = week_start + timedelta(days=6)
-
-    with col_info:
-        st.markdown(
-            f"""
-            <div style="
-                background:#1e293b; border-radius:10px; padding:.9rem 1.2rem;
-                border-left:4px solid #6366f1; margin-top:1.5rem;
-            ">
-                <div style="color:#9ca3af; font-size:.75rem; text-transform:uppercase; letter-spacing:.05em;">
-                    Selected week
-                </div>
-                <div style="color:#f0f2f6; font-size:1.05rem; font-weight:600; margin:.25rem 0;">
-                    {week_start.strftime('%A, %b %d')} – {week_end.strftime('%A, %b %d, %Y')}
-                </div>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
 
     # ── Validation ────────────────────────────────────────────────────────────
     df_week_check = df[
@@ -70,14 +86,16 @@ def render(df: pd.DataFrame):
         st.error("No data found for this week. Choose a different week or add data first.")
         return
 
-    if days_available < 4:
+    if week_end > today:
+        st.info(
+            f"**Week in progress** — {days_available}/7 days complete. "
+            "Calorie targets are valid; body composition metrics are directional."
+        )
+    elif days_available < 4:
         st.warning(
             f"Only {days_available}/7 days have data for this week. "
             "The report will be generated but some metrics may be incomplete."
         )
-
-    if week_end > today:
-        st.info(f"This week ends {week_end.strftime('%b %d')} — only {days_available} day(s) of data available so far.")
 
     # ── Generate ──────────────────────────────────────────────────────────────
     with st.spinner("Generating report…"):
@@ -112,9 +130,19 @@ def _render_status_banner(report: dict):
     status_color = report["status_color"]
     bulk_week    = f"Bulk Week {report['bulk_week_num']}" if report.get("bulk_week_num") else "Pre-bulk"
     gain_str     = f"{report['gain_rate']:+.2f} kg/wk" if report.get("gain_rate") is not None else "—"
+    ma_delta     = report.get("weekly_ma_delta")
+    ma_delta_str = f"{ma_delta:+.2f} kg" if ma_delta is not None else "—"
+    ma_delta_color = "#ef4444" if (ma_delta or 0) > 0.25 else "#10b981" if (ma_delta or 0) < 0 else "#f0f2f6"
     week_start   = report["week_start"]
     week_end     = report["week_end"]
     data_note    = report.get("data_note")
+
+    meso = report.get("mesocycle")
+    meso_pill = (
+        f'<span style="color:#a78bfa; font-size:.75rem; font-weight:600;">{meso["label"]}</span>'
+        if meso else ""
+    )
+    meso_sep = ' <span style="color:#475569;">·</span> ' if meso else ""
 
     st.markdown(
         f"""
@@ -126,7 +154,9 @@ def _render_status_banner(report: dict):
           <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:.5rem;">
             <div>
               <div style="color:#9ca3af; font-size:.75rem; text-transform:uppercase; letter-spacing:.05em;">
-                {bulk_week} · {week_start.strftime('%b %d')} – {week_end.strftime('%b %d, %Y')}
+                {bulk_week}{meso_sep}{meso_pill}
+                <span style="color:#475569;"> · </span>
+                {week_start.strftime('%b %d')} – {week_end.strftime('%b %d, %Y')}
               </div>
               <div style="color:{status_color}; font-size:1.15rem; font-weight:700; margin-top:.2rem;">
                 {status_label}
@@ -136,6 +166,10 @@ def _render_status_banner(report: dict):
               <div style="text-align:center;">
                 <div style="color:#9ca3af; font-size:.7rem;">4-WEEK RATE</div>
                 <div style="color:#f0f2f6; font-size:1.1rem; font-weight:700;">{gain_str}</div>
+              </div>
+              <div style="text-align:center;">
+                <div style="color:#9ca3af; font-size:.7rem;">THIS WEEK (7d MA)</div>
+                <div style="color:{ma_delta_color}; font-size:1.1rem; font-weight:700;">{ma_delta_str}</div>
               </div>
               <div style="text-align:center;">
                 <div style="color:#9ca3af; font-size:.7rem;">DATA COVERAGE</div>

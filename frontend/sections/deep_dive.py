@@ -19,22 +19,25 @@ from utils.deep_dive_helpers import (
     calculate_enhanced_metrics,
     render_daily_trends,
 )
+from utils.bulk_constants import (
+    BULK_START,
+    GAIN_MIN,
+    GAIN_MAX,
+    GAIN_WARN_HIGH,
+    SURPLUS_LO,
+    SURPLUS_HI,
+    SLEEP_MIN_H,
+    NEAT_HIGH,
+    classify_status,
+)
 
-# ── Bulk program constants ────────────────────────────────────────────────────
-BULK_START     = pd.Timestamp("2025-11-05")
-TARGET_WEIGHT  = 76.0       # kg — goal weight for this phase
-START_BF_PCT   = 13.0       # % body fat at bulk start (from personal_info)
-P_RATIO_LEAN   = 0.80       # lean gain fraction at ~13% BF + target rate
-P_RATIO_FAST   = 0.65       # lean fraction if gaining excessively fast
-GAIN_MIN       = 0.12       # kg/week — lower clean bulk bound (~0.16%/wk at 74 kg)
-GAIN_MAX       = 0.18       # kg/week — upper clean bulk bound (~0.24%/wk at 74 kg)
-GAIN_WARN_HIGH = 0.40       # kg/week — excessive fat accretion threshold
-SURPLUS_LO     = 200        # kcal/day — floor for muscle synthesis
-SURPLUS_HI     = 300        # kcal/day — ceiling before disproportionate fat gain
-SLEEP_MIN_H    = 7.0        # hours — minimum adequate sleep
-SLEEP_TGT_H    = 7.5        # hours — target sleep
-NEAT_HIGH      = 12_000     # steps/day — above this, NEAT may offset surplus
-BF_CEILING     = 17.0       # % BF — end-bulk signal
+# ── Deep Dive-specific constants ──────────────────────────────────────────────
+TARGET_WEIGHT = 76.0    # kg — goal weight for this phase
+START_BF_PCT  = 13.0    # % body fat at bulk start (from personal_info)
+P_RATIO_LEAN  = 0.80    # lean gain fraction at ~13% BF + target rate
+P_RATIO_FAST  = 0.65    # lean fraction if gaining excessively fast
+SLEEP_TGT_H   = 7.5     # hours — target sleep (above the shared SLEEP_MIN_H floor)
+BF_CEILING    = 17.0    # % BF — end-bulk signal
 
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
@@ -42,21 +45,6 @@ BF_CEILING     = 17.0       # % BF — end-bulk signal
 def _dark_base() -> dict:
     """_DARK_LAYOUT without xaxis/yaxis keys — safe for make_subplots figures."""
     return {k: v for k, v in _DARK_LAYOUT.items() if k not in ("xaxis", "yaxis")}
-
-
-def _classify_status(rate):
-    """Return (label, hex_color) tuple for current bulk rate."""
-    if rate is None or pd.isna(rate):
-        return "INSUFFICIENT DATA", "#6b7280"
-    if rate > GAIN_WARN_HIGH:
-        return "TOO FAST", "#ef4444"
-    if rate > GAIN_MAX:
-        return "SLIGHTLY FAST", "#f97316"
-    if rate >= GAIN_MIN:
-        return "ON TRACK", "#10b981"
-    if rate >= 0:
-        return "TOO SLOW", "#f59e0b"
-    return "STALLING", "#8b5cf6"
 
 
 # ── Entry point ───────────────────────────────────────────────────────────────
@@ -132,7 +120,7 @@ def render(df):
 def _render_status_banner(bulk):
     rate_series = bulk["gain_rate_4w"].dropna()
     latest_rate = float(rate_series.iloc[-1]) if len(rate_series) else None
-    status_label, status_color = _classify_status(latest_rate)
+    status_label, status_color = classify_status(latest_rate)
 
     current_w = bulk["weight"].dropna().iloc[-1] if bulk["weight"].notna().any() else None
     weeks_in = int((bulk["date"].max() - BULK_START).days / 7)
