@@ -14,6 +14,7 @@ import plotly.graph_objects as go
 from utils.tdee_calculator import apply_to_dataframe
 from utils.visualization_helpers import _DARK_LAYOUT
 from utils.metrics_helpers import compute_intake_targets
+from utils.bodyfat_estimators import estimate_body_fat
 from utils.deep_dive_helpers import (
     load_personal_info,
     calculate_enhanced_metrics,
@@ -73,6 +74,17 @@ def render(df):
     df_e["sleep_h"] = df_e["sleep_min"] / 60
     df_e["recovery_risk"] = (df_e["sleep_min"] < 360) & (df_e["workout_duration_min_tot"] > 45)
 
+    # Waist MAs — waist signal is noisier than weight, so we surface both 7d (responsive)
+    # and 14d (decision-grade) windows. min_periods=3/5 lets us start showing the line
+    # as soon as there are enough points without requiring a full window.
+    if "waist_cm" in df_e.columns:
+        df_e["waist_7d_ma"] = df_e["waist_cm"].rolling(7, min_periods=3).mean()
+        df_e["waist_14d_ma"] = df_e["waist_cm"].rolling(14, min_periods=5).mean()
+    else:
+        df_e["waist_cm"] = pd.NA
+        df_e["waist_7d_ma"] = pd.NA
+        df_e["waist_14d_ma"] = pd.NA
+
     # 4-week rolling gain rate: kg change in rolling avg over 28 days / 4 weeks
     df_e["gain_rate_4w"] = (df_e["weight_7d_ma"] - df_e["weight_7d_ma"].shift(28)) / 4.0
 
@@ -100,6 +112,10 @@ def render(df):
         st.plotly_chart(_chart_weight_trajectory(bulk), use_container_width=True)
     with col_b:
         st.plotly_chart(_chart_lean_fat_estimate(bulk), use_container_width=True)
+
+    # Waist + BF estimates — only rendered if any waist data exists in the bulk window
+    if bulk["waist_cm"].notna().any():
+        _render_waist_section(bulk, personal_info)
 
     col_c, col_d = st.columns(2)
     with col_c:
@@ -872,3 +888,137 @@ def _render_tdee_comparison(week_data):
     fig.update_layout(**layout)
     fig.update_yaxes(title_text="kcal")
     st.plotly_chart(fig, use_container_width=True)
+
+
+# ── Section: Waist & Body Fat Estimates ───────────────────────────────────────
+
+def _render_waist_section(bulk, personal_info):
+    """Waist trajectory chart + BF % estimate cards.
+
+    Only rendered when at least one waist measurement exists in the bulk window.
+    BF estimates use the latest non-null waist + the latest non-null weight,
+    paired with height/age/sex from personal_info.json.
+    """
+    st.markdown("---")
+    st.subheader("📏 Waist & Body Fat Estimates")
+
+    col_chart, col_cards = st.columns([2, 1])
+
+    with col_chart:
+        st.plotly_chart(_chart_waist_trajectory(bulk), use_container_width=True)
+
+    with col_cards:
+        _render_bf_estimate_cards(bulk, personal_info)
+
+
+def _chart_waist_trajectory(bulk):
+    data = bulk[bulk["waist_cm"].notna()].copy()
+    if data.empty:
+        return go.Figure()
+
+    fig = go.Figure()
+
+    # Daily measurements (dots)
+    fig.add_trace(go.Scatter(
+        x=data["date"], y=data["waist_cm"],
+        mode="markers",
+        marker=dict(color="rgba(148,163,184,0.55)", size=5),
+        name="Daily",
+        hovertemplate="%{x|%b %d}: %{y:.1f} cm<extra></extra>",
+    ))
+
+    # 7-day MA — responsive signal
+    fig.add_trace(go.Scatter(
+        x=bulk["date"], y=bulk["waist_7d_ma"],
+        mode="lines",
+        line=dict(color="#67e8f9", width=2),
+        name="7d MA",
+        hovertemplate="7d MA: %{y:.2f} cm<extra></extra>",
+    ))
+
+    # 14-day MA — decision-grade signal (bolder)
+    fig.add_trace(go.Scatter(
+        x=bulk["date"], y=bulk["waist_14d_ma"],
+        mode="lines",
+        line=dict(color="#10b981", width=3),
+        name="14d MA",
+        hovertemplate="14d MA: %{y:.2f} cm<extra></extra>",
+    ))
+
+    fig.update_layout(**_DARK_LAYOUT, title=dict(text="Waist Trajectory", x=0.5))
+    fig.update_yaxes(title_text="Waist (cm)")
+    return fig
+
+
+def _render_bf_estimate_cards(bulk, personal_info):
+    """Show RFM / Deurenberg / YMCA / Consensus cards using latest waist + weight."""
+    # Use latest non-null waist + latest non-null weight (they may be on different days)
+    latest_waist_row = bulk[bulk["waist_cm"].notna()].tail(1)
+    latest_weight_row = bulk[bulk["weight"].notna()].tail(1)
+    if latest_waist_row.empty or latest_weight_row.empty:
+        st.info("Need at least one waist + one weight reading for BF estimates.")
+        return
+
+    waist_cm = float(latest_waist_row["waist_cm"].iloc[0])
+    weight_kg = float(latest_weight_row["weight"].iloc[0])
+    waist_date = latest_waist_row["date"].iloc[0]
+    weight_date = latest_weight_row["date"].iloc[0]
+
+    height_cm = personal_info.get("height_cm")
+    age = personal_info.get("age")
+    sex = personal_info.get("sex", "Male")
+    if not (height_cm and age):
+        st.warning("Personal info missing — set height + age in personal_info.json to enable BF estimates.")
+        return
+
+    est = estimate_body_fat(
+        waist_cm=waist_cm,
+        weight_kg=weight_kg,
+        height_cm=float(height_cm),
+        age_yrs=int(age),
+        sex=sex,
+    )
+
+    def _card(label, value, sub, accent):
+        if value is None:
+            value_str = "—"
+        else:
+            value_str = f"{value:.1f}%"
+        st.markdown(
+            f"""
+            <div style="
+                background:#0f172a; border-left:3px solid {accent};
+                border-radius:6px; padding:0.6rem 0.85rem; margin-bottom:0.5rem;
+            ">
+                <div style="color:#94a3b8; font-size:0.7rem; text-transform:uppercase; letter-spacing:0.05em;">{label}</div>
+                <div style="color:#f0f2f6; font-size:1.4rem; font-weight:700;">{value_str}</div>
+                <div style="color:#64748b; font-size:0.7rem;">{sub}</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+    _card("Consensus", est["consensus"], "mean of 3 formulas (bold)", "#10b981")
+    _card("RFM (Woolcott 2018)", est["rfm"], "height + waist", "#67e8f9")
+    _card("Deurenberg (1991)", est["deurenberg"], "BMI + age", "#a78bfa")
+    _card("YMCA (Wallace 1991)", est["ymca"], "waist + weight", "#f59e0b")
+
+    # Mass breakdown
+    if est["lean_mass_kg"] is not None and est["fat_mass_kg"] is not None:
+        st.markdown(
+            f"""
+            <div style="
+                background:#1e293b; border-radius:6px; padding:0.6rem 0.85rem; margin-top:0.5rem;
+                font-size:0.75rem; color:#94a3b8; line-height:1.5;
+            ">
+                <b style="color:#e2e8f0;">Mass split</b> (from consensus):<br>
+                Lean: <b style="color:#10b981;">{est['lean_mass_kg']:.1f} kg</b> ·
+                Fat: <b style="color:#f59e0b;">{est['fat_mass_kg']:.1f} kg</b><br>
+                <span style="color:#64748b;">
+                    Waist {waist_cm:.1f} cm ({waist_date.strftime('%b %d')}) ·
+                    Weight {weight_kg:.1f} kg ({weight_date.strftime('%b %d')})
+                </span>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )

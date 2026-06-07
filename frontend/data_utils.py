@@ -65,12 +65,16 @@ def load_data(csv_path: str) -> pd.DataFrame:
         df = df[df['date'].notna()].copy()
     
     # Convert numeric columns
-    numeric_cols = ['steps', 'sleep_min', 'workout_duration_min_tot', 
-                   'weight', 'calories_burned', 'calories_consumed']
-    
+    numeric_cols = ['steps', 'sleep_min', 'workout_duration_min_tot',
+                   'weight', 'calories_burned', 'calories_consumed', 'waist_cm']
+
     for col in numeric_cols:
         if col in df.columns:
             df[col] = pd.to_numeric(df[col], errors='coerce')
+
+    # Ensure waist_cm column exists (for legacy CSVs without it)
+    if 'waist_cm' not in df.columns:
+        df['waist_cm'] = pd.NA
     
     # Sort by date
     if 'date' in df.columns and not df.empty:
@@ -166,7 +170,8 @@ def validate_record(record: Dict[str, Any]) -> Tuple[bool, str]:
         'workout_duration_min_tot': (0, 1440),
         'weight': (30, 250),
         'calories_burned': (0, 10000),
-        'calories_consumed': (0, 10000)
+        'calories_consumed': (0, 10000),
+        'waist_cm': (40, 200),
     }
     
     for field, (min_val, max_val) in numeric_fields.items():
@@ -278,9 +283,9 @@ def impute_missing_values(df: pd.DataFrame, method: str = 'none',
     """
     df_imputed = df.copy()
     
-    numeric_cols = ['steps', 'sleep_min', 'workout_duration_min_tot', 
-                   'weight', 'calories_burned', 'calories_consumed']
-    
+    numeric_cols = ['steps', 'sleep_min', 'workout_duration_min_tot',
+                   'weight', 'calories_burned', 'calories_consumed', 'waist_cm']
+
     if method == 'none':
         return df_imputed
     
@@ -318,9 +323,9 @@ def get_data_summary(df: pd.DataFrame) -> Dict[str, Any]:
             'completeness': {}
         }
     
-    numeric_cols = ['steps', 'sleep_min', 'workout_duration_min_tot', 
-                   'weight', 'calories_burned', 'calories_consumed']
-    
+    numeric_cols = ['steps', 'sleep_min', 'workout_duration_min_tot',
+                   'weight', 'calories_burned', 'calories_consumed', 'waist_cm']
+
     summary = {
         'total_records': len(df),
         'date_range': (df['date'].min(), df['date'].max()),

@@ -95,7 +95,27 @@ def render(df):
                 step=0.1,
                 help="Body weight in kilograms"
             )
-            
+
+            # Default to last known waist from CSV (waist_cm column may not exist on old CSVs)
+            _last_waist = 0.0
+            if 'waist_cm' in df.columns and df['waist_cm'].notna().any():
+                _last_waist = float(df['waist_cm'].dropna().iloc[-1])
+
+            _existing_waist = (
+                float(existing_row['waist_cm'])
+                if date_exists and 'waist_cm' in df.columns and pd.notna(existing_row.get('waist_cm'))
+                else _last_waist
+            )
+
+            waist_cm = st.number_input(
+                "Waist (cm)",
+                min_value=0.0,
+                max_value=200.0,
+                value=_existing_waist,
+                step=0.1,
+                help="Waist circumference at the navel, measured morning fasted on exhale. Leave at 0 to skip.",
+            )
+
             calories_burned = st.number_input(
                 "Calories burned (kcal)", 
                 min_value=0,
@@ -138,8 +158,8 @@ def render(df):
     
     # Handle form submissions
     if submit_btn:
-        _handle_save(df, selected_date, date_exists, steps, sleep_min, workout_min, 
-                    weight, calories_burned, calories_consumed)
+        _handle_save(df, selected_date, date_exists, steps, sleep_min, workout_min,
+                    weight, calories_burned, calories_consumed, waist_cm)
     
     if delete_btn and date_exists:
         _handle_delete(df, selected_date)
@@ -230,7 +250,7 @@ def _render_today_target(df):
 
 
 def _handle_save(df, selected_date, date_exists, steps, sleep_min, workout_min,
-                 weight, calories_burned, calories_consumed):
+                 weight, calories_burned, calories_consumed, waist_cm=0.0):
     """Handle saving a record"""
     new_record = {
         'user_id': '',
@@ -240,9 +260,14 @@ def _handle_save(df, selected_date, date_exists, steps, sleep_min, workout_min,
         'workout_duration_min_tot': workout_min if workout_min > 0 else None,
         'weight': weight if weight > 0 else None,
         'calories_burned': calories_burned if calories_burned > 0 else None,
-        'calories_consumed': calories_consumed if calories_consumed > 0 else None
+        'calories_consumed': calories_consumed if calories_consumed > 0 else None,
+        'waist_cm': waist_cm if waist_cm > 0 else None,
     }
-    
+
+    # Make sure the df has waist_cm column before updating (legacy CSVs)
+    if 'waist_cm' not in df.columns:
+        df['waist_cm'] = pd.NA
+
     try:
         if date_exists:
             # Update existing record
@@ -252,6 +277,7 @@ def _handle_save(df, selected_date, date_exists, steps, sleep_min, workout_min,
             df.loc[df['date'].dt.date == selected_date, 'weight'] = new_record['weight']
             df.loc[df['date'].dt.date == selected_date, 'calories_burned'] = new_record['calories_burned']
             df.loc[df['date'].dt.date == selected_date, 'calories_consumed'] = new_record['calories_consumed']
+            df.loc[df['date'].dt.date == selected_date, 'waist_cm'] = new_record['waist_cm']
             
             save_data(df, st.session_state.csv_path)
             st.success(f"✅ Record for {selected_date} updated successfully!")
@@ -294,26 +320,31 @@ def _display_recent_records(df):
         # Format the data for display
         display_df['date'] = display_df['date'].dt.strftime('%Y-%m-%d')
         
+        # Ensure waist_cm column exists for display (legacy CSVs)
+        if 'waist_cm' not in display_df.columns:
+            display_df['waist_cm'] = pd.NA
+
         # Format numeric columns
-        numeric_columns = ['steps', 'sleep_min', 'workout_duration_min_tot', 'weight', 
-                          'calories_burned', 'calories_consumed']
+        numeric_columns = ['steps', 'sleep_min', 'workout_duration_min_tot', 'weight',
+                          'calories_burned', 'calories_consumed', 'waist_cm']
         for col in numeric_columns:
-            if col == 'weight':
+            if col in ('weight', 'waist_cm'):
                 display_df[col] = display_df[col].apply(lambda x: f"{x:.1f}" if pd.notna(x) else "")
             else:
                 display_df[col] = display_df[col].apply(lambda x: f"{int(x)}" if pd.notna(x) else "")
-        
+
         # Display the table
         st.dataframe(
-            display_df[['date', 'steps', 'sleep_min', 'workout_duration_min_tot', 
-                       'weight', 'calories_burned', 'calories_consumed']],
+            display_df[['date', 'steps', 'sleep_min', 'workout_duration_min_tot',
+                       'weight', 'waist_cm', 'calories_burned', 'calories_consumed']],
             use_container_width=True,
             column_config={
                 'date': st.column_config.TextColumn('Date', width='medium'),
                 'steps': st.column_config.TextColumn('Steps', width='small'),
-                'sleep_min': st.column_config.TextColumn('Sleep (min)', width='small'), 
+                'sleep_min': st.column_config.TextColumn('Sleep (min)', width='small'),
                 'workout_duration_min_tot': st.column_config.TextColumn('Workout (min)', width='small'),
                 'weight': st.column_config.TextColumn('Weight (kg)', width='small'),
+                'waist_cm': st.column_config.TextColumn('Waist (cm)', width='small'),
                 'calories_burned': st.column_config.TextColumn('Cal. Burned', width='small'),
                 'calories_consumed': st.column_config.TextColumn('Cal. Consumed', width='small')
             },
