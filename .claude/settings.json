@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(/Users/yannickflores/PersoProject/health_dasboard/.venv/bin/python)",
+      "Bash(/Users/yannickflores/PersoProject/health_dasboard/.venv/bin/python /Users/yannickflores/PersoProject/health_dasboard/scripts/yearly_deep_dive.py)",
+      "Bash(open /Users/yannickflores/PersoProject/health_dasboard/reports/yearly_deep_dive.html)"
+    ]
+  }
+}

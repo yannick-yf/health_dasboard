@@ -48,8 +48,7 @@ temp/
 tmp/
 notebooks/*
 .env
-frontend/__pycache__/*
-frontend/sections/__pycache__/*
-frontend/sections/__pycache__/
-frontend/sections/__pycache__
+# Python bytecode
+__pycache__/
 *.pyc
+*.pyo
