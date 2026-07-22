@@ -36,7 +36,7 @@ TRAINING_CSV = REPO_ROOT / "data" / "training_log.csv"
 
 HEALTH_COLS = [
     "user_id", "date", "steps", "sleep_min", "workout_duration_min_tot",
-    "weight", "calories_burned", "calories_consumed", "waist_cm",
+    "weight", "calories_burned", "calories_consumed", "waist_cm", "move_kcal",
 ]
 # columns the export may update (everything except user_id/date)
 UPDATABLE = HEALTH_COLS[2:]
