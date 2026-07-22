@@ -42,3 +42,29 @@ date,session,exercise_order,exercise,target,set_number,weight,reps,rir,note
 20/07/2026,Lower A,5,Russian twist,3×20,2,22,16,3,default 20 kg
 20/07/2026,Lower A,5,Russian twist,3×20,3,22,16,2,default 20 kg
 20/07/2026,Lower A,6,Sit-ups feet on ground (optionnel),1×25,1,0,25,0,"slow finisher, optional"
+21/07/2026,Upper B,1,Standing OHP barbell,4×5-8,1,30,8,2,
+21/07/2026,Upper B,1,Standing OHP barbell,4×5-8,2,30,8,2,
+21/07/2026,Upper B,1,Standing OHP barbell,4×5-8,3,30,8,1,
+21/07/2026,Upper B,1,Standing OHP barbell,4×5-8,4,30,7,0,
+21/07/2026,Upper B,2,Shoulder press machine (optionnel),3×8-12,1,30,9,0,"si machine dispo — seulement 1 series en drop set avec 15kg chaque côté , 2-3s eccentric"
+21/07/2026,Upper B,3,Élévations latérales,4×10-15,1,7,20,2,"lead elbow, pause 1s top dernière séries en drop set 4kg"
+21/07/2026,Upper B,3,Élévations latérales,4×10-15,2,8,12,1,"lead elbow, pause 1s top dernière séries en drop set 4kg"
+21/07/2026,Upper B,3,Élévations latérales,4×10-15,3,8,11,1,"lead elbow, pause 1s top dernière séries en drop set 4kg"
+21/07/2026,Upper B,3,Élévations latérales,4×10-15,4,8,11,0,"lead elbow, pause 1s top dernière séries en drop set 4kg"
+21/07/2026,Upper B,4,Rear delt cable fly,3×12-15,1,4.5,15,1,
+21/07/2026,Upper B,4,Rear delt cable fly,3×12-15,2,4.5,14,1,
+21/07/2026,Upper B,4,Rear delt cable fly,3×12-15,3,4.5,15,1,
+21/07/2026,Upper B,5,Curl pupitre,4×10,1,14,12,1,"Machine pas dispo - curl un seul bras , avec bras arrière poulis"
+21/07/2026,Upper B,5,Curl pupitre,4×10,2,14,10,1,"Machine pas dispo - curl un seul bras , avec bras arrière poulis"
+21/07/2026,Upper B,6,Overhead triceps,4×10,1,32,11,1,
+21/07/2026,Upper B,6,Overhead triceps,4×10,2,32,7,0,
+21/07/2026,Upper B,6,Overhead triceps,4×10,3,27,9,1,
+21/07/2026,Upper B,6,Overhead triceps,4×10,4,27,9,1,
+21/07/2026,Upper B,7,Curl allongé poulie basse,4×10,1,45,12,1,Sur poulis poids divisé par deux 
+21/07/2026,Upper B,7,Curl allongé poulie basse,4×10,2,45,11,1,Sur poulis poids divisé par deux 
+21/07/2026,Upper B,7,Curl allongé poulie basse,4×10,3,45,10,1,Sur poulis poids divisé par deux 
+21/07/2026,Upper B,7,Curl allongé poulie basse,4×10,4,45,9,1,Sur poulis poids divisé par deux 
+21/07/2026,Upper B,8,Triceps barre poulie haute,4×10,1,45,10,2,Poids à diviser par deux car poulis rapport 2:1
+21/07/2026,Upper B,8,Triceps barre poulie haute,4×10,2,45,10,1,Poids à diviser par deux car poulis rapport 2:1
+21/07/2026,Upper B,8,Triceps barre poulie haute,4×10,3,45,10,2,Poids à diviser par deux car poulis rapport 2:1
+21/07/2026,Upper B,8,Triceps barre poulie haute,4×10,4,45,10,2,Poids à diviser par deux car poulis rapport 2:1

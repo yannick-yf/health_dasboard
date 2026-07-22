@@ -101,6 +101,7 @@ hr.sep{border:0;border-top:1px solid #232834;margin:12px 0}
 .ex + .ex{border-top:1px dashed #2a2f3a}
 .ex .hd{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:6px}
 .ex .hd .nm{font-weight:700;font-size:.95rem}
+.ex .lastline{font-size:.72rem;color:#7f8798;background:#12151b;border-radius:6px;padding:4px 8px;margin:0 0 8px}
 .setrow{display:flex;align-items:center;gap:6px;margin:6px 0}
 .setrow .sn{min-width:20px;color:#8b93a3;font-size:.75rem;text-align:center}
 .setrow input{min-height:44px;padding:8px;text-align:center}
@@ -177,7 +178,7 @@ canvas{display:block;width:100%}
 <header>
   <div>
     <h1>💪 YF Tracker</h1>
-    <div class="ver">v1.1 · YF-UL5 v1.1</div>
+    <div class="ver">v1.2 · YF-UL5 v1.1</div>
   </div>
   <div class="spacer"></div>
   <button class="badge" id="unsavedBadge" data-act="sync">● 0 unsaved</button>
@@ -533,15 +534,16 @@ function groupSS(list){
   if(cur.length)groups.push(cur);
   return groups;
 }
-function lastSetsFor(name){
+function lastSessionFor(name){
   const n=name.trim().toLowerCase();
   for(let i=S.workouts.length-1;i>=0;i--){
     const w=S.workouts[i];
     const e=(w.exercises||[]).find(x=>x.name.trim().toLowerCase()===n);
-    if(e&&e.sets&&e.sets.length)return e.sets;
+    if(e&&e.sets&&e.sets.length)return {date:w.date,sets:e.sets};
   }
   return null;
 }
+function fmtPrev(p){return (p&&p.weight!=null?p.weight:'?')+'×'+(p&&p.reps!=null?p.reps:'?')}
 function renderTrain(){
   const root=$('#panel-train');
   if(S.log){root.innerHTML=logHTML();return}
@@ -638,13 +640,14 @@ async function startSession(sid){
   }
   S.log={sid:s.id,session:s.name,dateISO:todayIso(),
     ex:s.exercises.map(e=>{
-      const last=lastSetsFor(e.name);
+      const last=lastSessionFor(e.name);
+      const lastSets=last?last.sets:null;
       const sets=[];
       for(let i=0;i<e.sets;i++){
-        const p=last?(last[i]||last[last.length-1]):null;
-        sets.push({w:p&&p.weight!=null?String(p.weight):'',r:p&&p.reps!=null?String(p.reps):'',rir:'',done:false});
+        const p=lastSets?(lastSets[i]||lastSets[lastSets.length-1]):null;
+        sets.push({w:'',r:'',rir:'',done:false,prev:p?{weight:p.weight,reps:p.reps}:null});
       }
-      return {name:e.name,target:e.sets+'×'+e.reps,rest:e.rest,rir:e.rir,ssWithNext:!!e.ssWithNext,note:e.note||'',sets};
+      return {name:e.name,target:e.sets+'×'+e.reps,rest:e.rest,rir:e.rir,ssWithNext:!!e.ssWithNext,note:e.note||'',sets,lastDate:last?last.date:null,lastSets:lastSets||null};
     })};
   persistActiveLog();renderTrain();window.scrollTo(0,0);
 }
@@ -665,11 +668,14 @@ function logHTML(){
       const e=L.ex[i];
       let x='<div class="ex"><div class="hd"><span class="nm">'+esc(e.name)+'</span>'+
         '<span class="chip">'+esc(e.target)+'</span><span class="chip">rest '+esc(e.rest)+'</span>'+(e.rir?'<span class="chip">RIR '+esc(e.rir)+'</span>':'')+'</div>';
+      if(e.lastSets&&e.lastSets.length){
+        x+='<div class="lastline">↩ Last'+(e.lastDate?' ('+esc(e.lastDate.slice(0,5))+')':'')+': '+e.lastSets.map(fmtPrev).join(' · ')+'</div>';
+      }
       x+=e.sets.map((st,j)=>
         '<div class="setrow"><span class="sn">'+(j+1)+'</span>'+
-        '<input class="w" inputmode="decimal" placeholder="kg" value="'+esc(st.w)+'" data-lb="'+i+'.'+j+'.w">'+
+        '<input class="w" inputmode="decimal" placeholder="'+(st.prev&&st.prev.weight!=null?esc(String(st.prev.weight)):'kg')+'" value="'+esc(st.w)+'" data-lb="'+i+'.'+j+'.w">'+
         '<span class="x">×</span>'+
-        '<input class="r" inputmode="numeric" placeholder="reps" value="'+esc(st.r)+'" data-lb="'+i+'.'+j+'.r">'+
+        '<input class="r" inputmode="numeric" placeholder="'+(st.prev&&st.prev.reps!=null?esc(String(st.prev.reps)):'reps')+'" value="'+esc(st.r)+'" data-lb="'+i+'.'+j+'.r">'+
         '<input class="rr" inputmode="numeric" placeholder="RIR" value="'+esc(st.rir)+'" data-lb="'+i+'.'+j+'.rir">'+
         '<button class="done'+(st.done?' on':'')+'" data-act="setDone" data-i="'+i+'" data-j="'+j+'">✓</button>'+
         '<button class="del" data-act="setDel" data-i="'+i+'" data-j="'+j+'">–</button></div>'
@@ -696,7 +702,7 @@ async function finishSession(){
   const dm=isoToDdmm(L.dateISO);
   const exercises=L.ex.map(e=>({
     name:e.name,target:e.target,rest:e.rest,rir:e.rir,note:e.note||'',
-    sets:e.sets.filter(s=>s.w!==''||s.r!=='').map(s=>{
+    sets:e.sets.filter(s=>s.r!=='').map(s=>{
       const o={weight:numOrNull(s.w),reps:numOrNull(s.r)};
       if(s.rir!=='')o.rir=numOrNull(s.rir);
       return o;
@@ -1044,7 +1050,7 @@ function helpPanel(){
   '<p><b>Daily use:</b> log your day in Entry, log workouts in Train. Everything is stored on-device instantly (IndexedDB).</p>'+
   '<p><b>Sync:</b> tap 📤 → Export JSON → Save to Files → iCloud Drive → <code>yf-tracker</code> folder. On the Mac, the merge script folds it into <code>data/health_data.csv</code> + <code>data/training_log.csv</code>.</p>'+
   '<p><b>⚠️ Persistence:</b> iOS can clear this app\'s local data after ~7 days of NOT opening it. You use it daily so this is unlikely — but the <b>Export is also your backup</b>. Export regularly; <b>Import</b> restores everything on a new phone or after eviction.</p>'+
-  '<p class="muted small">v1.1 · program YF-UL5 v1.1 · single-file offline app · no network calls</p>',
+  '<p class="muted small">v1.2 · program YF-UL5 v1.1 · single-file offline app · no network calls</p>',
   [{txt:'Close',cls:'primary',val:true}]);
 }
 
@@ -1127,7 +1133,7 @@ document.addEventListener('click',async e=>{
   }
   else if(a==='setAdd'){
     const i=+t.dataset.i;const sets=S.log.ex[i].sets;const p=sets[sets.length-1];
-    sets.push({w:p?p.w:'',r:p?p.r:'',rir:'',done:false});
+    sets.push({w:'',r:'',rir:'',done:false,prev:p&&p.prev?p.prev:null});
     persistActiveLog();renderTrain();
   }
   else if(a==='timerClose')timerClose();
