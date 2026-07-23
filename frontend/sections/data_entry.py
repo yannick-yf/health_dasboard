@@ -73,12 +73,15 @@ def render(df):
                 help="Total sleep time in minutes"
             )
             
-            workout_min = st.number_input(
-                "Workout duration (minutes)", 
+            move_kcal = st.number_input(
+                "Move / red ring (kcal)",
                 min_value=0,
-                value=int(existing_row['workout_duration_min_tot']) if date_exists and pd.notna(existing_row['workout_duration_min_tot']) else 0,
-                help="Total workout time in minutes"
+                value=int(existing_row['move_kcal']) if date_exists and 'move_kcal' in df.columns and pd.notna(existing_row.get('move_kcal')) else 0,
+                help="Apple Watch Move ring (active energy, 'Bouger'). Drives WADP target = 2000 + this − deficit."
             )
+            # Workout duration is no longer entered here (tracked in the training app).
+            # Preserve any existing value on edit so historical data is untouched.
+            workout_min = int(existing_row['workout_duration_min_tot']) if date_exists and pd.notna(existing_row['workout_duration_min_tot']) else 0
         
         with col2:
             st.write("**Body & Nutrition**")
@@ -147,19 +150,20 @@ def render(df):
             clear_btn = st.form_submit_button("🧹 Clear Form", use_container_width=True)
         
         with col_btn4:
-            # Show calorie balance
-            balance = calories_burned - calories_consumed
-            if balance > 0:
-                st.success(f"📉 Deficit: {balance} kcal")
-            elif balance < 0:
-                st.error(f"📈 Surplus: {abs(balance)} kcal")
+            # WADP deficit: intake target = BMR0(2000) + Move; deficit = target − consumed
+            wadp_tdee = 2000 + move_kcal
+            deficit = wadp_tdee - calories_consumed
+            if calories_consumed == 0:
+                st.info("⚖️ Enter consumed")
+            elif deficit > 0:
+                st.success(f"📉 WADP deficit: {deficit} kcal")
             else:
-                st.info("⚖️ Balanced")
+                st.error(f"📈 WADP surplus: {abs(deficit)} kcal")
     
     # Handle form submissions
     if submit_btn:
         _handle_save(df, selected_date, date_exists, steps, sleep_min, workout_min,
-                    weight, calories_burned, calories_consumed, waist_cm)
+                    weight, calories_burned, calories_consumed, waist_cm, move_kcal)
     
     if delete_btn and date_exists:
         _handle_delete(df, selected_date)
@@ -250,7 +254,7 @@ def _render_today_target(df):
 
 
 def _handle_save(df, selected_date, date_exists, steps, sleep_min, workout_min,
-                 weight, calories_burned, calories_consumed, waist_cm=0.0):
+                 weight, calories_burned, calories_consumed, waist_cm=0.0, move_kcal=0):
     """Handle saving a record"""
     new_record = {
         'user_id': '',
@@ -262,11 +266,14 @@ def _handle_save(df, selected_date, date_exists, steps, sleep_min, workout_min,
         'calories_burned': calories_burned if calories_burned > 0 else None,
         'calories_consumed': calories_consumed if calories_consumed > 0 else None,
         'waist_cm': waist_cm if waist_cm > 0 else None,
+        'move_kcal': move_kcal if move_kcal > 0 else None,
     }
 
-    # Make sure the df has waist_cm column before updating (legacy CSVs)
+    # Make sure the df has waist_cm / move_kcal columns before updating (legacy CSVs)
     if 'waist_cm' not in df.columns:
         df['waist_cm'] = pd.NA
+    if 'move_kcal' not in df.columns:
+        df['move_kcal'] = pd.NA
 
     try:
         if date_exists:
@@ -278,7 +285,8 @@ def _handle_save(df, selected_date, date_exists, steps, sleep_min, workout_min,
             df.loc[df['date'].dt.date == selected_date, 'calories_burned'] = new_record['calories_burned']
             df.loc[df['date'].dt.date == selected_date, 'calories_consumed'] = new_record['calories_consumed']
             df.loc[df['date'].dt.date == selected_date, 'waist_cm'] = new_record['waist_cm']
-            
+            df.loc[df['date'].dt.date == selected_date, 'move_kcal'] = new_record['move_kcal']
+
             save_data(df, st.session_state.csv_path)
             st.success(f"✅ Record for {selected_date} updated successfully!")
         else:

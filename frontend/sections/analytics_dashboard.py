@@ -79,7 +79,8 @@ def _apply_aggregation(df, aggregation):
             'workout_duration_min_tot': 'sum',
             'weight': 'mean',
             'calories_burned': 'sum',
-            'calories_consumed': 'sum'
+            'calories_consumed': 'sum',
+            'move_kcal': 'mean'
         }).reset_index()
     elif aggregation == "Monthly":
         return df.set_index('date').resample('M').agg({
@@ -88,7 +89,8 @@ def _apply_aggregation(df, aggregation):
             'workout_duration_min_tot': 'sum',
             'weight': 'mean',
             'calories_burned': 'sum',
-            'calories_consumed': 'sum'
+            'calories_consumed': 'sum',
+            'move_kcal': 'mean'
         }).reset_index()
     return df
 
@@ -140,10 +142,16 @@ def _render_kpi_cards(daily_df):
 
     latest_weight = daily_df['weight'].dropna().iloc[-1] if daily_df['weight'].notna().any() else None
     weekly_rate = calculate_weight_rate_kgperweek(daily_df, days=7)
-    avg_surplus = (daily_df['calories_consumed'] - daily_df['calories_burned']).mean()
+    # WADP deficit = (BMR0 2000 + Move ring) − consumed; positive = deficit (desired on a cut).
+    # Apple's own balance (consumed − burned) stays available in the Energy Balance chart as a cross-check.
+    if 'move_kcal' in daily_df.columns:
+        wadp_deficit = ((2000 + daily_df['move_kcal']) - daily_df['calories_consumed']).mean()
+        avg_move = daily_df['move_kcal'].mean()
+    else:
+        wadp_deficit = float('nan')
+        avg_move = float('nan')
     avg_sleep_h = daily_df['sleep_min'].mean() / 60
     avg_steps = daily_df['steps'].mean()
-    avg_workout = daily_df['workout_duration_min_tot'].mean()
 
     cards = [
         (
@@ -159,10 +167,10 @@ def _render_kpi_cards(daily_df):
             _threshold_color(weekly_rate, [(0.20, 0.50)], [(0.10, 0.20), (0.50, 0.70)]),
         ),
         (
-            "Daily Surplus",
-            f"{avg_surplus:+.0f}" if not pd.isna(avg_surplus) else "N/A",
-            "kcal",
-            _threshold_color(avg_surplus, [(200, 600)], [(100, 200), (600, 900)]),
+            "WADP Deficit",
+            f"{wadp_deficit:+.0f}" if not pd.isna(wadp_deficit) else "N/A",
+            "kcal/day (+ = deficit)",
+            _threshold_color(wadp_deficit, [(100, 400)], [(0, 100), (400, 550)]),
         ),
         (
             "Avg Sleep",
@@ -177,10 +185,10 @@ def _render_kpi_cards(daily_df):
             _threshold_color(avg_steps, [(8000, 1e9)], [(5000, 8000)]),
         ),
         (
-            "Avg Workout",
-            f"{avg_workout:.0f}" if not pd.isna(avg_workout) else "N/A",
-            "min/day",
-            _threshold_color(avg_workout, [(60, 1e9)], [(30, 60)]),
+            "Avg Move",
+            f"{avg_move:,.0f}" if not pd.isna(avg_move) else "N/A",
+            "kcal/day",
+            _threshold_color(avg_move, [(700, 1e9)], [(400, 700)]),
         ),
     ]
 
