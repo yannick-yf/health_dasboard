@@ -178,7 +178,7 @@ canvas{display:block;width:100%}
 <header>
   <div>
     <h1>💪 YF Tracker</h1>
-    <div class="ver">v1.2 · YF-UL5 v1.1</div>
+    <div class="ver">v1.2 · YF-UL5 v1.2</div>
   </div>
   <div class="spacer"></div>
   <button class="badge" id="unsavedBadge" data-act="sync">● 0 unsaved</button>
@@ -347,7 +347,7 @@ const ABS=()=>[
   ex('Plank hold',2,'45-60s','0:45','',{note:'seconds in reps'})
 ];
 function seedProgram(){
-  return {name:'YF-UL5 v1.1',sessions:[
+  return {name:'YF-UL5 v1.2',sessions:[
     {id:nid('s'),name:'Upper A',sub:'Chest/Back Heavy',exercises:[
       ex('Tirage vertical prise large',4,'8-10','2:30','1-2'),
       ex('Tirage horizontal prise serré',4,'10','2:30','1-2'),
@@ -377,12 +377,12 @@ function seedProgram(){
       ex('Hammer curl',3,'10','1:30','1')
     ]},
     {id:nid('s'),name:'Upper C',sub:'Chest/Back Volume',exercises:[
+      ex('Pull-ups (BW ou lestés)',4,'max (5-8)','2:30','0-1',{note:'FRESH first — hardest movement'}),
       ex('Développé incliné haltères',3,'8-10','2:30','1-2',{note:'22 kg start'}),
+      ex('Tirage horizontal prise large',3,'10','2:30','1-2',{note:'order 3-4 flexible by machine'}),
       ex('Écarté haltère pec',3,'10-12','1:30','1'),
-      ex('Pull-ups (BW ou lestés)',4,'max (5-8)','2:30','0-1'),
-      ex('Tirage horizontal prise large',3,'10','2:30','1-2'),
-      ex('Pull-over cable',3,'12','1:30','1',{note:'first cut if session runs long'}),
-      ex('Shrug barre',3,'12-15','1:30','1',{ssWithNext:true,note:'72.5-75 kg, true superset'}),
+      ex('Pull-over cable',3,'12','1:30','1',{note:'light+slow, feel lat stretch; first cut if long'}),
+      ex('Face pulls',3,'12-15','1:30','1',{ssWithNext:true,note:'replaced shrug — rear delt + shoulder health'}),
       ex('Élévations latérales',3,'12-15','1:30','1',{note:'8 kg strict'})
     ]},
     {id:nid('s'),name:'Lower B',sub:'Ham/Quad Accessories + Abs',exercises:[
@@ -1050,7 +1050,7 @@ function helpPanel(){
   '<p><b>Daily use:</b> log your day in Entry, log workouts in Train. Everything is stored on-device instantly (IndexedDB).</p>'+
   '<p><b>Sync:</b> tap 📤 → Export JSON → Save to Files → iCloud Drive → <code>yf-tracker</code> folder. On the Mac, the merge script folds it into <code>data/health_data.csv</code> + <code>data/training_log.csv</code>.</p>'+
   '<p><b>⚠️ Persistence:</b> iOS can clear this app\'s local data after ~7 days of NOT opening it. You use it daily so this is unlikely — but the <b>Export is also your backup</b>. Export regularly; <b>Import</b> restores everything on a new phone or after eviction.</p>'+
-  '<p class="muted small">v1.2 · program YF-UL5 v1.1 · single-file offline app · no network calls</p>',
+  '<p class="muted small">v1.2 · program YF-UL5 v1.2 · single-file offline app · no network calls</p>',
   [{txt:'Close',cls:'primary',val:true}]);
 }
 
