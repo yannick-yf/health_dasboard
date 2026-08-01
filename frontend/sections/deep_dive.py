@@ -111,7 +111,7 @@ def render(df):
     with col_a:
         st.plotly_chart(_chart_weight_trajectory(bulk), use_container_width=True)
     with col_b:
-        st.plotly_chart(_chart_lean_fat_estimate(bulk), use_container_width=True)
+        st.plotly_chart(_chart_lean_fat_estimate(bulk, personal_info), use_container_width=True)
 
     # Waist + BF estimates — only rendered if any waist data exists in the bulk window
     if bulk["waist_cm"].notna().any():
@@ -561,69 +561,100 @@ def _chart_weight_trajectory(bulk):
 
 # ── Chart 2: Lean vs Fat Estimate (Stacked Area) ──────────────────────────────
 
-def _chart_lean_fat_estimate(bulk):
-    ma_data = bulk[bulk["weight_7d_ma"].notna()].copy()
-    if len(ma_data) < 3:
+def _chart_lean_fat_estimate(bulk, personal_info):
+    """Cut-aware body-composition tracker.
+
+    Derives fat mass & lean mass each day from the SAME waist-based BF% consensus
+    used in the "Waist & Body Fat Estimates" section (RFM / Deurenberg / YMCA), then
+    plots how each has CHANGED since the window start. This answers the recomp
+    question directly: fat line falling + lean line flat = losing fat while holding
+    muscle. Replaces the old bulk-only P-ratio projection, which went inert during a
+    cut (it partitioned weight *gains* only, so it froze at the start assumption).
+
+    Uses smoothed inputs (weight & waist 7-day MAs) so daily water noise doesn't
+    swing the composition read.
+    """
+    height_cm = personal_info.get("height_cm")
+    age = personal_info.get("age")
+    sex = personal_info.get("sex", "Male")
+
+    d = bulk[["date", "weight_7d_ma", "waist_7d_ma"]].copy()
+    d = d[d["weight_7d_ma"].notna() & d["waist_7d_ma"].notna()]
+
+    if d.empty or not (height_cm and age):
+        fig = go.Figure()
+        fig.add_annotation(
+            text="Needs waist + weight history<br>(and height / age in personal_info)",
+            showarrow=False, font=dict(color="#94a3b8", size=13),
+        )
+        base = _dark_base()
+        base["title"] = dict(text="Lean vs Fat Mass Change", x=0.5)
+        fig.update_layout(**base)
+        return fig
+
+    def _row_bf(r):
+        est = estimate_body_fat(
+            waist_cm=float(r["waist_7d_ma"]),
+            weight_kg=float(r["weight_7d_ma"]),
+            height_cm=float(height_cm),
+            age_yrs=int(age),
+            sex=sex,
+        )
+        return est["consensus"]
+
+    d["bf_pct"] = d.apply(_row_bf, axis=1)
+    d = d[d["bf_pct"].notna()]
+    if len(d) < 3:
         return go.Figure()
 
-    start_ma = ma_data["weight_7d_ma"].iloc[0]
-    cum_gain = (ma_data["weight_7d_ma"] - start_ma).clip(lower=0)
-
-    # Adjust P-ratio if gaining too fast
-    rate_series = bulk["gain_rate_4w"].dropna()
-    latest_rate = float(rate_series.iloc[-1]) if len(rate_series) else None
-    p = P_RATIO_FAST if (latest_rate and latest_rate > GAIN_WARN_HIGH) else P_RATIO_LEAN
-
-    lean_gained = cum_gain * p
-    fat_gained = cum_gain * (1 - p)
-
-    # Estimated BF% on secondary axis
-    start_fat_mass = start_ma * (START_BF_PCT / 100)
-    total_lean = start_ma * (1 - START_BF_PCT / 100) + lean_gained
-    total_fat = start_fat_mass + fat_gained
-    est_bf_pct = total_fat / (total_lean + total_fat) * 100
+    d["fat_mass"] = d["weight_7d_ma"] * d["bf_pct"] / 100.0
+    d["lean_mass"] = d["weight_7d_ma"] - d["fat_mass"]
+    d["fat_delta"] = d["fat_mass"] - d["fat_mass"].iloc[0]
+    d["lean_delta"] = d["lean_mass"] - d["lean_mass"].iloc[0]
 
     fig = make_subplots(specs=[[{"secondary_y": True}]])
 
     fig.add_trace(go.Scatter(
-        x=ma_data["date"], y=lean_gained,
-        stackgroup="one",
-        name=f"Lean gained (~{p*100:.0f}%)",
-        fillcolor="rgba(99,102,241,0.45)",
-        line=dict(color="#6366f1", width=1.5),
-        hovertemplate="Lean: %{y:.2f} kg<extra></extra>",
+        x=d["date"], y=d["fat_delta"],
+        mode="lines", name="Δ Fat mass",
+        line=dict(color="#ef4444", width=2.5),
+        hovertemplate="Δ Fat: %{y:+.2f} kg<extra></extra>",
     ), secondary_y=False)
 
     fig.add_trace(go.Scatter(
-        x=ma_data["date"], y=fat_gained,
-        stackgroup="one",
-        name=f"Fat gained (~{(1-p)*100:.0f}%)",
-        fillcolor="rgba(239,68,68,0.35)",
-        line=dict(color="#ef4444", width=1.5),
-        hovertemplate="Fat: %{y:.2f} kg<extra></extra>",
+        x=d["date"], y=d["lean_delta"],
+        mode="lines", name="Δ Lean mass",
+        line=dict(color="#6366f1", width=2.5),
+        hovertemplate="Δ Lean: %{y:+.2f} kg<extra></extra>",
     ), secondary_y=False)
 
     fig.add_trace(go.Scatter(
-        x=ma_data["date"], y=est_bf_pct,
-        mode="lines",
-        name="Est. BF%",
-        line=dict(color="#f59e0b", width=2, dash="dash"),
+        x=d["date"], y=d["bf_pct"],
+        mode="lines", name="Est. BF%",
+        line=dict(color="#f59e0b", width=1.6, dash="dash"),
         hovertemplate="BF: %{y:.1f}%<extra></extra>",
     ), secondary_y=True)
 
-    # BF ceiling reference
     fig.add_hline(
-        y=BF_CEILING, secondary_y=True, line_dash="dot", line_color="#ef4444",
-        annotation_text=f"{BF_CEILING:.0f}% BF ceiling",
-        annotation_font_color="#ef4444",
-        annotation_position="top left",
+        y=0, secondary_y=False, line_dash="dot",
+        line_color="rgba(255,255,255,0.25)",
+    )
+
+    # Recomp verdict badge: net fat & lean change over the window
+    fat_chg = float(d["fat_delta"].iloc[-1])
+    lean_chg = float(d["lean_delta"].iloc[-1])
+    fig.add_annotation(
+        xref="paper", yref="paper", x=0.02, y=0.98, showarrow=False, align="left",
+        text=f"Net: Fat {fat_chg:+.1f} kg · Lean {lean_chg:+.1f} kg",
+        font=dict(color="#cbd5e1", size=12),
+        bgcolor="rgba(15,23,42,0.65)", borderpad=4,
     )
 
     base = _dark_base()
-    base["title"] = dict(text="Lean vs Fat Gain Estimate (P-ratio model)", x=0.5)
+    base["title"] = dict(text="Lean vs Fat Mass Change (from waist BF%)", x=0.5)
     fig.update_layout(**base)
     fig.update_xaxes(**_DARK_LAYOUT["xaxis"], title_text="Date")
-    fig.update_yaxes(**_DARK_LAYOUT["yaxis"], title_text="kg gained", secondary_y=False)
+    fig.update_yaxes(**_DARK_LAYOUT["yaxis"], title_text="Δ mass (kg)", secondary_y=False)
     fig.update_yaxes(title_text="Est. BF%", secondary_y=True, showgrid=False)
     return fig
 

@@ -90,3 +90,126 @@ date,session,exercise_order,exercise,target,set_number,weight,reps,rir,note
 23/07/2026,Upper C,7,Élévations latérales,3×12-15,1,6,15,3,6kg very slow rythm
 23/07/2026,Upper C,7,Élévations latérales,3×12-15,2,6,12,2,6kg very slow rythm
 23/07/2026,Upper C,7,Élévations latérales,3×12-15,3,6,12,2,6kg very slow rythm
+24/07/2026,Lower B,1,Hack squat,4×10,1,40,11,2,"Dernière séries drop set - 20kg chaque côté - poids machine à vide 47,6kg- séries s’arrête à cause de manque de force mais aussi manque de souffle ."
+24/07/2026,Lower B,1,Hack squat,4×10,2,40,8,3,"Dernière séries drop set - 20kg chaque côté - poids machine à vide 47,6kg- séries s’arrête à cause de manque de force mais aussi manque de souffle ."
+24/07/2026,Lower B,1,Hack squat,4×10,3,40,6,2,"Dernière séries drop set - 20kg chaque côté - poids machine à vide 47,6kg- séries s’arrête à cause de manque de force mais aussi manque de souffle ."
+24/07/2026,Lower B,1,Hack squat,4×10,4,40,4,1,"Dernière séries drop set - 20kg chaque côté - poids machine à vide 47,6kg- séries s’arrête à cause de manque de force mais aussi manque de souffle ."
+24/07/2026,Lower B,2,Leg curl allongé,3×10,1,32,15,2,
+24/07/2026,Lower B,2,Leg curl allongé,3×10,2,32,12,1,
+24/07/2026,Lower B,2,Leg curl allongé,3×10,3,32,10,1,
+24/07/2026,Lower B,2,Leg curl allongé,3×10,4,32,10,1,
+24/07/2026,Lower B,3,Leg extension,3×10-12,1,66,11,1,
+24/07/2026,Lower B,3,Leg extension,3×10-12,2,66,10,2,
+24/07/2026,Lower B,3,Leg extension,3×10-12,3,66,10,2,
+24/07/2026,Lower B,4,Weighted jackknife,4×12,1,34,12,2,34 kg → 36 when 4×12 clean
+24/07/2026,Lower B,4,Weighted jackknife,4×12,2,34,12,1,34 kg → 36 when 4×12 clean
+24/07/2026,Lower B,4,Weighted jackknife,4×12,3,34,10,1,34 kg → 36 when 4×12 clean
+24/07/2026,Lower B,5,Russian twist,3×20,1,24,16,2,default 20 kg
+24/07/2026,Lower B,5,Russian twist,3×20,2,24,16,2,default 20 kg
+24/07/2026,Lower B,5,Russian twist,3×20,3,24,16,1,default 20 kg
+26/07/2026,Upper A,1,Tirage horizontal prise serré,4×10,1,54,12,1,BF horizontal-row pulley; partial ROM on later reps
+26/07/2026,Upper A,1,Tirage horizontal prise serré,4×10,2,54,9,1,BF horizontal-row pulley; partial ROM on later reps
+26/07/2026,Upper A,1,Tirage horizontal prise serré,4×10,3,54,8,1,BF horizontal-row pulley; partial ROM on later reps
+26/07/2026,Upper A,1,Tirage horizontal prise serré,4×10,4,54,8,1,BF horizontal-row pulley; partial ROM on later reps
+26/07/2026,Upper A,2,Tirage vertical prise large,4×8-10,1,47,15,3,
+26/07/2026,Upper A,2,Tirage vertical prise large,4×8-10,2,52,13,2,
+26/07/2026,Upper A,2,Tirage vertical prise large,4×8-10,3,54,11,1,
+26/07/2026,Upper A,2,Tirage vertical prise large,4×8-10,4,54,10,0,
+26/07/2026,Upper A,3,Développé couché barre,4×5-8,1,65,7,0,assisted
+26/07/2026,Upper A,3,Développé couché barre,4×5-8,2,65,6,0,assisted
+26/07/2026,Upper A,3,Développé couché barre,4×5-8,3,65,5,0,assisted
+26/07/2026,Upper A,3,Développé couché barre,4×5-8,4,65,4,0,assisted
+26/07/2026,Upper A,4,Tirage vertical unilatéral,3×10,1,45,11,2,45kg pulley (~22.5 effective/arm); 2 sets (time)
+26/07/2026,Upper A,4,Tirage vertical unilatéral,3×10,2,45,10,2,45kg pulley (~22.5 effective/arm); 2 sets (time)
+26/07/2026,Upper A,5,Dips (lestés ou BW),3×8-10,1,0,12,,BW
+26/07/2026,Upper A,5,Dips (lestés ou BW),3×8-10,2,0,11,,BW
+26/07/2026,Upper A,5,Dips (lestés ou BW),3×8-10,3,0,9,,BW
+26/07/2026,Upper A,6,Shrug barre,3×12-15,1,80,9,,"2 rounds (superset w/ élév lat); 80kg — heavy, reps under target"
+26/07/2026,Upper A,6,Shrug barre,3×12-15,2,80,8,,"2 rounds (superset w/ élév lat); 80kg — heavy, reps under target"
+26/07/2026,Upper A,7,Élévations latérales,3×12-15,1,8,16,,
+26/07/2026,Upper A,7,Élévations latérales,3×12-15,2,8,15,,
+27/07/2026,Lower A,1,Back squat barre,4×5-8,1,72.5,5,3,
+27/07/2026,Lower A,1,Back squat barre,4×5-8,2,72.5,5,2,
+27/07/2026,Lower A,1,Back squat barre,4×5-8,3,72.5,5,2,
+27/07/2026,Lower A,1,Back squat barre,4×5-8,4,72.5,5,2,
+27/07/2026,Lower A,2,Bulgarian split squat,4×10/leg,1,30,10,2,
+27/07/2026,Lower A,2,Bulgarian split squat,4×10/leg,2,30,10,1,
+27/07/2026,Lower A,2,Bulgarian split squat,4×10/leg,3,30,10,1,
+27/07/2026,Lower A,3,Romanian deadlift barre,4×8,1,55,8,3,"start light, ramping"
+27/07/2026,Lower A,3,Romanian deadlift barre,4×8,2,55,8,3,"start light, ramping"
+27/07/2026,Lower A,3,Romanian deadlift barre,4×8,3,55,8,3,"start light, ramping"
+27/07/2026,Lower A,3,Romanian deadlift barre,4×8,4,55,8,3,"start light, ramping"
+27/07/2026,Lower A,4,Leg raise slow,1×25,1,,12,,"or 2×15, BW"
+27/07/2026,Lower A,5,Sit-ups feet on ground (optionnel),1×25,1,,25,,"slow finisher, optional"
+29/07/2026,Upper C,1,Pull-ups (BW ou lestés),4×max (5-8),1,0,8,2,FRESH first — hardest movement
+29/07/2026,Upper C,1,Pull-ups (BW ou lestés),4×max (5-8),2,0,7,1,FRESH first — hardest movement
+29/07/2026,Upper C,1,Pull-ups (BW ou lestés),4×max (5-8),3,0,6,1,FRESH first — hardest movement
+29/07/2026,Upper C,1,Pull-ups (BW ou lestés),4×max (5-8),4,0,5,0,FRESH first — hardest movement
+29/07/2026,Upper C,2,Développé incliné haltères,3×8-10,1,24,10,1,La première montée après haltère sur genoux compte comme première rep
+29/07/2026,Upper C,2,Développé incliné haltères,3×8-10,2,24,8,1,La première montée après haltère sur genoux compte comme première rep
+29/07/2026,Upper C,2,Développé incliné haltères,3×8-10,3,24,7,1,La première montée après haltère sur genoux compte comme première rep
+29/07/2026,Upper C,3,Tirage horizontal prise large,3×10,1,41,11,2,order 3-4 flexible by machine
+29/07/2026,Upper C,3,Tirage horizontal prise large,3×10,2,41,11,2,order 3-4 flexible by machine
+29/07/2026,Upper C,3,Tirage horizontal prise large,3×10,3,41,11,1,order 3-4 flexible by machine
+29/07/2026,Upper C,4,Écarté haltère pec,3×10-12,1,16,12,2,
+29/07/2026,Upper C,4,Écarté haltère pec,3×10-12,2,16,12,1,
+29/07/2026,Upper C,4,Écarté haltère pec,3×10-12,3,16,12,1,
+29/07/2026,Upper C,5,Pull-over cable,3×12,1,36,13,2,"light+slow, feel lat stretch; first cut if long"
+29/07/2026,Upper C,5,Pull-over cable,3×12,2,36,12,1,"light+slow, feel lat stretch; first cut if long"
+29/07/2026,Upper C,5,Pull-over cable,3×12,3,36,11,1,"light+slow, feel lat stretch; first cut if long"
+29/07/2026,Upper C,6,Face pulls,3×12-15,1,36,14,2,replaced shrug — rear delt + shoulder health
+29/07/2026,Upper C,6,Face pulls,3×12-15,2,40,11,1,replaced shrug — rear delt + shoulder health
+29/07/2026,Upper C,6,Face pulls,3×12-15,3,40,10,0,replaced shrug — rear delt + shoulder health
+29/07/2026,Upper C,7,Élévations latérales,3×12-15,1,8,15,1,8 kg strict
+29/07/2026,Upper C,7,Élévations latérales,3×12-15,2,8,10,1,8 kg strict
+29/07/2026,Upper C,7,Élévations latérales,3×12-15,3,8,8,0,8 kg strict
+30/07/2026,Lower B,1,Hack squat,4×10,1,40,12,2,Done in basic fit Saint Louis Alsace - hack squat always feel lighter here but I double check this is the exact same machine
+30/07/2026,Lower B,1,Hack squat,4×10,2,40,10,1,Done in basic fit Saint Louis Alsace - hack squat always feel lighter here but I double check this is the exact same machine
+30/07/2026,Lower B,1,Hack squat,4×10,3,40,9,2,Done in basic fit Saint Louis Alsace - hack squat always feel lighter here but I double check this is the exact same machine
+30/07/2026,Lower B,1,Hack squat,4×10,4,40,8,1,Done in basic fit Saint Louis Alsace - hack squat always feel lighter here but I double check this is the exact same machine
+30/07/2026,Lower B,2,Leg curl allongé,3×10,1,34,12,2,
+30/07/2026,Lower B,2,Leg curl allongé,3×10,2,34,10,1,
+30/07/2026,Lower B,2,Leg curl allongé,3×10,3,34,10,1,
+30/07/2026,Lower B,3,Leg extension,3×10-12,1,68,10,2,
+30/07/2026,Lower B,3,Leg extension,3×10-12,2,68,10,1,
+30/07/2026,Lower B,3,Leg extension,3×10-12,3,68,7,0,
+30/07/2026,Lower B,4,Weighted jackknife,4×12,1,34,13,1,34 kg → 36 when 4×12 clean
+30/07/2026,Lower B,4,Weighted jackknife,4×12,2,34,13,1,34 kg → 36 when 4×12 clean
+30/07/2026,Lower B,4,Weighted jackknife,4×12,3,34,11,0,34 kg → 36 when 4×12 clean
+30/07/2026,Lower B,5,Russian twist,3×20,1,26,14,1,default 20 kg
+30/07/2026,Lower B,5,Russian twist,3×20,2,26,12,2,default 20 kg
+30/07/2026,Lower B,6,Leg raise slow,1×25,1,0,15,2,"or 2×15, BW"
+30/07/2026,Lower B,7,Sit-ups feet on ground (optionnel),1×25,1,0,10,5,"slow finisher, optional"
+31/07/2026,Upper B,1,Standing OHP barbell,4×5-8,1,31.5,8,1,At home and because roof is low I sti down but no back support to be as close as possible as ohp 
+31/07/2026,Upper B,1,Standing OHP barbell,4×5-8,2,31.5,7,2,At home and because roof is low I sti down but no back support to be as close as possible as ohp 
+31/07/2026,Upper B,1,Standing OHP barbell,4×5-8,3,31.5,6,0,At home and because roof is low I sti down but no back support to be as close as possible as ohp 
+31/07/2026,Upper B,1,Standing OHP barbell,4×5-8,4,31.5,7,0,At home and because roof is low I sti down but no back support to be as close as possible as ohp 
+31/07/2026,Upper B,2,Élévations latérales,4×10-15,1,8,15,1,"lead elbow, pause 1s top"
+31/07/2026,Upper B,2,Élévations latérales,4×10-15,2,8,14,1,"lead elbow, pause 1s top"
+31/07/2026,Upper B,2,Élévations latérales,4×10-15,3,8,11,1,"lead elbow, pause 1s top"
+31/07/2026,Upper B,2,Élévations latérales,4×10-15,4,8,10,1,"lead elbow, pause 1s top"
+31/07/2026,Upper B,3,Rear delt cable fly,3×12-15,1,4.5,14,1,"WARNING : 4,5 kg poids totoal poulis maison"
+31/07/2026,Upper B,3,Rear delt cable fly,3×12-15,2,4.5,14,1,"WARNING : 4,5 kg poids totoal poulis maison"
+31/07/2026,Upper B,3,Rear delt cable fly,3×12-15,3,4.5,12,1,"WARNING : 4,5 kg poids totoal poulis maison"
+31/07/2026,Upper B,4,Curl pupitre,4×10,1,10,12,2,Curl incline banc à la place avec haltère 10kg - slow motion 
+31/07/2026,Upper B,4,Curl pupitre,4×10,2,10,10,2,Curl incline banc à la place avec haltère 10kg - slow motion 
+31/07/2026,Upper B,4,Curl pupitre,4×10,3,10,9,1,Curl incline banc à la place avec haltère 10kg - slow motion 
+31/07/2026,Upper B,4,Curl pupitre,4×10,4,10,8,1,Curl incline banc à la place avec haltère 10kg - slow motion 
+31/07/2026,Upper B,5,Overhead triceps,4×10,1,32,10,1,Poulis maison 32kg
+31/07/2026,Upper B,5,Overhead triceps,4×10,2,32,9,1,Poulis maison 32kg
+31/07/2026,Upper B,5,Overhead triceps,4×10,3,32,9,1,Poulis maison 32kg
+31/07/2026,Upper B,5,Overhead triceps,4×10,4,32,9,1,Poulis maison 32kg
+31/07/2026,Upper B,6,Curl allongé poulie basse,4×10,1,45,8,1,Poulis garage maison 45kg
+31/07/2026,Upper B,6,Curl allongé poulie basse,4×10,2,45,8,1,Poulis garage maison 45kg
+31/07/2026,Upper B,6,Curl allongé poulie basse,4×10,3,45,8,1,Poulis garage maison 45kg
+31/07/2026,Upper B,6,Curl allongé poulie basse,4×10,4,45,8,0,Poulis garage maison 45kg
+31/07/2026,Upper B,7,Triceps barre poulie haute,4×10,1,45,9,1,Poulis maison garage 45kg
+31/07/2026,Upper B,7,Triceps barre poulie haute,4×10,2,45,9,1,Poulis maison garage 45kg
+31/07/2026,Upper B,7,Triceps barre poulie haute,4×10,3,45,7,1,Poulis maison garage 45kg
+31/07/2026,Upper B,7,Triceps barre poulie haute,4×10,4,45,7,1,Poulis maison garage 45kg
+31/07/2026,Upper B,8,Reverse curl EZ,3×10,1,30,8,1,Poulis maison 30kg poids total 
+31/07/2026,Upper B,8,Reverse curl EZ,3×10,2,30,8,1,Poulis maison 30kg poids total 
+31/07/2026,Upper B,8,Reverse curl EZ,3×10,3,30,7,0,Poulis maison 30kg poids total 
+31/07/2026,Upper B,9,Hammer curl,3×10,1,12,12,2,
+31/07/2026,Upper B,9,Hammer curl,3×10,2,12,12,1,
+31/07/2026,Upper B,9,Hammer curl,3×10,3,12,10,1,

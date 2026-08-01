@@ -46,6 +46,12 @@ TRAINING_COLS = [
     "set_number", "weight", "reps", "rir", "note",
 ]
 
+# Workouts the app exports with a wrong date that we've already corrected in the
+# CSV by hand — skip them on merge so they don't re-add under the stale date.
+# (Jul 29 2026: user pre-opened the Upper C draft on the 28th, so the app saved it
+#  as 28/07; the real session was 29/07. CSV fixed to 29/07; app still exports 28/07.)
+SKIP_WORKOUTS = {("28/07/2026", "Upper C")}
+
 
 def parse_ddmm(s):
     return datetime.strptime(s, "%d/%m/%Y")
@@ -174,6 +180,9 @@ def merge_workouts(export_workouts: list, dry_run: bool):
     for w in export_workouts:
         d, s = (w or {}).get("date"), (w or {}).get("session")
         if not d or not s:
+            continue
+        if (d, s) in SKIP_WORKOUTS:
+            skipped += 1
             continue
         if (d, s) in existing_pairs:
             skipped += 1
