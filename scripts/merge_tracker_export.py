@@ -188,10 +188,15 @@ def merge_workouts(export_workouts: list, dry_run: bool):
             skipped += 1
             continue
         existing_pairs.add((d, s))
+        # session location (app v1.4+): captured into the note column as a "[Location] "
+        # prefix so venue is tracked without changing the CSV schema.
+        loc = (w or {}).get("location")
         for ei, exo in enumerate(w.get("exercises", []), start=1):
             # a performed set must have reps; drop template rows whose weight was
             # pre-filled but never actually done (reps blank) so they don't pollute the log
             real_sets = [st for st in exo.get("sets", []) if st.get("reps") not in (None, "")]
+            base_note = exo.get("note", "") or ""
+            note = f"[{loc}] {base_note}".rstrip() if loc else base_note
             for si, st in enumerate(real_sets, start=1):
                 new_rows.append({
                     "date": d, "session": s,
@@ -201,7 +206,7 @@ def merge_workouts(export_workouts: list, dry_run: bool):
                     "weight": "" if st.get("weight") is None else st.get("weight"),
                     "reps": st.get("reps"),
                     "rir": "" if st.get("rir") is None else st.get("rir"),
-                    "note": exo.get("note", ""),
+                    "note": note,
                 })
         added += 1
 
