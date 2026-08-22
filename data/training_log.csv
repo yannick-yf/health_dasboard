@@ -409,3 +409,56 @@ date,session,exercise_order,exercise,target,set_number,weight,reps,rir,note
 18/08/2026,Upper A,6,Shrug barre,3×12-15,3,85.5,8,0,"72.5-75 kg, true superset"
 18/08/2026,Upper A,7,Élévations latérales,3×12-15,1,8,12,1,"8 kg strict, pause 1s top"
 18/08/2026,Upper A,7,Élévations latérales,3×12-15,2,8,9,0,"8 kg strict, pause 1s top"
+19/08/2026,Lower A,1,Back squat barre,4×5-8,1,77.5,5,2,[Home]
+19/08/2026,Lower A,1,Back squat barre,4×5-8,2,77.5,5,1,[Home]
+19/08/2026,Lower A,1,Back squat barre,4×5-8,3,77.5,5,1,[Home]
+19/08/2026,Lower A,1,Back squat barre,4×5-8,4,77.5,5,1,[Home]
+19/08/2026,Lower A,2,Bulgarian split squat,4×10/leg,1,36,10,2,[Home]
+19/08/2026,Lower A,2,Bulgarian split squat,4×10/leg,2,36,10,1,[Home]
+19/08/2026,Lower A,3,Romanian deadlift barre,4×8,1,71.5,8,1,"[Home] start light, ramping"
+19/08/2026,Lower A,3,Romanian deadlift barre,4×8,2,71.5,7,2,"[Home] start light, ramping"
+19/08/2026,Lower A,3,Romanian deadlift barre,4×8,3,71.5,7,1,"[Home] start light, ramping"
+19/08/2026,Lower A,3,Romanian deadlift barre,4×8,4,71.5,7,1,"[Home] start light, ramping"
+20/08/2026,Upper B,1,Standing OHP barbell,4×5-8,1,33.5,6,1,[Home]
+20/08/2026,Upper B,1,Standing OHP barbell,4×5-8,2,33.5,7,1,[Home]
+20/08/2026,Upper B,1,Standing OHP barbell,4×5-8,3,33.5,6,1,[Home]
+20/08/2026,Upper B,1,Standing OHP barbell,4×5-8,4,33.5,6,1,[Home]
+20/08/2026,Upper B,2,Élévations latérales,4×10-15,1,8,12,2,"[Home] lead elbow, pause 1s top"
+20/08/2026,Upper B,2,Élévations latérales,4×10-15,2,8,12,1,"[Home] lead elbow, pause 1s top"
+20/08/2026,Upper B,2,Élévations latérales,4×10-15,3,8,12,1,"[Home] lead elbow, pause 1s top"
+20/08/2026,Upper B,2,Élévations latérales,4×10-15,4,8,10,1,"[Home] lead elbow, pause 1s top"
+20/08/2026,Upper B,3,Curl pupitre,4×10,1,12,10,1,[Home]
+20/08/2026,Upper B,3,Curl pupitre,4×10,2,12,8,1,[Home]
+20/08/2026,Upper B,3,Curl pupitre,4×10,3,12,7,0,[Home]
+20/08/2026,Upper B,3,Curl pupitre,4×10,4,12,7,0,[Home]
+20/08/2026,Upper B,4,Overhead triceps,4×10,1,32,12,1,[Home] Curl incline bench à la place de curl pupitre
+20/08/2026,Upper B,4,Overhead triceps,4×10,2,32,9,1,[Home] Curl incline bench à la place de curl pupitre
+20/08/2026,Upper B,4,Overhead triceps,4×10,3,32,7,0,[Home] Curl incline bench à la place de curl pupitre
+20/08/2026,Upper B,4,Overhead triceps,4×10,4,32,9,1,[Home] Curl incline bench à la place de curl pupitre
+20/08/2026,Upper B,5,Curl allongé poulie basse,4×10,1,8,12,3,[Home] Remplacer par curl pupitre
+20/08/2026,Upper B,5,Curl allongé poulie basse,4×10,2,10,8,2,[Home] Remplacer par curl pupitre
+20/08/2026,Upper B,5,Curl allongé poulie basse,4×10,3,10,10,2,[Home] Remplacer par curl pupitre
+20/08/2026,Upper B,6,Triceps barre poulie haute,4×10,1,44,12,2,[Home]
+20/08/2026,Upper B,6,Triceps barre poulie haute,4×10,2,44,12,1,[Home]
+20/08/2026,Upper B,6,Triceps barre poulie haute,4×10,3,44,10,0,[Home]
+20/08/2026,Upper B,7,Reverse curl EZ,3×10,1,30,11,1,[Home] À la poulis
+20/08/2026,Upper B,7,Reverse curl EZ,3×10,2,30,7,0,[Home] À la poulis
+20/08/2026,Upper B,8,Hammer curl,3×10,1,12,10,0,[Home]
+20/08/2026,Upper B,8,Hammer curl,3×10,2,10,10,1,[Home]
+22/08/2026,Lower B,1,Hack squat,4×10,1,45,8,2,[BF Saint-Louis] Bug in the app the weight i saw I did last sessions was 40kg. Basic fit Martigues and basic fit Saint Louis are the same machine
+22/08/2026,Lower B,1,Hack squat,4×10,2,45,8,1,[BF Saint-Louis] Bug in the app the weight i saw I did last sessions was 40kg. Basic fit Martigues and basic fit Saint Louis are the same machine
+22/08/2026,Lower B,1,Hack squat,4×10,3,45,8,1,[BF Saint-Louis] Bug in the app the weight i saw I did last sessions was 40kg. Basic fit Martigues and basic fit Saint Louis are the same machine
+22/08/2026,Lower B,1,Hack squat,4×10,4,45,8,1,[BF Saint-Louis] Bug in the app the weight i saw I did last sessions was 40kg. Basic fit Martigues and basic fit Saint Louis are the same machine
+22/08/2026,Lower B,2,Leg curl allongé,3×10,1,38,10,1,[BF Saint-Louis] Same here last sessions  did 38kg
+22/08/2026,Lower B,2,Leg curl allongé,3×10,2,38,8,1,[BF Saint-Louis] Same here last sessions  did 38kg
+22/08/2026,Lower B,2,Leg curl allongé,3×10,3,38,8,1,[BF Saint-Louis] 3rd set added per correction (RIR assumed 1)
+22/08/2026,Lower B,3,Leg extension,3×10-12,1,70,10,2,[BF Saint-Louis] Same here and I cannot recall weight i did last time
+22/08/2026,Lower B,3,Leg extension,3×10-12,2,70,10,1,[BF Saint-Louis] Same here and I cannot recall weight i did last time
+22/08/2026,Lower B,3,Leg extension,3×10-12,3,70,10,0,[BF Saint-Louis] Same here and I cannot recall weight i did last time
+22/08/2026,Lower B,4,Weighted jackknife,4×12,1,36,10,1,[BF Saint-Louis] 34 kg → 36 when 4×12 clean
+22/08/2026,Lower B,4,Weighted jackknife,4×12,2,36,10,1,[BF Saint-Louis] 34 kg → 36 when 4×12 clean
+22/08/2026,Lower B,4,Weighted jackknife,4×12,3,36,10,1,[BF Saint-Louis] 34 kg → 36 when 4×12 clean
+22/08/2026,Lower B,5,Russian twist,3×20,1,28,10,1,[BF Saint-Louis] default 20 kg
+22/08/2026,Lower B,5,Russian twist,3×20,2,28,10,1,[BF Saint-Louis] default 20 kg
+22/08/2026,Lower B,6,Leg raise slow,1×25,1,0,10,5,"[BF Saint-Louis] or 2×15, BW"
+22/08/2026,Lower B,7,Sit-ups feet on ground (optionnel),1×25,1,0,18,1,"[BF Saint-Louis] slow finisher, optional"
