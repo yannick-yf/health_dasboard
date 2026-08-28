@@ -462,3 +462,87 @@ date,session,exercise_order,exercise,target,set_number,weight,reps,rir,note
 22/08/2026,Lower B,5,Russian twist,3×20,2,28,10,1,[BF Saint-Louis] default 20 kg
 22/08/2026,Lower B,6,Leg raise slow,1×25,1,0,10,5,"[BF Saint-Louis] or 2×15, BW"
 22/08/2026,Lower B,7,Sit-ups feet on ground (optionnel),1×25,1,0,18,1,"[BF Saint-Louis] slow finisher, optional"
+23/08/2026,Upper C,1,Pull-ups (BW ou lestés),4×max (5-8),1,0,8,1,[BF Saint-Louis] FRESH first — hardest movement
+23/08/2026,Upper C,1,Pull-ups (BW ou lestés),4×max (5-8),2,0,8,1,[BF Saint-Louis] FRESH first — hardest movement
+23/08/2026,Upper C,1,Pull-ups (BW ou lestés),4×max (5-8),3,0,7,1,[BF Saint-Louis] FRESH first — hardest movement
+23/08/2026,Upper C,1,Pull-ups (BW ou lestés),4×max (5-8),4,0,7,1,[BF Saint-Louis] FRESH first — hardest movement
+23/08/2026,Upper C,2,Développé incliné haltères,3×8-10,1,24,10,1,[BF Saint-Louis] 22 kg start
+23/08/2026,Upper C,2,Développé incliné haltères,3×8-10,2,24,9,0,[BF Saint-Louis] 22 kg start
+23/08/2026,Upper C,2,Développé incliné haltères,3×8-10,3,24,8,0,[BF Saint-Louis] 22 kg start
+23/08/2026,Upper C,3,Tirage horizontal prise large,3×10,1,45,10,1,[BF Saint-Louis] order 3-4 flexible by machine
+23/08/2026,Upper C,3,Tirage horizontal prise large,3×10,2,45,10,1,[BF Saint-Louis] order 3-4 flexible by machine
+23/08/2026,Upper C,3,Tirage horizontal prise large,3×10,3,45,10,1,[BF Saint-Louis] order 3-4 flexible by machine
+23/08/2026,Upper C,4,Écarté haltère pec,3×10-12,1,18,10,2,[BF Saint-Louis]
+23/08/2026,Upper C,4,Écarté haltère pec,3×10-12,2,18,10,1,[BF Saint-Louis]
+23/08/2026,Upper C,4,Écarté haltère pec,3×10-12,3,18,10,0,[BF Saint-Louis]
+23/08/2026,Upper C,5,Pull-over cable,3×12,1,38,12,3,[BF Saint-Louis] I am using barre droite to try not the rope this time
+23/08/2026,Upper C,5,Pull-over cable,3×12,2,38,12,1,[BF Saint-Louis] I am using barre droite to try not the rope this time
+23/08/2026,Upper C,5,Pull-over cable,3×12,3,38,10,1,[BF Saint-Louis] I am using barre droite to try not the rope this time
+24/08/2026,Upper B,1,Standing OHP barbell,4×5-8,1,35,6,2,[BF Saint-Louis]
+24/08/2026,Upper B,1,Standing OHP barbell,4×5-8,2,35,6,1,[BF Saint-Louis]
+24/08/2026,Upper B,1,Standing OHP barbell,4×5-8,3,35,6,1,[BF Saint-Louis]
+24/08/2026,Upper B,1,Standing OHP barbell,4×5-8,4,35,6,1,[BF Saint-Louis]
+24/08/2026,Upper B,2,Élévations latérales,4×10-15,1,8,15,1,"[BF Saint-Louis] lead elbow, pause 1s top"
+24/08/2026,Upper B,2,Élévations latérales,4×10-15,2,8,12,1,"[BF Saint-Louis] lead elbow, pause 1s top"
+24/08/2026,Upper B,2,Élévations latérales,4×10-15,3,8,12,1,"[BF Saint-Louis] lead elbow, pause 1s top"
+24/08/2026,Upper B,2,Élévations latérales,4×10-15,4,8,10,1,"[BF Saint-Louis] lead elbow, pause 1s top"
+24/08/2026,Upper B,3,Curl pupitre,4×10,1,12,9,0,[BF Saint-Louis]
+24/08/2026,Upper B,3,Curl pupitre,4×10,2,12,9,0,[BF Saint-Louis]
+24/08/2026,Upper B,3,Curl pupitre,4×10,3,12,8,1,[BF Saint-Louis]
+24/08/2026,Upper B,3,Curl pupitre,4×10,4,12,7,0,[BF Saint-Louis]
+24/08/2026,Upper B,4,Overhead triceps,4×10,1,32,12,1,[BF Saint-Louis]
+24/08/2026,Upper B,4,Overhead triceps,4×10,2,32,12,1,[BF Saint-Louis]
+24/08/2026,Upper B,4,Overhead triceps,4×10,3,32,10,1,[BF Saint-Louis]
+24/08/2026,Upper B,4,Overhead triceps,4×10,4,32,10,1,[BF Saint-Louis]
+24/08/2026,Upper B,5,Curl allongé poulie basse,4×10,1,19,7,0,[BF Saint-Louis] Curl pupitre machine basic fit
+24/08/2026,Upper B,5,Curl allongé poulie basse,4×10,2,15,10,1,[BF Saint-Louis] Curl pupitre machine basic fit
+24/08/2026,Upper B,5,Curl allongé poulie basse,4×10,3,15,10,1,[BF Saint-Louis] Curl pupitre machine basic fit
+24/08/2026,Upper B,6,Triceps barre poulie haute,4×10,1,45,12,1,[BF Saint-Louis]
+24/08/2026,Upper B,6,Triceps barre poulie haute,4×10,2,45,12,1,[BF Saint-Louis]
+24/08/2026,Upper B,6,Triceps barre poulie haute,4×10,3,45,11,1,[BF Saint-Louis]
+24/08/2026,Upper B,7,Reverse curl EZ,3×10,1,30,11,1,[BF Saint-Louis] A la poulis
+24/08/2026,Upper B,7,Reverse curl EZ,3×10,2,30,10,1,[BF Saint-Louis] A la poulis
+24/08/2026,Upper B,7,Reverse curl EZ,3×10,3,30,10,1,[BF Saint-Louis] A la poulis
+25/08/2026,Lower A,1,Back squat barre,4×5-8,1,79.5,5,1,[Home]
+25/08/2026,Lower A,1,Back squat barre,4×5-8,2,79.5,5,0,[Home]
+25/08/2026,Lower A,1,Back squat barre,4×5-8,3,79.5,3,1,[Home]
+25/08/2026,Lower A,1,Back squat barre,4×5-8,4,79.5,3,1,[Home]
+25/08/2026,Lower A,2,Bulgarian split squat,4×10/leg,1,32,12,2,[Home] One dumbell unilateral
+25/08/2026,Lower A,2,Bulgarian split squat,4×10/leg,2,32,12,1,[Home] One dumbell unilateral
+25/08/2026,Lower A,2,Bulgarian split squat,4×10/leg,3,32,12,1,[Home] One dumbell unilateral
+25/08/2026,Lower A,3,Romanian deadlift barre,4×8,1,71.5,8,1,"[Home] start light, ramping"
+25/08/2026,Lower A,3,Romanian deadlift barre,4×8,2,71.5,7,1,"[Home] start light, ramping"
+27/08/2026,Upper A,1,Tirage vertical prise large,3×8-10,1,59,12,2,"[BF Saint-Louis] Prise un peu plus large que d’habitude full ROM, no partials control du mouvement . Mouvement parfait bonne sensation. Control tout au long du mouvement"
+27/08/2026,Upper A,1,Tirage vertical prise large,3×8-10,2,59,11,1,"[BF Saint-Louis] Prise un peu plus large que d’habitude full ROM, no partials control du mouvement . Mouvement parfait bonne sensation. Control tout au long du mouvement"
+27/08/2026,Upper A,1,Tirage vertical prise large,3×8-10,3,59,10,1,"[BF Saint-Louis] Prise un peu plus large que d’habitude full ROM, no partials control du mouvement . Mouvement parfait bonne sensation. Control tout au long du mouvement"
+27/08/2026,Upper A,2,Tirage horizontal prise serré,3×10,1,47,11,1,"[BF Saint-Louis] full ROM, no partials"
+27/08/2026,Upper A,2,Tirage horizontal prise serré,3×10,2,47,9,1,"[BF Saint-Louis] full ROM, no partials"
+27/08/2026,Upper A,2,Tirage horizontal prise serré,3×10,3,47,9,1,"[BF Saint-Louis] full ROM, no partials"
+27/08/2026,Upper A,3,Développé couché barre,4×5-8,1,67.5,7,0,[BF Saint-Louis] With assistance
+27/08/2026,Upper A,3,Développé couché barre,4×5-8,2,67.5,6,0,[BF Saint-Louis] With assistance
+27/08/2026,Upper A,3,Développé couché barre,4×5-8,3,67.5,5,0,[BF Saint-Louis] With assistance
+27/08/2026,Upper A,3,Développé couché barre,4×5-8,4,50,11,2,[BF Saint-Louis] With assistance
+27/08/2026,Upper A,4,Tirage vertical unilatéral,3×10,1,50,10,2,[BF Saint-Louis]
+27/08/2026,Upper A,4,Tirage vertical unilatéral,3×10,2,50,10,1,[BF Saint-Louis]
+27/08/2026,Upper A,4,Tirage vertical unilatéral,3×10,3,50,8,1,[BF Saint-Louis]
+27/08/2026,Upper A,5,Dips (lestés ou BW),3×8-10,1,7.5,8,1,[BF Saint-Louis]
+27/08/2026,Upper A,5,Dips (lestés ou BW),3×8-10,2,7.5,6,0,[BF Saint-Louis]
+27/08/2026,Upper A,6,Shrug barre,3×12-15,1,85,12,1,"[BF Saint-Louis] 72.5-75 kg, true superset"
+27/08/2026,Upper A,6,Shrug barre,3×12-15,2,85,7,0,"[BF Saint-Louis] 72.5-75 kg, true superset"
+27/08/2026,Upper A,7,Élévations latérales,3×12-15,1,8,12,0,"[BF Saint-Louis] 8 kg strict, pause 1s top"
+28/08/2026,Lower B,1,Hack squat,4×10,1,47.5,8,2,[Basic Fit]
+28/08/2026,Lower B,1,Hack squat,4×10,2,47.5,8,2,[Basic Fit]
+28/08/2026,Lower B,1,Hack squat,4×10,3,47.5,8,1,[Basic Fit]
+28/08/2026,Lower B,1,Hack squat,4×10,4,47.5,8,1,[Basic Fit]
+28/08/2026,Lower B,2,Leg curl allongé,3×10,1,38,10,1,[Basic Fit]
+28/08/2026,Lower B,2,Leg curl allongé,3×10,2,38,9,0,[Basic Fit]
+28/08/2026,Lower B,2,Leg curl allongé,3×10,3,38,8,0,[Basic Fit]
+28/08/2026,Lower B,3,Leg extension,3×10-12,1,73,10,1,[Basic Fit]
+28/08/2026,Lower B,3,Leg extension,3×10-12,2,73,9,1,[Basic Fit]
+28/08/2026,Lower B,3,Leg extension,3×10-12,3,73,8,0,[Basic Fit]
+28/08/2026,Lower B,4,Weighted jackknife,4×12,1,36,12,1,[Basic Fit] 34 kg → 36 when 4×12 clean
+28/08/2026,Lower B,4,Weighted jackknife,4×12,2,36,10,1,[Basic Fit] 34 kg → 36 when 4×12 clean
+28/08/2026,Lower B,4,Weighted jackknife,4×12,3,36,8,0,[Basic Fit] 34 kg → 36 when 4×12 clean
+28/08/2026,Lower B,5,Russian twist,3×20,1,28,12,1,[Basic Fit] default 20 kg
+28/08/2026,Lower B,5,Russian twist,3×20,2,28,10,1,[Basic Fit] default 20 kg
+28/08/2026,Lower B,6,Sit-ups feet on ground (optionnel),1×25,1,,14,0,"[Basic Fit] slow finisher, optional"
