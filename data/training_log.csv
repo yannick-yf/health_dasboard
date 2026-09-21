@@ -801,3 +801,26 @@ date,session,exercise_order,exercise,target,set_number,weight,reps,rir,note
 20/09/2026,Lower A,3,Romanian deadlift barre,4×8,1,75,8,2,"[Basic Fit] start light, ramping"
 20/09/2026,Lower A,3,Romanian deadlift barre,4×8,2,75,8,2,"[Basic Fit] start light, ramping"
 20/09/2026,Lower A,3,Romanian deadlift barre,4×8,3,75,8,1,"[Basic Fit] start light, ramping"
+21/09/2026,Upper B,1,Standing OHP barbell,4×5-8,1,37.5,5,1,"[Home] Assis avec poids en fonte, ça fait plus lourd"
+21/09/2026,Upper B,1,Standing OHP barbell,4×5-8,2,37.5,5,0,"[Home] Assis avec poids en fonte, ça fait plus lourd"
+21/09/2026,Upper B,1,Standing OHP barbell,4×5-8,3,37.5,4,0,"[Home] Assis avec poids en fonte, ça fait plus lourd"
+21/09/2026,Upper B,1,Standing OHP barbell,4×5-8,4,31.5,6,1,"[Home] Assis avec poids en fonte, ça fait plus lourd"
+21/09/2026,Upper B,2,Élévations latérales,4×10-15,1,6,20,2,"[Home] lead elbow, pause 1s top"
+21/09/2026,Upper B,2,Élévations latérales,4×10-15,2,6,17,1,"[Home] lead elbow, pause 1s top"
+21/09/2026,Upper B,2,Élévations latérales,4×10-15,3,6,16,1,"[Home] lead elbow, pause 1s top"
+21/09/2026,Upper B,2,Élévations latérales,4×10-15,4,6,13,1,"[Home] lead elbow, pause 1s top"
+21/09/2026,Upper B,3,Rear delt cable fly,3×12-15,1,4.5,14,1,[Home]
+21/09/2026,Upper B,3,Rear delt cable fly,3×12-15,2,4.5,13,1,[Home]
+21/09/2026,Upper B,3,Rear delt cable fly,3×12-15,3,4.5,12,1,[Home]
+21/09/2026,Upper B,4,Curl incliné haltères,4×10,1,12,12,1,[Home]
+21/09/2026,Upper B,4,Curl incliné haltères,4×10,2,12,9,1,[Home]
+21/09/2026,Upper B,4,Curl incliné haltères,4×10,3,12,9,1,[Home]
+21/09/2026,Upper B,5,Overhead triceps,4×10,1,32,11,1,[Home]
+21/09/2026,Upper B,5,Overhead triceps,4×10,2,32,9,1,[Home]
+21/09/2026,Upper B,5,Overhead triceps,4×10,3,32,10,1,[Home]
+21/09/2026,Upper B,6,Preacher curl,4×10,1,18,11,1,[Home] preacher — spider curl if machine taken
+21/09/2026,Upper B,6,Preacher curl,4×10,2,18,10,1,[Home] preacher — spider curl if machine taken
+21/09/2026,Upper B,6,Preacher curl,4×10,3,18,10,1,[Home] preacher — spider curl if machine taken
+21/09/2026,Upper B,7,Triceps barre poulie haute,4×10,1,50,11,1,[Home]
+21/09/2026,Upper B,7,Triceps barre poulie haute,4×10,2,50,10,1,[Home]
+21/09/2026,Upper B,7,Triceps barre poulie haute,4×10,3,50,10,1,[Home]
