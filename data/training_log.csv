@@ -824,3 +824,72 @@ date,session,exercise_order,exercise,target,set_number,weight,reps,rir,note
 21/09/2026,Upper B,7,Triceps barre poulie haute,4×10,1,50,11,1,[Home]
 21/09/2026,Upper B,7,Triceps barre poulie haute,4×10,2,50,10,1,[Home]
 21/09/2026,Upper B,7,Triceps barre poulie haute,4×10,3,50,10,1,[Home]
+23/09/2026,Upper C,1,Tirage vertical prise large,4×8-10,1,66,9,1,"[Basic Fit] full ROM, no partials (same as Upper A)"
+23/09/2026,Upper C,1,Tirage vertical prise large,4×8-10,2,66,9,1,"[Basic Fit] full ROM, no partials (same as Upper A)"
+23/09/2026,Upper C,1,Tirage vertical prise large,4×8-10,3,66,8,1,"[Basic Fit] full ROM, no partials (same as Upper A)"
+23/09/2026,Upper C,1,Tirage vertical prise large,4×8-10,4,66,7,1,"[Basic Fit] full ROM, no partials (same as Upper A)"
+23/09/2026,Upper C,2,Développé incliné haltères,3×8-10,1,26,7,1,[Basic Fit] 22 kg start
+23/09/2026,Upper C,2,Développé incliné haltères,3×8-10,2,26,6,1,[Basic Fit] 22 kg start
+23/09/2026,Upper C,2,Développé incliné haltères,3×8-10,3,26,5,0,[Basic Fit] 22 kg start
+23/09/2026,Upper C,3,Tirage horizontal prise large,3×10,1,52,8,1,[Basic Fit] order 3-4 flexible by machine
+23/09/2026,Upper C,3,Tirage horizontal prise large,3×10,2,47,10,1,[Basic Fit] order 3-4 flexible by machine
+23/09/2026,Upper C,3,Tirage horizontal prise large,3×10,3,47,10,1,[Basic Fit] order 3-4 flexible by machine
+23/09/2026,Upper C,4,Écarté haltère pec,3×10-12,1,20,8,1,[Basic Fit]
+23/09/2026,Upper C,4,Écarté haltère pec,3×10-12,2,20,8,1,[Basic Fit]
+23/09/2026,Upper C,4,Écarté haltère pec,3×10-12,3,20,8,1,[Basic Fit]
+23/09/2026,Upper C,5,Pull-over cable,3×12,1,44,11,1,[Basic Fit] Avec corde recipes dernière série rappelle le moi stp
+23/09/2026,Upper C,5,Pull-over cable,3×12,2,44,8,1,[Basic Fit] Avec corde recipes dernière série rappelle le moi stp
+23/09/2026,Upper C,5,Pull-over cable,3×12,3,40,8,1,[Basic Fit] Avec corde recipes dernière série rappelle le moi stp
+25/09/2026,Upper B,1,Standing OHP barbell,4×5-8,1,37.5,7,1,[Basic Fit]
+25/09/2026,Upper B,1,Standing OHP barbell,4×5-8,2,37.5,5,1,[Basic Fit]
+25/09/2026,Upper B,1,Standing OHP barbell,4×5-8,3,37.5,5,1,[Basic Fit]
+25/09/2026,Upper B,1,Standing OHP barbell,4×5-8,4,37.5,5,1,[Basic Fit]
+25/09/2026,Upper B,2,Élévations latérales,4×10-15,1,7,15,1,"[Basic Fit] lead elbow, pause 1s top"
+25/09/2026,Upper B,2,Élévations latérales,4×10-15,2,7,15,1,"[Basic Fit] lead elbow, pause 1s top"
+25/09/2026,Upper B,2,Élévations latérales,4×10-15,3,7,12,1,"[Basic Fit] lead elbow, pause 1s top"
+25/09/2026,Upper B,2,Élévations latérales,4×10-15,4,7,11,1,"[Basic Fit] lead elbow, pause 1s top"
+25/09/2026,Upper B,3,Curl incliné haltères,4×10,1,12,11,1,[Basic Fit]
+25/09/2026,Upper B,3,Curl incliné haltères,4×10,2,12,9,1,[Basic Fit]
+25/09/2026,Upper B,3,Curl incliné haltères,4×10,3,12,8,1,[Basic Fit]
+25/09/2026,Upper B,4,Overhead triceps,4×10,1,32,12,1,[Basic Fit]
+25/09/2026,Upper B,4,Overhead triceps,4×10,2,32,10,1,[Basic Fit]
+25/09/2026,Upper B,4,Overhead triceps,4×10,3,32,10,1,[Basic Fit]
+25/09/2026,Upper B,5,Preacher curl,4×10,1,18,12,2,[Basic Fit] preacher — spider curl if machine taken
+25/09/2026,Upper B,5,Preacher curl,4×10,2,18,10,1,[Basic Fit] preacher — spider curl if machine taken
+25/09/2026,Upper B,6,Triceps barre poulie haute,4×10,1,54,10,1,[Basic Fit]
+25/09/2026,Upper B,6,Triceps barre poulie haute,4×10,2,54,8,1,[Basic Fit]
+25/09/2026,Upper B,6,Triceps barre poulie haute,4×10,3,54,6,1,[Basic Fit]
+25/09/2026,Upper B,7,Reverse curl EZ,3×10,1,38,9,1,[Basic Fit]
+25/09/2026,Upper B,7,Reverse curl EZ,3×10,2,38,8,1,[Basic Fit]
+26/09/2026,Lower B,1,Hack squat,4×10,1,50,8,1,[Basic Fit] Je suis à basic fit marriages  ça semble un poil plus lourd
+26/09/2026,Lower B,1,Hack squat,4×10,2,50,6,1,[Basic Fit] Je suis à basic fit marriages  ça semble un poil plus lourd
+26/09/2026,Lower B,1,Hack squat,4×10,3,50,5,1,[Basic Fit] Je suis à basic fit marriages  ça semble un poil plus lourd
+26/09/2026,Lower B,1,Hack squat,4×10,4,40,7,1,[Basic Fit] Je suis à basic fit marriages  ça semble un poil plus lourd
+26/09/2026,Lower B,2,Leg curl allongé,3×10,1,41,11,1,[Basic Fit]
+26/09/2026,Lower B,2,Leg curl allongé,3×10,2,41,9,1,[Basic Fit]
+26/09/2026,Lower B,2,Leg curl allongé,3×10,3,41,7,1,[Basic Fit]
+26/09/2026,Lower B,3,Leg extension,3×10-12,1,73,13,1,[Basic Fit]
+26/09/2026,Lower B,3,Leg extension,3×10-12,2,73,11,1,[Basic Fit]
+26/09/2026,Lower B,3,Leg extension,3×10-12,3,73,12,1,[Basic Fit]
+26/09/2026,Lower B,4,Weighted jackknife,4×12,1,40,7,1,[Basic Fit] 34 kg → 36 when 4×12 clean
+26/09/2026,Lower B,4,Weighted jackknife,4×12,2,40,10,1,[Basic Fit] 34 kg → 36 when 4×12 clean
+26/09/2026,Lower B,4,Weighted jackknife,4×12,3,40,10,1,[Basic Fit] 34 kg → 36 when 4×12 clean
+28/09/2026,Upper A,1,Tirage vertical prise large,3×8-10,1,70,8,1,[ToTheLimitGym] New gym again
+28/09/2026,Upper A,1,Tirage vertical prise large,3×8-10,2,70,8,1,[ToTheLimitGym] New gym again
+28/09/2026,Upper A,1,Tirage vertical prise large,3×8-10,3,70,8,1,[ToTheLimitGym] New gym again
+28/09/2026,Upper A,2,Tirage horizontal prise serré,3×10,1,50,18,2,[ToTheLimitGym] New gym - basic fit Saint Louis closed
+28/09/2026,Upper A,2,Tirage horizontal prise serré,3×10,2,60,12,1,[ToTheLimitGym] New gym - basic fit Saint Louis closed
+28/09/2026,Upper A,2,Tirage horizontal prise serré,3×10,3,60,11,1,[ToTheLimitGym] New gym - basic fit Saint Louis closed
+28/09/2026,Upper A,2,Tirage horizontal prise serré,3×10,4,60,9,1,[ToTheLimitGym] New gym - basic fit Saint Louis closed
+28/09/2026,Upper A,3,Développé couché barre,4×5-8,1,67.5,4,0,[ToTheLimitGym] New gym mauve new weight
+28/09/2026,Upper A,3,Développé couché barre,4×5-8,2,60,8,1,[ToTheLimitGym] New gym mauve new weight
+28/09/2026,Upper A,3,Développé couché barre,4×5-8,3,60,8,1,[ToTheLimitGym] New gym mauve new weight
+28/09/2026,Upper A,3,Développé couché barre,4×5-8,4,60,7,1,[ToTheLimitGym] New gym mauve new weight
+28/09/2026,Upper A,4,Tirage vertical unilatéral,3×10,1,50,13,2,[ToTheLimitGym] New gym
+28/09/2026,Upper A,4,Tirage vertical unilatéral,3×10,2,56,10,1,[ToTheLimitGym] New gym
+28/09/2026,Upper A,5,Dips (lestés ou BW),3×8-10,1,10,9,1,[ToTheLimitGym]
+28/09/2026,Upper A,5,Dips (lestés ou BW),3×8-10,2,10,7,1,[ToTheLimitGym]
+28/09/2026,Upper A,5,Dips (lestés ou BW),3×8-10,3,10,7,1,[ToTheLimitGym]
+28/09/2026,Upper A,6,Élévations latérales,3×12-15,1,2.5,8,1,"[ToTheLimitGym] Machine spécial 2,5kg"
+28/09/2026,Upper A,6,Élévations latérales,3×12-15,2,2.5,8,1,"[ToTheLimitGym] Machine spécial 2,5kg"
+28/09/2026,Upper A,6,Élévations latérales,3×12-15,3,2.5,8,1,"[ToTheLimitGym] Machine spécial 2,5kg"
