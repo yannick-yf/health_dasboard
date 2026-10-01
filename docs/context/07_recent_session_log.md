@@ -192,3 +192,55 @@ Revision same day (Yannick's feedback): Lower A · TTL swaps Bulgarian split squ
 equivalents of the same muscles: D.Y. Row takes the lat slot (Upper A keeps the cable pulldowns),
 Hammer Strength Iso-Lateral High Row takes the wide-row upper-back/traps slot (to confirm it
 exists at TTL).
+
+## Sep 30 2026 — manual Sep 29 equipment-test record
+Yannick confirmed there was no phone workout record and authorized reconstructing the Sep 29
+equipment test from his notes. A manual minimal yf-tracker JSON was created in iCloud as
+`Lower B · TTL`; known hack-squat RIRs were retained and unreported RIRs left blank. Sep 30 sleep
+was okay with no pee (duration not yet provided). The JSON merged successfully into
+`training_log.csv`: 19 set rows, nine exercises, all tagged ToTheLimitGym.
+
+Sep 30 health update: 72.7 kg again, waist 80.0 cm (from 79.9), and 6h53 sleep. Sep 29 completed
+at a nominal 158 kcal WADP deficit. Two stable post-travel mornings remain within the established
+waist-low range; hold Deficit=200 and avoid drawing a trend conclusion before more normal data.
+
+## Sep 30 2026 — Upper B optional exercise pattern
+Merged a new Upper B at ToTheLimitGym. Yannick wants venue-dependent exercises available as
+optional program entries so only performed movements create log rows and each variant keeps its
+own performance history. Prepared YF-UL5 v1.6 in iCloud and the app repo: added `Triceps Extension
+machine (HS) (optionnel)` at 3×8-12 @1 as an alternative to Overhead triceps, explicitly not extra
+volume; bumped the offline cache to v8. Today's machine sets were exported under `Overhead
+triceps`, so a CSV relabel is pending Yannick's confirmation.
+
+Same day, added the Flame Sport 3PLX plate-loaded lateral-raise machine as a second optional Upper
+B alternative, producing YF-UL5 v1.7 and cache v9. It remains separate from conventional lateral
+raises for performance tracking, but is intended to replace those sets at ToTheLimitGym rather
+than double side-delt volume. Manufacturer specs confirm independent dual arms and heavy-duty
+construction; practical verdict is very good for stability/progression, without claiming a
+superior lengthened resistance profile. Import only v1.7 (v1.6 was superseded before import).
+
+Correction: the optional Upper B additions are program-data changes only. Mirroring them into the
+PWA's built-in defaults and bumping the service-worker cache was unnecessary, so those uncommitted
+app-code edits were reverted. No GitHub Pages deployment is required; importing
+`yf-tracker-program-v1.7.json` is the complete update for the current installation.
+
+Yannick imported `yf-tracker-program-v1.7.json` successfully on Sep 30. The program is active on
+the phone with the TTL lower/Upper C variants and the optional shoulder press, Flame Sport lateral
+raise, and Hammer Strength triceps-extension entries. Nothing remains pending for this update.
+
+Yannick confirmed that Sep 30 used no conventional lateral raises and no overhead-triceps movement:
+the three lateral sets were on the Flame Sport 3PLX and the first triceps slot was the Hammer
+Strength Triceps Extension. Corrected all six CSV rows to the distinct v1.7 exercise names so
+future performance histories do not mix machine and conventional variants.
+
+Rear-delt clarification: Sep 30 also used a dedicated rear-delt machine because ToTheLimitGym has
+no obvious convenient cable-fly setup. Corrected those two CSV rows to `Rear delt machine`, but did
+not change the app program: cable fly remains preferred and Yannick will look for a workable setup.
+
+Sep 30 Upper B performance review: OHP reached 40×4 @1 for the first time versus 37.5×7 @1 on Sep
+25 (Epley 45.3 vs 46.3, ~2% lower—maintenance within normal noise while adapting to a new load and
+setup, not a regression). Incline curl 12.5×9 @1 essentially matched 12×11 @1 e1RM while raising
+the dumbbell load. Machine work established new TTL baselines: shoulder press 17.5×8 @1, Flame
+Sport lateral raise 2.5×9 @1, rear-delt machine 54×9 (RIR unreported), HS triceps extension 51×10
+@1, and preacher curl 20×10×3 @1. Pushdown/reverse/hammer curl were not performed. Overall: good
+adaptation session, free-weight strength held, no systemic regression.

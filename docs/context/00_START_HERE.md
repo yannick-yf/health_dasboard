@@ -1,6 +1,6 @@
 # START HERE — Live State
 
-**Last updated: Sep 29 2026.**
+**Last updated: Sep 30 2026.**
 This file is a living snapshot — edit it in place as things change. Don't let it grow into a log;
 that's what `07_recent_session_log.md` is for.
 
@@ -12,11 +12,11 @@ constraint is permanent context — see `04_profile_goals_and_style.md`).
 
 ## Body, right now
 
-- **Weight**: **72.7 kg** on Sep 29, the first real post-travel scale reading after 71.9 kg was
-  carried forward Sep 25-28. The +0.8 kg return alongside only +0.2 cm waist is most consistent
-  with food/glycogen/water restoration, not a fat-gain signal.
-- **Waist**: **79.9 cm** on Sep 29, still within the 79.7–80.0 cm all-time-low range established
-  since Sep 21.
+- **Weight**: **72.7 kg** on Sep 29-30, stable across the first two real post-travel readings after
+  71.9 kg was carried forward Sep 25-28. The +0.8 kg return alongside minimal waist movement is
+  most consistent with food/glycogen/water restoration, not a fat-gain signal.
+- **Waist**: **80.0 cm** on Sep 30 (79.9 Sep 29), still within the 79.7–80.0 cm all-time-low range
+  established since Sep 21.
 - Recomp signature holding: waist down, weight flat/gently down, strength still PR'ing. All three
   axes green as of the last check.
 
@@ -35,9 +35,9 @@ Full protocol in `01_nutrition_wadp.md`. Quick state:
   the prior week, but weight was carried forward from Sep 24 onward and waist was carried forward
   for Sep 27-28. Decision: temporarily hold Deficit=200 and reassess 200-vs-100 once fresh
   post-travel measurements resume Sep 29; do not treat carried-forward values as observations.
-- First fresh post-travel reading Sep 29 was 72.7 kg / 79.9 cm. Hold Deficit=200; one real morning
-  is insufficient to distinguish trend from travel rehydration/refeeding. Reassess after several
-  fresh readings.
+- First two fresh post-travel readings Sep 29-30 were stable at 72.7 kg, with waist 79.9→80.0 cm.
+  Sep 29 completed at a nominal 158 kcal WADP deficit. Hold Deficit=200 and reassess after more
+  normal-condition data, especially given the imminent Budapest weekend.
 - Rule to apply: if waist keeps drifting down at 200 → hold. If it's genuinely stalled → step to
   100. Don't jump straight to 0/surplus — he's deliberately doing a slow ramp (200→100→0→small
   surplus) to avoid a past mistake of overshooting into fat gain during the bulk transition.
@@ -49,9 +49,14 @@ Full program in `02_training_program.md`. Quick state:
   once (fine, one-off).
 - **Cycle 11 in progress, adapted for the south-of-France trip** (rest Wed Sep 24, then Fri Upper B
   → Sat Lower B → planned Sun Upper A, because normal Lower A day fell on a no-training day).
-- **Last confirmed merged session: Sep 26, Lower B, at Basic Fit Martigues.** Hack squat felt a bit
-  heavier there (known Martigues venue-feel effect — not a real strength loss, logged weight is
-  comparable). Everything else (leg curl, leg extension, jackknife at a new 40kg) progressed fine.
+- **Last confirmed merged session: Sep 29, `Lower B · TTL` equipment test at ToTheLimitGym.** It
+  was reconstructed from Yannick's notes because no phone workout was recorded: 19 sets across
+  nine machines, with known hack-squat RIRs preserved and all unreported RIRs left blank.
+- **Sep 30 Upper B at ToTheLimitGym is merged.** OHP moved to 40×4 @1 (first 40kg exposure; e1RM
+  ~2% below the prior 37.5×7 @1, effectively maintained during a load/setup transition). Incline
+  curl moved 12→12.5kg with essentially unchanged e1RM. New same-location baselines: shoulder
+  press 17.5×8 @1, Flame Sport lateral raise 2.5×9 @1, rear-delt machine, HS triceps extension
+  51×10 @1, and preacher curl 20×10×3 @1. No meaningful regression signal.
 - **Sep 21-27 training retro:** four sessions, with broadly positive performance. Sep 23 Upper C
   progressed incline DB press (26×7), wide row (52×8), and cable pullover (44×11). Sep 25 Upper B
   set a standing OHP rep PR at 37.5×7 plus progress on lateral raises, overhead triceps, preacher
@@ -65,11 +70,13 @@ Full program in `02_training_program.md`. Quick state:
   its own location. The new gym has substantially better leg equipment; Yannick is considering
   replacing back squats with machine work, but no program change is decided yet. First test the
   Lower B and Lower A equipment/setup, then revise from actual experience rather than appearance.
-- **YF-UL5 v1.5 prepared Sep 29** (`yf-tracker-program-v1.5.json` in iCloud, to import via the
-  app's import panel): adds Lower A · TTL (belt squat replaces back squat, Glute Drive replaces BSS), Lower B · TTL (hack +
+- **YF-UL5 v1.7 imported and active Sep 30** (`yf-tracker-program-v1.7.json`): adds Lower A · TTL
+  (belt squat replaces back squat, Glute Drive replaces BSS), Lower B · TTL (hack +
   kneeling iso-lateral curl), Upper C · TTL (D.Y. Row lat slot + HS High Row upper-back slot), with the two TTL
   ab machines replacing the old ab block. v1.4 sessions untouched as Basic Fit/home fallback.
-  Details in `02_training_program.md`. All TTL machine loads are new baselines.
+  Upper B now also includes optional location-specific alternatives: Hammer Strength Triceps
+  Extension for overhead triceps, and Flame Sport 3PLX machine lateral raise for conventional
+  lateral raises. Details in `02_training_program.md`. All TTL machine loads are new baselines.
 - Yannick intends to take a **one-year ToTheLimitGym subscription** and will collect the
   manufacturer/model references for its equipment over the coming days. Use that inventory plus
   hands-on session feedback to reassess YF-UL5; do not redesign from machine names alone.
@@ -103,9 +110,8 @@ Full detail in `03_health_medical.md`. Quick state:
   driven early waking is well documented) and/or dry autumn indoor air (heating season). Next
   bloodwork should add fasting glucose + HbA1c as a low-probability rule-out, alongside ferritin/
   iron/transferrin, vitamin D3, zinc, magnesium, and a repeat bilirubin to confirm Gilbert's.
-- **Latest sleep**: Sep 28 was a clean 8h24 recovery night with no wake or pee, catching up after
-  the short 5h03 Sep 27 night. Sep 29 had no pee but difficult sleep onset (6h39 total). Weekly
-  sleep still averaged ~7h17 through Sep 27, essentially unchanged from the prior week's ~7h21.
+- **Latest sleep**: Sep 29 had no pee but difficult sleep onset (6h39); Sep 30 was okay with no pee
+  (6h53). The bladder-driven wake pattern remains absent.
 - **Budapest Oct 3-5 sleep contingency:** Yannick expects poor sleep/food Saturday and Sunday. If
   both nights are bad, he will book a separate hotel for Sunday-to-Monday to secure recovery.
   Treat the weekend as travel noise; do not compensate with extra calorie restriction or forced

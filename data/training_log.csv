@@ -893,3 +893,42 @@ date,session,exercise_order,exercise,target,set_number,weight,reps,rir,note
 28/09/2026,Upper A,6,Élévations latérales,3×12-15,1,2.5,8,1,"[ToTheLimitGym] Machine spécial 2,5kg"
 28/09/2026,Upper A,6,Élévations latérales,3×12-15,2,2.5,8,1,"[ToTheLimitGym] Machine spécial 2,5kg"
 28/09/2026,Upper A,6,Élévations latérales,3×12-15,3,2.5,8,1,"[ToTheLimitGym] Machine spécial 2,5kg"
+29/09/2026,Lower B · TTL,1,Hack squat,Equipment test,1,20,12,5,[ToTheLimitGym] Better machine; liked it
+29/09/2026,Lower B · TTL,1,Hack squat,Equipment test,2,30,10,4,[ToTheLimitGym] Better machine; liked it
+29/09/2026,Lower B · TTL,1,Hack squat,Equipment test,3,40,8,3,[ToTheLimitGym] Better machine; liked it
+29/09/2026,Lower B · TTL,1,Hack squat,Equipment test,4,50,5,2,[ToTheLimitGym] Better machine; liked it
+29/09/2026,Lower B · TTL,2,Linear leg press,Equipment test,1,20,10,,[ToTheLimitGym] Empty carriage noted as 10kg; not a fan
+29/09/2026,Lower B · TTL,2,Linear leg press,Equipment test,2,40,10,,[ToTheLimitGym] Empty carriage noted as 10kg; not a fan
+29/09/2026,Lower B · TTL,3,Belt squat,Equipment test,1,40,10,,[ToTheLimitGym] Good; closest hole to machine felt best; also tested second/fourth-hole positions
+29/09/2026,Lower B · TTL,3,Belt squat,Equipment test,2,40,8,,[ToTheLimitGym] Good; closest hole to machine felt best; also tested second/fourth-hole positions
+29/09/2026,Lower B · TTL,4,Leg extension,Equipment test,1,75,10,,"[ToTheLimitGym] Hammer Strength; good, similar to Basic Fit"
+29/09/2026,Lower B · TTL,4,Leg extension,Equipment test,2,82,10,,"[ToTheLimitGym] Hammer Strength; good, similar to Basic Fit"
+29/09/2026,Lower B · TTL,5,Kneeling leg curl iso-lateral (HS),Equipment test,1,10,20,,[ToTheLimitGym] Hammer Strength; incredible sensation
+29/09/2026,Lower B · TTL,5,Kneeling leg curl iso-lateral (HS),Equipment test,2,20,8,,[ToTheLimitGym] Hammer Strength; incredible sensation
+29/09/2026,Lower B · TTL,6,Leg curl allongé,Equipment test,1,46,9,,"[ToTheLimitGym] Hammer Strength; good, similar to Basic Fit"
+29/09/2026,Lower B · TTL,7,Glute Drive (HS),Equipment test,1,10,12,,[ToTheLimitGym] Hammer Strength; excellent sensation; 30kg felt easy
+29/09/2026,Lower B · TTL,7,Glute Drive (HS),Equipment test,2,30,10,,[ToTheLimitGym] Hammer Strength; excellent sensation; 30kg felt easy
+29/09/2026,Lower B · TTL,8,Ab bench crunch,Equipment test,1,5,15,,[ToTheLimitGym] Incredible sensation
+29/09/2026,Lower B · TTL,8,Ab bench crunch,Equipment test,2,10,12,,[ToTheLimitGym] Incredible sensation
+29/09/2026,Lower B · TTL,9,Oblique crunch machine (HS),Equipment test,1,5,22,,[ToTheLimitGym] Hammer Strength; incredible sensation
+29/09/2026,Lower B · TTL,9,Oblique crunch machine (HS),Equipment test,2,10,10,,[ToTheLimitGym] Hammer Strength; incredible sensation
+30/09/2026,Upper B,1,Standing OHP barbell,4×5-8,1,40,4,1,[ToTheLimitGym]
+30/09/2026,Upper B,1,Standing OHP barbell,4×5-8,2,40,4,1,[ToTheLimitGym]
+30/09/2026,Upper B,1,Standing OHP barbell,4×5-8,3,35,6,1,[ToTheLimitGym]
+30/09/2026,Upper B,2,Shoulder press machine (optionnel),3×8-12,1,10,20,4,[ToTheLimitGym] Hammer strength machine - 10kg each side
+30/09/2026,Upper B,2,Shoulder press machine (optionnel),3×8-12,2,15,12,2,[ToTheLimitGym] Hammer strength machine - 10kg each side
+30/09/2026,Upper B,2,Shoulder press machine (optionnel),3×8-12,3,17.5,8,1,[ToTheLimitGym] Hammer strength machine - 10kg each side
+30/09/2026,Upper B,3,Élévations latérales machine (Flame Sport 3PLX) (optionnel),4×10-15,1,2.5,9,1,[ToTheLimitGym] Flame sport special machine for shoulder elevation latérales
+30/09/2026,Upper B,3,Élévations latérales machine (Flame Sport 3PLX) (optionnel),4×10-15,2,2.5,8,1,[ToTheLimitGym] Flame sport special machine for shoulder elevation latérales
+30/09/2026,Upper B,3,Élévations latérales machine (Flame Sport 3PLX) (optionnel),4×10-15,3,0,14,1,[ToTheLimitGym] Flame sport special machine for shoulder elevation latérales
+30/09/2026,Upper B,4,Rear delt machine,3×12-15,1,40,15,3,[ToTheLimitGym] Rear delt machine used because no convenient cable setup
+30/09/2026,Upper B,4,Rear delt machine,3×12-15,2,54,9,,[ToTheLimitGym] Rear delt machine used because no convenient cable setup
+30/09/2026,Upper B,5,Curl incliné haltères,4×10,1,12.5,9,1,[ToTheLimitGym] Niveau 5 sur nouveau banc
+30/09/2026,Upper B,5,Curl incliné haltères,4×10,2,12.5,8,1,[ToTheLimitGym] Niveau 5 sur nouveau banc
+30/09/2026,Upper B,5,Curl incliné haltères,4×10,3,12.5,7,1,[ToTheLimitGym] Niveau 5 sur nouveau banc
+30/09/2026,Upper B,6,Triceps Extension machine (HS) (optionnel),3×8-12,1,32,20,2,[ToTheLimitGym] Machine hammer strength triceps extantion
+30/09/2026,Upper B,6,Triceps Extension machine (HS) (optionnel),3×8-12,2,51,10,1,[ToTheLimitGym] Machine hammer strength triceps extantion
+30/09/2026,Upper B,6,Triceps Extension machine (HS) (optionnel),3×8-12,3,46,13,1,[ToTheLimitGym] Machine hammer strength triceps extantion
+30/09/2026,Upper B,7,Preacher curl,4×10,1,20,10,1,[ToTheLimitGym] preacher — spider curl if machine taken
+30/09/2026,Upper B,7,Preacher curl,4×10,2,20,10,1,[ToTheLimitGym] preacher — spider curl if machine taken
+30/09/2026,Upper B,7,Preacher curl,4×10,3,20,10,1,[ToTheLimitGym] preacher — spider curl if machine taken

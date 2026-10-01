@@ -1,12 +1,13 @@
 # Training Program — YF-UL5 v1.4 (Upper/Lower/Legs 5-day)
 
-**Status: ACTIVE — v1.5 (TTL variants added Sep 29 2026; v1.4 sessions kept as fallback).** For which cycle number he's currently on and live progression targets, see
+**Status: ACTIVE — v1.7 (TTL variants added Sep 29; optional TTL Upper B alternatives added Sep 30;
+v1.4 sessions kept as fallback).** For which cycle number he's currently on and live progression targets, see
 `00_START_HERE.md` — this file is the stable program reference.
 
 ## The five sessions (current composition — ground truth is always `data/training_log.csv`)
 
-Program name/version is tracked in the app itself (`yf-tracker`), currently **program YF-UL5 v1.4 /
-app v1.5**. If in doubt about what's actually being done, check the most recent rows of
+Program name/version is tracked in the app itself (`yf-tracker`), currently **program YF-UL5 v1.7 /
+app v1.6**. If in doubt about what's actually being done, check the most recent rows of
 `data/training_log.csv` per session type rather than trusting this doc blindly — it can drift.
 
 - **Upper A** (chest/back heavy): wide-grip pulldown → close-grip row → barbell bench → unilateral
@@ -134,6 +135,28 @@ Basic Fit/home fallback and adds three TTL sessions. Upper A and Upper B are sha
 - Open: confirm the HS "regular" leg curl is lying (not seated); ab bench/oblique machine exact
   models; whether TTL has Iso-Lateral Shoulder Press (Upper B OHP question), High Row/Front
   Pulldown, or a pullover machine.
+
+### YF-UL5 v1.6 — optional venue-specific Upper B exercise (Sep 30 2026)
+
+- Added `Triceps Extension machine (HS) (optionnel)` for ToTheLimitGym: 3×8-12 @1 RIR.
+- It is an **alternative to Overhead triceps, not extra volume**: populate whichever exercise the
+  venue supports and leave the other blank. Distinct names preserve independent performance
+  histories when logs are analyzed.
+
+### YF-UL5 v1.7 — Flame Sport lateral-raise alternative (Sep 30 2026)
+
+- Added `Élévations latérales machine (Flame Sport 3PLX) (optionnel)` at 4×10-15 @1 RIR.
+- It is a ToTheLimitGym alternative to conventional lateral raises, not automatic extra volume:
+  keep both entries available but populate only the version performed.
+- Manufacturer information confirms an independent dual-arm, plate-loaded machine with a very
+  robust frame. Its fixed path and stability are strong practical hypertrophy features, but its
+  simple lever geometry is not proven superior to cables and likely emphasizes the upper portion
+  more than the lengthened bottom. Judge it primarily by comfort, target-muscle tension and clean
+  load/rep progression.
+- Rear delt cable fly remains the programmed Upper B exercise. ToTheLimitGym currently lacks a
+  convenient cable setup, so Sep 30 used a rear-delt machine as a one-off substitution and its CSV
+  rows were named separately. Do not add the machine to the app unless Yannick later decides to
+  keep it; first look for a workable cable-fly setup at the gym.
 
 ## Biceps exercise selection (locked design, trains across the full strength curve)
 
