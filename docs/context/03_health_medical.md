@@ -87,6 +87,10 @@ sustained deficit is a well-documented cause of early-morning waking; (2) dry in
 season starts in Alsace. Both are cheap to test (ease the deficit — already happening; try a
 humidifier / cracked window for a few nights). Not yet conclusively resolved.
 
+**Oct 6→7 sleep:** 8h50 recorded in the health row, but fragmented: woke around 02:00, could not
+sleep until around 04:00, then slept until 08:00–09:00. The reason for waking, including whether
+it was bladder-driven, has not been established; do not classify it as nocturia without that detail.
+
 **Medical backstop, low-urgency but should not be dropped:** because thirst + nocturia together are
 a classic (if usually benign) early sign to rule out, add **fasting glucose + HbA1c** to the next
 bloodwork panel. His Dec 2025 panel didn't include these. This has been agreed with Yannick as a

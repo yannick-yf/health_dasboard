@@ -7,11 +7,12 @@ import pandas as pd
 import numpy as np
 from datetime import datetime, date
 from pathlib import Path
-import shutil
 import fcntl
 import os
 import tempfile
 from typing import Dict, Tuple, Optional, Any
+
+from backup_utils import create_backup
 
 
 def parse_date(date_str: str) -> Optional[datetime]:
@@ -66,7 +67,7 @@ def load_data(csv_path: str) -> pd.DataFrame:
     
     # Convert numeric columns
     numeric_cols = ['steps', 'sleep_min', 'workout_duration_min_tot',
-                   'weight', 'calories_burned', 'calories_consumed', 'waist_cm']
+                   'weight', 'calories_burned', 'calories_consumed', 'waist_cm', 'move_kcal']
 
     for col in numeric_cols:
         if col in df.columns:
@@ -106,7 +107,8 @@ def save_data(df: pd.DataFrame, csv_path: str) -> None:
         # Write to temp file
         df_save.to_csv(temp_path, index=False)
         
-        # Atomic rename
+        # Protect the old file only after the replacement is ready.
+        create_backup(csv_path)
         os.replace(temp_path, csv_path)
     finally:
         # Clean up temp file if still exists
@@ -114,39 +116,6 @@ def save_data(df: pd.DataFrame, csv_path: str) -> None:
             os.unlink(temp_path)
         os.close(temp_fd)
 
-
-def create_backup(csv_path: str) -> str:
-    """
-    Create timestamped backup of CSV file
-    
-    Args:
-        csv_path: Path to CSV file to backup
-    
-    Returns:
-        Path to backup file
-    """
-    if not Path(csv_path).exists():
-        return ""
-    
-    # Create backup directory
-    backup_dir = Path("backups")
-    backup_dir.mkdir(exist_ok=True)
-    
-    # Generate backup filename with timestamp
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    backup_name = f"health_data_backup_{timestamp}.csv"
-    backup_path = backup_dir / backup_name
-    
-    # Copy file
-    shutil.copy2(csv_path, backup_path)
-    
-    # Clean old backups (keep only last 10)
-    backups = sorted(backup_dir.glob("*.csv"), key=lambda x: x.stat().st_mtime)
-    if len(backups) > 10:
-        for old_backup in backups[:-10]:
-            old_backup.unlink()
-    
-    return str(backup_path)
 
 
 def validate_record(record: Dict[str, Any]) -> Tuple[bool, str]:

@@ -53,6 +53,10 @@ def _dark_base() -> dict:
 def render(df):
     """Render the Bulk Journey Tracker."""
     st.title("🏋️ Bulk Journey Tracker")
+    st.warning(
+        "Historical bulk analysis: this page uses retired calorie and training assumptions. "
+        "Use Data Entry and Weekly Report for current WADP decisions."
+    )
 
     if df.empty:
         st.warning("No data available. Please add records in the Data Entry page.")

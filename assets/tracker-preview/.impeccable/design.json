@@ -1,0 +1,104 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-08T08:10:17Z",
+  "title": "Design System: YF Tracker - Private Venue Preview",
+  "extensions": {
+    "shadows": [
+      {
+        "name": "modal-sheet",
+        "value": "0 12px 36px #0008",
+        "purpose": "Observed modal depth only; ordinary exercise surfaces are flat."
+      }
+    ],
+    "motion": [
+      {
+        "name": "sheet-in",
+        "value": ".18s ease-out",
+        "purpose": "16px translateY to zero, only under prefers-reduced-motion: no-preference."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "phone",
+        "value": "440px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Command",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Confirmed sample finish saves all valid entered sets across current-workout/venue equipment drafts, including unticked sets; incomplete entries block save. Minimum height 44px.",
+      "html": "<button class=\"ds-command\">Finish sample workout</button>",
+      "css": ".ds-command { display:inline-flex; align-items:center; justify-content:center; gap:8px; min-height:44px; padding:10px 16px; border:1px solid #6877ec; border-radius:6px; background:var(--action); color:white; font:650 15px/1.45 -apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif; letter-spacing:0; cursor:pointer; } .ds-command:hover { background:#5969e5; } .ds-command:focus-visible { outline:2px solid var(--accent); outline-offset:3px; } .ds-command:disabled { cursor:default; opacity:.5; }"
+    },
+    {
+      "name": "Secondary Command",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Keep a draft, cancel a guarded change/removal, or return to incomplete sets without deleting entered values, including RIR-only zero.",
+      "html": "<button class=\"ds-secondary\">Keep current draft</button>",
+      "css": ".ds-secondary { display:inline-flex; align-items:center; justify-content:center; gap:8px; min-height:44px; padding:10px 16px; border:1px solid var(--line); border-radius:6px; background:transparent; color:var(--text); font:650 15px/1.45 -apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif; letter-spacing:0; cursor:pointer; } .ds-secondary:hover { background:transparent; } .ds-secondary:focus-visible { outline:2px solid var(--accent); outline-offset:3px; } .ds-secondary:disabled { cursor:default; opacity:.5; }"
+    },
+    {
+      "name": "History Tool",
+      "kind": "button",
+      "refersTo": "icon-button",
+      "description": "Inline SVG action with tooltip and accessible name.",
+      "html": "<button class=\"ds-tool\" title=\"Exercise history\" aria-label=\"Exercise history\"><svg class=\"ds-icon\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8\"/><path d=\"M3 3v5h5M12 7v5l4 2\"/></svg></button>",
+      "css": ".ds-tool { display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px; padding:0; border:1px solid var(--line); border-radius:6px; background:transparent; color:var(--text); cursor:pointer; } .ds-icon { width:19px; height:19px; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; flex-shrink:0; } .ds-tool:hover { background:#252b36; } .ds-tool:focus-visible { outline:2px solid var(--accent); outline-offset:3px; } .ds-tool:disabled { cursor:default; opacity:.5; }"
+    },
+    {
+      "name": "Completed Set",
+      "kind": "button",
+      "refersTo": "completion-active",
+      "description": "Pressed completion marker; editing its sample set unmarks it.",
+      "html": "<button class=\"ds-completed\" aria-pressed=\"true\" title=\"Complete sample set\" aria-label=\"Complete sample set\"><svg class=\"ds-icon\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"m9 12 2 2 4-4\"/><circle cx=\"12\" cy=\"12\" r=\"10\"/></svg></button>",
+      "css": ".ds-completed { display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px; padding:0; border:1px solid #424b5c; border-radius:6px; background:#173b30; color:var(--green); cursor:pointer; } .ds-icon { width:19px; height:19px; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; } .ds-completed:hover { background:#173b30; } .ds-completed:focus-visible { outline:2px solid var(--accent); outline-offset:3px; }"
+    },
+    {
+      "name": "Load Field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Centered numeric entry; a placeholder is not a logged load. Unconfirmed setup/convention disables entry; confirming a different convention opens a venue-specific baseline without relabeling raw history.",
+      "html": "<input class=\"ds-field\" type=\"number\" min=\"0\" step=\"any\" inputmode=\"decimal\" placeholder=\"kg\" aria-label=\"Sample set weight\">",
+      "css": ".ds-field { width:100%; min-width:0; min-height:44px; padding:8px 4px; border:1px solid var(--line); border-radius:6px; background:#11141a; color:var(--text); caret-color:var(--accent); text-align:center; font:15px/1.45 -apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif; font-variant-numeric:tabular-nums; letter-spacing:0; appearance:textfield; -moz-appearance:textfield; } .ds-field::-webkit-inner-spin-button { appearance:none; } .ds-field::placeholder { color:#9ba4b5; opacity:1; } .ds-field:focus-visible { outline:2px solid var(--accent); outline-offset:3px; } .ds-field:disabled { opacity:.75; } .ds-field[aria-invalid=\"true\"] { border-color:#e89191; }"
+    },
+    {
+      "name": "Exercise Item",
+      "kind": "card",
+      "refersTo": "exercise",
+      "description": "Repeated framed exercise tool, not a floating page-section card.",
+      "html": "<article class=\"ds-exercise\"><h2>Sample exercise</h2><p>Equipment-specific reference</p></article>",
+      "css": ".ds-exercise { padding:15px; border:1px solid var(--line); border-radius:8px; background:var(--surface); color:var(--text); margin-bottom:12px; font:15px/1.45 -apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif; letter-spacing:0; } .ds-exercise h2 { margin:0; font-size:16px; font-weight:700; line-height:1.35; } .ds-exercise p { margin:5px 0 0; color:var(--muted); font-size:12px; } @media(max-width:440px) { .ds-exercise { padding:12px; } }"
+    }
+  ],
+  "narrative": {
+    "northStar": "YF Tracker's compact training log",
+    "overview": "This record describes only shipped `index.html`, within the scope of `PRODUCT.md` and `../../docs/tracker_preview_brief.md`. It extends the incumbent dark utilitarian identity, not a new world or public system. Background, exercise surface, text and action colors are inherited; muted text, accent and corners are preview refinements, not a tracker-wide migration.",
+    "keyCharacteristics": [
+      "Compact set entry with explicit equipment/reference provenance.",
+      "Restrained indigo actions, neutral layering and green completion states.",
+      "Phone-first working column; secondary details in modal bottom sheets."
+    ],
+    "rules": [
+      {
+        "name": "The Provenance Rule",
+        "body": "Compact references show weight/reps without RIR, with source venue and explicit sample-visit labels. Detailed history and finish retain RIR. Local references prefer the selected venue; shared free-weight/bodyweight fallback is labeled as shared, while machines cannot borrow other venues' histories. Unconfirmed raw history stays visible without charts or inferred units; a convention change opens a venue-specific baseline.",
+        "section": "colors"
+      }
+    ],
+    "dos": [
+      "Do preserve the compact inherited identity and preview-local tokens.",
+      "Do retain setup/date provenance and blank references for unidentified gear.",
+      "Do keep choices temporary and distinguish proposals from active training.",
+      "Do show missing RIR distinctly from zero and preserve incomplete entries for review."
+    ],
+    "donts": [
+      "Don't share the installed app database/cache, rewrite imported history, or expose real data outside the isolated review installation.",
+      "Don't treat this record as approval to change the public tracker, active v1.7 program or CSVs.",
+      "Don't assume the real TTL preacher plate convention; total/per-arm meaning remains unconfirmed."
+    ]
+  }
+}

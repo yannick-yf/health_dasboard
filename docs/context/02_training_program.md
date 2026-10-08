@@ -1,20 +1,20 @@
-# Training Program — YF-UL5 v1.4 (Upper/Lower/Legs 5-day)
+# Training Program — YF-UL5 (Upper/Lower/Legs 5-day)
 
-**Status: ACTIVE — v1.7 (TTL variants added Sep 29; optional TTL Upper B alternatives added Sep 30;
-v1.4 sessions kept as fallback).** For which cycle number he's currently on and live progression targets, see
+**Status: v1.7 is the latest confirmed phone export; venue design is under review (Oct 7).** v1.4
+sessions remain the Basic Fit/home fallback. For current progression targets, see
 `00_START_HERE.md` — this file is the stable program reference.
 
 ## The five sessions (current composition — ground truth is always `data/training_log.csv`)
 
-Program name/version is tracked in the app itself (`yf-tracker`), currently **program YF-UL5 v1.7 /
-app v1.6**. If in doubt about what's actually being done, check the most recent rows of
+Program name/version is tracked in the app itself (`yf-tracker`); the latest export shows
+**program YF-UL5 v1.7**, and app v1.6 was last confirmed on the phone. If in doubt about what's actually being done, check the most recent rows of
 `data/training_log.csv` per session type rather than trusting this doc blindly — it can drift.
 
 - **Upper A** (chest/back heavy): wide-grip pulldown → close-grip row → barbell bench → unilateral
   pulldown → dips → superset shrug+lateral raises → (face pulls optional if time).
 - **Lower A** (quad/ham + abs): back squat → Bulgarian split squat (2-DB now tolerated, see sciatic
   note below) → Romanian deadlift → abs (jackknife, Russian twist).
-- **Upper B** (shoulders/arms): standing barbell OHP → lateral raises → rear delt cable fly →
+- **Upper B** (shared Basic Fit/home fallback, shoulders/arms): standing barbell OHP → lateral raises → rear delt cable fly →
   incline DB curl → overhead triceps → preacher curl → triceps pushdown (rope/bar) → reverse curl EZ.
 - **Upper C** (chest/back volume): wide-grip pulldown (**v1.4 change: replaced pull-ups** for
   hypertrophy consistency + shoulder-friendliness) → incline DB press → wide row → DB flye → cable
@@ -139,9 +139,10 @@ Basic Fit/home fallback and adds three TTL sessions. Upper A and Upper B are sha
 ### YF-UL5 v1.6 — optional venue-specific Upper B exercise (Sep 30 2026)
 
 - Added `Triceps Extension machine (HS) (optionnel)` for ToTheLimitGym: 3×8-12 @1 RIR.
-- It is an **alternative to Overhead triceps, not extra volume**: populate whichever exercise the
-  venue supports and leave the other blank. Distinct names preserve independent performance
-  histories when logs are analyzed.
+- In the shared `Upper B` fallback it is an **alternative to Overhead triceps, not extra volume**:
+  populate whichever exercise the venue supports and leave the other blank. Distinct names preserve
+  independent performance histories when logs are analyzed. Yannick has since proposed a different
+  TTL pairing; it has not been incorporated into an active program version.
 
 ### YF-UL5 v1.7 — Flame Sport lateral-raise alternative (Sep 30 2026)
 
@@ -158,6 +159,25 @@ Basic Fit/home fallback and adds three TTL sessions. Upper A and Upper B are sha
   rows were named separately. Do not add the machine to the app unless Yannick later decides to
   keep it; first look for a workable cable-fly setup at the gym.
 
+### Oct 7 proposed TTL Upper B arrangement (not implemented)
+
+- Yannick wants incline DB curl + rope triceps, preacher curl + Hammer Strength triceps extension,
+  and reverse curl + hammer curl when training at TTL. The Oct 7 rope sets were exported under
+  `Overhead triceps` with a `Triceps corde` note; their historical CSV label has not been changed.
+- A separate `Upper B · TTL` session was drafted prematurely as v1.8, then its iCloud JSON was
+  removed after Yannick raised the broader venue design issue. Do not treat v1.8 as active or
+  prepare another program file before settling how venue-specific choices and loads should work.
+- Desired design: one five-session program, with venue-aware exercise choices and working-load
+  references. Yannick expects about 60% TTL, 20% Basic Fit, 10% home and 10% hotels.
+
+### Oct 8 pending overall Upper B revision
+
+Yannick plans to revise Upper B overall, not merely add a TTL-specific pairing. First finish the
+app improvements, then agree the session's exercises, volume, pairings and venue variants. Keep
+active program v1.7 and historical workouts unchanged in the meantime; the preview's current
+Upper B arrangement is not the final training prescription. Do not create a new program export
+or silently rewrite old Upper B sessions before that review.
+
 ## Biceps exercise selection (locked design, trains across the full strength curve)
 
 1. **Incline DB curl** — stretched/long-head position, the "stretch" slot.
@@ -165,6 +185,12 @@ Basic Fit/home fallback and adds three TTL sessions. Upper A and Upper B are sha
    another stretch movement). Distinct from the old "curl pupitre" naming — don't merge histories.
 3. **Reverse curl EZ** — kept deliberately (brachioradialis/wrist extensors), NOT redundant with the
    other two even though it looks similar at a glance; this was explicitly reconsidered and kept.
+
+**Preacher curl equipment (confirmed Oct 8):** Basic Fit uses a weight-stack machine; TTL uses
+a plate-loaded Hammer Strength machine. They fill the same exercise slot but their logged loads
+are not directly comparable. The plate-load convention (per arm versus total) is not confirmed.
+Sep 30's 20x10 and Oct 7's 12.5x10 are both tagged TTL; the Basic Fit/TTL distinction alone does
+not resolve which setup/load convention was used on those two dates. No workout data was changed.
 
 ## Program-change history (context only — the position is settled, see below)
 

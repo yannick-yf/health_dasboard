@@ -27,6 +27,9 @@ import sys
 from datetime import datetime
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "frontend"))
+from backup_utils import create_backup
+
 # Where phone exports land (iCloud Drive). Override with --export-dir or --file.
 EXPORT_DIR = Path.home() / "Library/Mobile Documents/com~apple~CloudDocs/yf-tracker"
 
@@ -163,6 +166,7 @@ def merge_health(export_health: list, dry_run: bool):
         out = header + "\n" + buf.getvalue()
         if not had_trailing_nl:
             out = out.rstrip("\n")
+        create_backup(HEALTH_CSV)
         HEALTH_CSV.write_text(out, encoding="utf-8")
     return added, updated
 
@@ -211,6 +215,7 @@ def merge_workouts(export_workouts: list, dry_run: bool):
         added += 1
 
     if new_rows and not dry_run:
+        create_backup(TRAINING_CSV)
         with open(TRAINING_CSV, "a", newline="", encoding="utf-8") as f:
             w = csv.DictWriter(f, fieldnames=TRAINING_COLS, lineterminator="\n")
             if not file_exists:

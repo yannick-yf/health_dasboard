@@ -7,8 +7,7 @@ import pandas as pd
 from datetime import date
 from data_utils import save_data
 from utils.tdee_calculator import estimate_tdee
-from utils.metrics_helpers import compute_intake_targets
-from utils.bulk_constants import BULK_START, PPL_DAY_MAP
+from utils.wadp import CURRENT_DEFICIT_KCAL, intake_target, observed_deficit
 
 
 def render(df):
@@ -151,8 +150,7 @@ def render(df):
         
         with col_btn4:
             # WADP deficit: intake target = BMR0(2000) + Move; deficit = target − consumed
-            wadp_tdee = 2000 + move_kcal
-            deficit = wadp_tdee - calories_consumed
+            deficit = observed_deficit(move_kcal, calories_consumed)
             if calories_consumed == 0:
                 st.info("⚖️ Enter consumed")
             elif deficit > 0:
@@ -194,62 +192,19 @@ def render(df):
 
 
 def _render_today_target(df):
-    """Compact calorie target banner — updates automatically as new data is added."""
-    if df.empty:
-        return
-
-    targets = compute_intake_targets(df, bulk_start_ts=BULK_START)
-    if targets is None:
-        return
-
-    today = date.today()
-    ppl_session = PPL_DAY_MAP.get(today.weekday(), "Training")
-    is_rest_day = ppl_session == "Rest"
-
-    # Check if today has a logged workout to override the schedule guess
-    today_row = df[df['date'].dt.date == today] if not df.empty else pd.DataFrame()
-    if not today_row.empty and pd.notna(today_row.iloc[0].get('workout_duration_min_tot')):
-        is_training = today_row.iloc[0]['workout_duration_min_tot'] > 30
-        day_label = ppl_session if is_training else "Rest day"
-        day_kcal = targets['training_day'] if is_training else targets['rest_day']
-        color = "#6366f1" if is_training else "#94a3b8"
-        st.markdown(
-            f"""
-            <div style="
-                background:#1e293b; border-left:4px solid {color};
-                border-radius:8px; padding:0.65rem 1rem;
-                display:flex; align-items:center; gap:1.5rem; margin-bottom:1rem;
-            ">
-                <span style="color:#9ca3af; font-size:0.8rem;">Today's target ({day_label})</span>
-                <span style="color:{color}; font-size:1.25rem; font-weight:700;">{day_kcal:,} kcal</span>
-                <span style="color:#6b7280; font-size:0.75rem;">
-                    🏋️ Training: {targets['training_day']:,} &nbsp;|&nbsp; 🛋️ Rest: {targets['rest_day']:,}
-                </span>
-            </div>
-            """,
-            unsafe_allow_html=True,
+    """Show the live WADP rule only when today's Move value is known."""
+    today_row = df[df['date'].dt.date == date.today()] if not df.empty else pd.DataFrame()
+    move = today_row.iloc[0].get('move_kcal') if not today_row.empty else None
+    if move is not None and pd.notna(move) and move > 0:
+        st.info(
+            f"Today's WADP intake target: {int(intake_target(move)):,} kcal "
+            f"(2,000 + {int(move):,} Move − {CURRENT_DEFICIT_KCAL} deficit). "
+            "The Move ring can still rise during the day."
         )
     else:
-        # No logged data yet — use PPL schedule to suggest today's target
-        day_kcal = targets['rest_day'] if is_rest_day else targets['training_day']
-        color = "#94a3b8" if is_rest_day else "#6366f1"
-        st.markdown(
-            f"""
-            <div style="
-                background:#1e293b; border-left:4px solid {color};
-                border-radius:8px; padding:0.65rem 1rem;
-                display:flex; align-items:center; gap:2rem; margin-bottom:1rem;
-            ">
-                <span style="color:#9ca3af; font-size:0.8rem;">Today ({ppl_session})</span>
-                <span style="color:{color}; font-size:1.25rem; font-weight:700;">{day_kcal:,} kcal</span>
-                <span style="color:#6b7280; font-size:0.75rem;">
-                    🏋️ Training: {targets['training_day']:,} &nbsp;|&nbsp;
-                    🛋️ Rest: {targets['rest_day']:,} &nbsp;|&nbsp;
-                    TDEE ~{targets['empirical_tdee']:,}
-                </span>
-            </div>
-            """,
-            unsafe_allow_html=True,
+        st.info(
+            f"Today's WADP intake target = 2,000 + today's Move − "
+            f"{CURRENT_DEFICIT_KCAL} kcal. Enter the Move value to calculate it."
         )
 
 

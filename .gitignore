@@ -52,3 +52,5 @@ notebooks/*
 __pycache__/
 *.pyc
 *.pyo
+# Automatic CSV snapshots
+backups/

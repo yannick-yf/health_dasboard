@@ -18,10 +18,19 @@
     Current locations: Home / Basic Fit / ToTheLimitGym / Hotel / Other. ToTheLimitGym was added
     as a distinct baseline after Basic Fit Saint-Louis closed; never merge its machine history
     into Basic Fit.
-    App v1.6/cache v6 was deployed to GitHub Pages and confirmed current on Yannick's phone Sep 29.
+    App v1.6 was deployed to GitHub Pages and confirmed current on Yannick's phone Sep 29. Source
+    v1.7/cache v8 was prepared Oct 7 but Yannick has paused deployment to reassess the venue
+    workflow; preserve the local patch, do not treat it as ready to ship. The Train home screen
+    now lets him choose the gym before starting, and changing it in a workout draft refreshes the
+    previous sets and placeholders while preserving entered values. The lookup still matches
+    exercise name and broad location. The home screen still lists full venue-specific session
+    variants, while its Today shortcut uses fixed session names; that broader structure remains
+    under review.
   - Program-data changes (adding/editing exercises/sets, not app logic) are pushed as a
     `yf-tracker-program-vX.json` file dropped in the iCloud sync folder (see below) and imported
-    via the app's 📤 import panel — this is a separate mechanism from a code push.
+    via the app's 📤 import panel — this is a separate mechanism from a code push. A program-only
+    file carries empty health/workout arrays; the app merges imported records and deletes nothing,
+    then applies its program config.
 
 ## Daily data flow (training log)
 
@@ -34,6 +43,9 @@
    - Appends new rows to `data/training_log.csv` (schema: `date,session,exercise_order,exercise,
      target,set_number,weight,reps,rir,note`), one row per SET.
    - Dedupes by `date + session` — safe to re-run repeatedly, it's idempotent.
+   - **Current limitation:** that same dedupe skips a workout even if its sets or exercise names
+     were later corrected on the phone. A renamed session can appear as a second date/session pair.
+     Review such changes explicitly; the merge does not reconcile them automatically.
    - Prepends `[Location]` to the note column when a location was tagged on the phone.
    - Never auto-commits — review the diff and let Yannick commit.
 4. **If a fresh export doesn't show up in iCloud** (common — phone→iCloud upload lag, often Low
@@ -49,7 +61,7 @@
 
 `data/health_data.csv` — **10 columns, append-only, never change the header**:
 ```
-(unnamed index), date, steps, sleep_min, workout_duration_min_tot, weight, calories_burned,
+user_id, date, steps, sleep_min, workout_duration_min_tot, weight, calories_burned,
 calories_consumed, waist_cm, move_kcal
 ```
 - `weight` in kg, `waist_cm` in cm, `sleep_min` total minutes asleep (not time in bed).
@@ -63,6 +75,11 @@ calories_consumed, waist_cm, move_kcal
 - Entry happens via `.venv/bin/streamlit run frontend/app.py --server.port 8502` — check
   `lsof -ti:8502` before launching to avoid a duplicate process; background it (`nohup ... &`) so
   the conversation isn't blocked.
+- Before an existing health CSV is replaced by Streamlit or a tracker merge, and before an existing
+  training CSV is appended by a tracker merge, the prior file is copied to `data/backups/`.
+  Backups are named by source file and timestamp, with a unique suffix; the newest 10 for each
+  source file are retained. `data/backups/` is ignored by Git. Dry runs and no-op merges make no
+  backup. These are local recovery copies, not a substitute for Yannick's own Git review.
 - Weight/waist can occasionally be imputed for gap periods (older data) — imputation script is
   `scripts/impute_consumed.py` if that ever needs revisiting, not something to run routinely.
 
@@ -102,6 +119,13 @@ devices double-count against the actual watch ring); **watch-only = the real Mov
 `frontend/app.py` is the entry point; `frontend/sections/` and `frontend/utils/` hold the dashboard
 sections and helpers. Being evaluated for eventual replacement (Marimo was floated once) but no
 active migration in progress — treat Streamlit as the live tool.
+
+Data Entry and Weekly Report use the current WADP settings in `frontend/utils/wadp.py` (2,000
+base, currently 200 deficit). Weekly Report uses only days with both Move and intake for observed
+deficit, compares week-end 7-day weight and 7/14-day waist averages, and counts distinct
+date/session pairs from `data/training_log.csv`. Carried-forward travel measurements have no flag
+in the CSV and remain in moving averages; verify them before making a diet decision. The Deep
+Dive bulk tracker is historical and displays a warning because its old targets are retired.
 
 ## Dev environment
 

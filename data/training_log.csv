@@ -932,3 +932,99 @@ date,session,exercise_order,exercise,target,set_number,weight,reps,rir,note
 30/09/2026,Upper B,7,Preacher curl,4×10,1,20,10,1,[ToTheLimitGym] preacher — spider curl if machine taken
 30/09/2026,Upper B,7,Preacher curl,4×10,2,20,10,1,[ToTheLimitGym] preacher — spider curl if machine taken
 30/09/2026,Upper B,7,Preacher curl,4×10,3,20,10,1,[ToTheLimitGym] preacher — spider curl if machine taken
+01/10/2026,Lower A · TTL,1,Belt squat,4×8-12,1,50,12,3,[ToTheLimitGym] replaces back squat at TTL. Closest-to-machine setting felt best. Test: 40×10
+01/10/2026,Lower A · TTL,1,Belt squat,4×8-12,2,60,8,1,[ToTheLimitGym] replaces back squat at TTL. Closest-to-machine setting felt best. Test: 40×10
+01/10/2026,Lower A · TTL,1,Belt squat,4×8-12,3,60,8,1,[ToTheLimitGym] replaces back squat at TTL. Closest-to-machine setting felt best. Test: 40×10
+01/10/2026,Lower A · TTL,1,Belt squat,4×8-12,4,60,4,0,[ToTheLimitGym] replaces back squat at TTL. Closest-to-machine setting felt best. Test: 40×10
+01/10/2026,Lower A · TTL,2,Romanian deadlift barre,4×8,1,75,8,2,[ToTheLimitGym] barbell = comparable across venues (PR 75×8 @2)
+01/10/2026,Lower A · TTL,2,Romanian deadlift barre,4×8,2,80,6,2,[ToTheLimitGym] barbell = comparable across venues (PR 75×8 @2)
+01/10/2026,Lower A · TTL,3,Glute Drive (HS),3×8-12,1,40,18,4,[ToTheLimitGym] replaces Bulgarian split squat at TTL; 1s squeeze at top. Test: 30×10 easy
+01/10/2026,Lower A · TTL,3,Glute Drive (HS),3×8-12,2,60,15,4,[ToTheLimitGym] replaces Bulgarian split squat at TTL; 1s squeeze at top. Test: 30×10 easy
+01/10/2026,Lower A · TTL,3,Glute Drive (HS),3×8-12,3,80,12,3,[ToTheLimitGym] replaces Bulgarian split squat at TTL; 1s squeeze at top. Test: 30×10 easy
+01/10/2026,Lower A · TTL,4,Leg curl allongé,3×10-12,1,39,15,3,"[ToTheLimitGym] TTL: Hammer Strength leg curl (new baseline, test 46×9)"
+01/10/2026,Lower A · TTL,4,Leg curl allongé,3×10-12,2,46,12,1,"[ToTheLimitGym] TTL: Hammer Strength leg curl (new baseline, test 46×9)"
+01/10/2026,Lower A · TTL,4,Leg curl allongé,3×10-12,3,39,8,1,"[ToTheLimitGym] TTL: Hammer Strength leg curl (new baseline, test 46×9)"
+01/10/2026,Lower A · TTL,5,Ab bench crunch,4×10-15,1,10,12,1,"[ToTheLimitGym] TTL ab bench, loaded; full flexion, 1s squeeze. Test: 10×12"
+01/10/2026,Lower A · TTL,5,Ab bench crunch,4×10-15,2,10,10,1,"[ToTheLimitGym] TTL ab bench, loaded; full flexion, 1s squeeze. Test: 10×12"
+01/10/2026,Lower A · TTL,5,Ab bench crunch,4×10-15,3,10,8,1,"[ToTheLimitGym] TTL ab bench, loaded; full flexion, 1s squeeze. Test: 10×12"
+01/10/2026,Lower A · TTL,6,Oblique crunch machine (HS),3×12-15/side,1,0,10,3,[ToTheLimitGym] Hammer Strength oblique crunch; controlled. Test: 10×10
+01/10/2026,Lower A · TTL,6,Oblique crunch machine (HS),3×12-15/side,2,5,10,1,[ToTheLimitGym] Hammer Strength oblique crunch; controlled. Test: 10×10
+01/10/2026,Lower A · TTL,7,Leg raise slow,2×12-15,1,,10,,"[ToTheLimitGym] BW, lower-abs finisher; skip if short on time"
+02/10/2026,Upper C · TTL,1,Iso-Lateral D.Y. Row (HS),4×8-12,1,20,15,5,"[ToTheLimitGym] LAT slot (Upper A already has 2 cable pulldowns). Full stretch, elbows to hips"
+02/10/2026,Upper C · TTL,1,Iso-Lateral D.Y. Row (HS),4×8-12,2,25,15,3,"[ToTheLimitGym] LAT slot (Upper A already has 2 cable pulldowns). Full stretch, elbows to hips"
+02/10/2026,Upper C · TTL,1,Iso-Lateral D.Y. Row (HS),4×8-12,3,30,9,1,"[ToTheLimitGym] LAT slot (Upper A already has 2 cable pulldowns). Full stretch, elbows to hips"
+02/10/2026,Upper C · TTL,1,Iso-Lateral D.Y. Row (HS),4×8-12,4,30,10,1,"[ToTheLimitGym] LAT slot (Upper A already has 2 cable pulldowns). Full stretch, elbows to hips"
+02/10/2026,Upper C · TTL,2,Développé incliné haltères,3×8-10,1,25,6,1,[ToTheLimitGym] Dernière rep dernière série vraiment pas propre
+02/10/2026,Upper C · TTL,2,Développé incliné haltères,3×8-10,2,25,6,1,[ToTheLimitGym] Dernière rep dernière série vraiment pas propre
+02/10/2026,Upper C · TTL,2,Développé incliné haltères,3×8-10,3,25,6,1,[ToTheLimitGym] Dernière rep dernière série vraiment pas propre
+02/10/2026,Upper C · TTL,3,Iso-Lateral High Row (HS),3×10-12,1,25,20,3,"[ToTheLimitGym] UPPER-BACK/TRAPS slot = replaces Basic Fit wide row. Overhand, elbows flared, squeeze shoulder blades 1s"
+02/10/2026,Upper C · TTL,3,Iso-Lateral High Row (HS),3×10-12,2,35,13,2,"[ToTheLimitGym] UPPER-BACK/TRAPS slot = replaces Basic Fit wide row. Overhand, elbows flared, squeeze shoulder blades 1s"
+02/10/2026,Upper C · TTL,3,Iso-Lateral High Row (HS),3×10-12,3,40,10,2,"[ToTheLimitGym] UPPER-BACK/TRAPS slot = replaces Basic Fit wide row. Overhand, elbows flared, squeeze shoulder blades 1s"
+02/10/2026,Upper C · TTL,4,Écarté haltère pec,3×10-12,1,20,8,1,[ToTheLimitGym] Deux dernières séries sont pectoral fly
+02/10/2026,Upper C · TTL,4,Écarté haltère pec,3×10-12,2,20,8,2,[ToTheLimitGym] Deux dernières séries sont pectoral fly
+02/10/2026,Upper C · TTL,5,Pec fly machine,3×10-12,1,40,11,1,[ToTheLimitGym] Deux dernières séries sont pectoral fly
+02/10/2026,Upper C · TTL,5,Pec fly machine,3×10-12,2,40,11,1,[ToTheLimitGym] Deux dernières séries sont pectoral fly
+02/10/2026,Upper C · TTL,6,Pull-over cable,3×12,1,44,12,1,[ToTheLimitGym]
+02/10/2026,Upper C · TTL,6,Pull-over cable,3×12,2,44,10,1,[ToTheLimitGym]
+02/10/2026,Upper C · TTL,7,Élévations latérales,3×12-15,1,2.5,11,1,[ToTheLimitGym] Machine
+02/10/2026,Upper C · TTL,7,Élévations latérales,3×12-15,2,2.5,9,1,[ToTheLimitGym] Machine
+05/10/2026,Upper A,1,Tirage vertical prise large,3×8-10,1,70,9,1,"[ToTheLimitGym] full ROM, no partials"
+05/10/2026,Upper A,1,Tirage vertical prise large,3×8-10,2,70,9,0,"[ToTheLimitGym] full ROM, no partials"
+05/10/2026,Upper A,1,Tirage vertical prise large,3×8-10,3,70,8,0,"[ToTheLimitGym] full ROM, no partials"
+05/10/2026,Upper A,2,Tirage horizontal prise serré,3×10,1,70,9,1,"[ToTheLimitGym] full ROM, no partials"
+05/10/2026,Upper A,2,Tirage horizontal prise serré,3×10,2,60,13,1,"[ToTheLimitGym] full ROM, no partials"
+05/10/2026,Upper A,2,Tirage horizontal prise serré,3×10,3,70,11,1,"[ToTheLimitGym] full ROM, no partials"
+05/10/2026,Upper A,3,Développé couché barre,4×5-8,1,65,5,2,[ToTheLimitGym]
+05/10/2026,Upper A,3,Développé couché barre,4×5-8,2,65,5,1,[ToTheLimitGym]
+05/10/2026,Upper A,3,Développé couché barre,4×5-8,3,65,5,1,[ToTheLimitGym]
+05/10/2026,Upper A,3,Développé couché barre,4×5-8,4,65,5,0,[ToTheLimitGym]
+05/10/2026,Upper A,4,Tirage vertical unilatéral,3×10,1,56,11,1,[ToTheLimitGym]
+05/10/2026,Upper A,4,Tirage vertical unilatéral,3×10,2,56,8,1,[ToTheLimitGym]
+05/10/2026,Upper A,5,Dips (lestés ou BW),3×8-10,1,10,7,1,[ToTheLimitGym]
+05/10/2026,Upper A,5,Dips (lestés ou BW),3×8-10,2,10,7,1,[ToTheLimitGym]
+05/10/2026,Upper A,5,Dips (lestés ou BW),3×8-10,3,10,6,1,[ToTheLimitGym]
+05/10/2026,Upper A,6,Élévations latérales,3×12-15,1,2.5,11,1,"[ToTheLimitGym] 8 kg strict, pause 1s top"
+05/10/2026,Upper A,6,Élévations latérales,3×12-15,2,2.5,8,1,"[ToTheLimitGym] 8 kg strict, pause 1s top"
+05/10/2026,Upper A,6,Élévations latérales,3×12-15,3,0,15,2,"[ToTheLimitGym] 8 kg strict, pause 1s top"
+06/10/2026,Lower B · TTL,1,Hack squat,4×8-12,1,50,10,2,[ToTheLimitGym] TTL baseline only (test 50×5 @2) — not comparable to Basic Fit
+06/10/2026,Lower B · TTL,1,Hack squat,4×8-12,2,50,10,2,[ToTheLimitGym] TTL baseline only (test 50×5 @2) — not comparable to Basic Fit
+06/10/2026,Lower B · TTL,1,Hack squat,4×8-12,3,55,5,0,[ToTheLimitGym] TTL baseline only (test 50×5 @2) — not comparable to Basic Fit
+06/10/2026,Lower B · TTL,1,Hack squat,4×8-12,4,50,10,1,[ToTheLimitGym] TTL baseline only (test 50×5 @2) — not comparable to Basic Fit
+06/10/2026,Lower B · TTL,2,Kneeling leg curl iso-lateral (HS),3×10-15/leg,1,10,18,2,[ToTheLimitGym] Deux Dernière série seated curl 68kg sur machine
+06/10/2026,Lower B · TTL,2,Kneeling leg curl iso-lateral (HS),3×10-15/leg,2,15,15,1,[ToTheLimitGym] Deux Dernière série seated curl 68kg sur machine
+06/10/2026,Lower B · TTL,2,Kneeling leg curl iso-lateral (HS),3×10-15/leg,3,68,10,1,[ToTheLimitGym] Deux Dernière série seated curl 68kg sur machine
+06/10/2026,Lower B · TTL,2,Kneeling leg curl iso-lateral (HS),3×10-15/leg,4,68,9,1,[ToTheLimitGym] Deux Dernière série seated curl 68kg sur machine
+06/10/2026,Lower B · TTL,3,Leg extension,3×10-15,1,75,15,2,[ToTheLimitGym] TTL Hammer Strength (test 82×10)
+06/10/2026,Lower B · TTL,3,Leg extension,3×10-15,2,82,12,1,[ToTheLimitGym] TTL Hammer Strength (test 82×10)
+06/10/2026,Lower B · TTL,3,Leg extension,3×10-15,3,82,10,0,[ToTheLimitGym] TTL Hammer Strength (test 82×10)
+06/10/2026,Lower B · TTL,4,Ab bench crunch,4×10-15,1,10,15,3,"[ToTheLimitGym] TTL ab bench, loaded; full flexion, 1s squeeze. Test: 10×12"
+06/10/2026,Lower B · TTL,4,Ab bench crunch,4×10-15,2,12.5,10,1,"[ToTheLimitGym] TTL ab bench, loaded; full flexion, 1s squeeze. Test: 10×12"
+06/10/2026,Lower B · TTL,4,Ab bench crunch,4×10-15,3,12.5,9,1,"[ToTheLimitGym] TTL ab bench, loaded; full flexion, 1s squeeze. Test: 10×12"
+06/10/2026,Lower B · TTL,4,Ab bench crunch,4×10-15,4,12.5,9,1,"[ToTheLimitGym] TTL ab bench, loaded; full flexion, 1s squeeze. Test: 10×12"
+07/10/2026,Upper B,1,Standing OHP barbell,4×5-8,1,40,5,1,[ToTheLimitGym]
+07/10/2026,Upper B,1,Standing OHP barbell,4×5-8,2,40,4,1,[ToTheLimitGym]
+07/10/2026,Upper B,2,Shoulder press machine (optionnel),3×8-12,1,20,8,1,"[ToTheLimitGym] si machine dispo — ¾ lockout, 2-3s eccentric"
+07/10/2026,Upper B,2,Shoulder press machine (optionnel),3×8-12,2,20,7,1,"[ToTheLimitGym] si machine dispo — ¾ lockout, 2-3s eccentric"
+07/10/2026,Upper B,2,Shoulder press machine (optionnel),3×8-12,3,20,5,0,"[ToTheLimitGym] si machine dispo — ¾ lockout, 2-3s eccentric"
+07/10/2026,Upper B,2,Shoulder press machine (optionnel),3×8-12,4,10,20,2,"[ToTheLimitGym] si machine dispo — ¾ lockout, 2-3s eccentric"
+07/10/2026,Upper B,3,Élévations latérales machine (Flame Sport 3PLX) (optionnel),4×10-15,1,2.5,10,1,"[ToTheLimitGym] ToTheLimitGym alternative to Élévations latérales — use one version, not both; controlled eccentric, no shrug"
+07/10/2026,Upper B,3,Élévations latérales machine (Flame Sport 3PLX) (optionnel),4×10-15,2,2.5,9,1,"[ToTheLimitGym] ToTheLimitGym alternative to Élévations latérales — use one version, not both; controlled eccentric, no shrug"
+07/10/2026,Upper B,3,Élévations latérales machine (Flame Sport 3PLX) (optionnel),4×10-15,3,0,20,3,"[ToTheLimitGym] ToTheLimitGym alternative to Élévations latérales — use one version, not both; controlled eccentric, no shrug"
+07/10/2026,Upper B,4,Rear delt cable fly,3×12-15,1,54,10,1,[ToTheLimitGym]
+07/10/2026,Upper B,4,Rear delt cable fly,3×12-15,2,54,9,0,[ToTheLimitGym]
+07/10/2026,Upper B,5,Curl incliné haltères,4×10,1,12.5,10,1,[ToTheLimitGym]
+07/10/2026,Upper B,5,Curl incliné haltères,4×10,2,12.5,9,1,[ToTheLimitGym]
+07/10/2026,Upper B,5,Curl incliné haltères,4×10,3,12.5,8,1,[ToTheLimitGym]
+07/10/2026,Upper B,5,Curl incliné haltères,4×10,4,12.5,7,0,[ToTheLimitGym]
+07/10/2026,Upper B,6,Overhead triceps,4×10,1,35,13,2,[ToTheLimitGym] Triceps corde
+07/10/2026,Upper B,6,Overhead triceps,4×10,2,35,13,1,[ToTheLimitGym] Triceps corde
+07/10/2026,Upper B,6,Overhead triceps,4×10,3,35,12,1,[ToTheLimitGym] Triceps corde
+07/10/2026,Upper B,6,Overhead triceps,4×10,4,35,10,1,[ToTheLimitGym] Triceps corde
+07/10/2026,Upper B,7,Triceps Extension machine (HS) (optionnel),3×8-12,1,46,12,1,"[ToTheLimitGym] ToTheLimitGym alternative to Overhead triceps — do one or the other, not both"
+07/10/2026,Upper B,7,Triceps Extension machine (HS) (optionnel),3×8-12,2,46,12,0,"[ToTheLimitGym] ToTheLimitGym alternative to Overhead triceps — do one or the other, not both"
+07/10/2026,Upper B,7,Triceps Extension machine (HS) (optionnel),3×8-12,3,46,10,0,"[ToTheLimitGym] ToTheLimitGym alternative to Overhead triceps — do one or the other, not both"
+07/10/2026,Upper B,8,Preacher curl,4×10,1,12.5,10,1,[ToTheLimitGym] Preacher curl at to the limit gym different machine from basic fit
+07/10/2026,Upper B,8,Preacher curl,4×10,2,12.5,9,0,[ToTheLimitGym] Preacher curl at to the limit gym different machine from basic fit
+07/10/2026,Upper B,9,Reverse curl EZ,3×10,1,42,7,0,[ToTheLimitGym]
+07/10/2026,Upper B,9,Reverse curl EZ,3×10,2,36,12,1,[ToTheLimitGym]
+07/10/2026,Upper B,9,Reverse curl EZ,3×10,3,36,11,1,[ToTheLimitGym]

@@ -1,6 +1,6 @@
 # START HERE — Live State
 
-**Last updated: Sep 30 2026.**
+**Last updated: Oct 8 2026.**
 This file is a living snapshot — edit it in place as things change. Don't let it grow into a log;
 that's what `07_recent_session_log.md` is for.
 
@@ -12,15 +12,13 @@ constraint is permanent context — see `04_profile_goals_and_style.md`).
 
 ## Body, right now
 
-- **Weight**: **72.7 kg** on Sep 29-30, stable across the first two real post-travel readings after
-  71.9 kg was carried forward Sep 25-28. The +0.8 kg return alongside minimal waist movement is
-  most consistent with food/glycogen/water restoration, not a fat-gain signal.
-- **Waist**: **80.0 cm** on Sep 30 (79.9 Sep 29), still within the 79.7–80.0 cm all-time-low range
-  established since Sep 21.
-- Recomp signature holding: waist down, weight flat/gently down, strength still PR'ing. All three
-  axes green as of the last check.
+- **Latest measurement (Oct 8): 72.4 kg and 79.6 cm waist.** Weight is unchanged from Oct 7;
+  waist is 0.2 cm lower and matches Oct 2. Oct 6's first fresh post-Budapest
+  reading was 73.0 kg / 81.0 cm; Oct 3–5 repeat Oct 2 because Yannick did not measure during the
+  trip. The Oct 7–8 reversal puts measurements close to Oct 2 (72.2 kg / 79.6 cm), so treat Oct 6
+  as a travel-related fluctuation, not a new trend or fat-gain signal.
 
-## Nutrition — WADP deficit: currently **200**, pending fresh post-travel measurements
+## Nutrition — WADP deficit: currently **200**, Sep 28–Oct 4 review complete
 
 Full protocol in `01_nutrition_wadp.md`. Quick state:
 - Ramped down from 300→200 starting Sep 13/14 (cut had hit diminishing returns on waist, and the
@@ -35,23 +33,69 @@ Full protocol in `01_nutrition_wadp.md`. Quick state:
   the prior week, but weight was carried forward from Sep 24 onward and waist was carried forward
   for Sep 27-28. Decision: temporarily hold Deficit=200 and reassess 200-vs-100 once fresh
   post-travel measurements resume Sep 29; do not treat carried-forward values as observations.
-- First two fresh post-travel readings Sep 29-30 were stable at 72.7 kg, with waist 79.9→80.0 cm.
-  Sep 29 completed at a nominal 158 kcal WADP deficit. Hold Deficit=200 and reassess after more
-  normal-condition data, especially given the imminent Budapest weekend.
+- Sep 28–Oct 1 completed at nominal WADP deficits of 185, 158, 173, and 268 kcal/day (mean 196).
+  Budapest entries show nominal balances of +50 kcal deficit Oct 2, −816 Oct 3, and −112 Oct 4
+  (mean nominal surplus ~293 kcal/day across those three days), but the calorie intakes were
+  Yannick's rough personal estimates. Treat these balances as directional only, not precise
+  measurements. The full Sep 28–Oct 4 WADP average is −13 kcal/day across 7 days versus +5 the
+  prior week; excluding the three travel days, Sep 28–Oct 1 averaged a 196 kcal/day deficit.
+  Weight 7dMA was 72.37 kg (+0.30); waist 7dMA 79.74 cm (−0.06) and 14dMA 79.77 cm (−0.24).
+  Five sessions vs four prior, average sleep 6.65h. These travel-affected figures do not support a
+  deficit change. Oct 5 closed at a logged nominal 186 kcal deficit. Hold Deficit=200; do not
+  compensate for trip food/alcohol.
+- **Oct 8 daily review:** Oct 7 completed at Move 1,126 and intake 2,997, a nominal WADP
+  deficit of 129 kcal. Oct 5–7 completed deficits were 186, 68 and 129 (mean 128 kcal/day).
+  Oct 8's fresh waist reading is back at 79.6 cm; keep Deficit=200, without compensating for
+  travel or treating one morning as a new trend. Oct 8 Move/intake are still pending.
 - Rule to apply: if waist keeps drifting down at 200 → hold. If it's genuinely stalled → step to
   100. Don't jump straight to 0/surplus — he's deliberately doing a slow ramp (200→100→0→small
   surplus) to avoid a past mistake of overshooting into fat gain during the bulk transition.
 
-## Training — YF-UL5 v1.4, 5-day split, mid south-of-France trip
+## Training — YF-UL5 v1.7 in latest export; venue design under review
 
 Full program in `02_training_program.md`. Quick state:
+- **Oct 8 same-venue performance review:** eight TTL workout records Sep 28-Oct 7, including
+  Sep 29's equipment test. OHP, incline DB curl, Flame Sport raises, close-grip row and ab bench
+  show progress on repeated exposures. Pulldown gained reps but Oct 5's last two sets went to
+  RIR 0 versus RIR 1 on Sep 28. Bench top-set Epley is effectively stable, but logged volume fell;
+  weighted dips also lost reps on Oct 5. HS triceps extension lost a rep at 46 kg, but Oct 7
+  included rope triceps beforehand, making fatigue/order different. Preacher curl's first set
+  fell from 20x10 to 12.5x10 at RIR 1. Yannick confirmed Basic Fit uses a weight stack and TTL
+  uses plate-loaded Hammer Strength, so cross-venue loads are not comparable. Both of those
+  dates are tagged TTL; their exact equipment/load convention still needs clarification before
+  calling the drop a true regression or dismissing it. Lower A and Upper C each
+  have only one full TTL session; incline press was below its rep target. Equipment-test gains
+  are not proof of new muscle. Overall: progress in several lifts, pressing to monitor, no
+  established systemic regression or repeated same-setup strength-loss trigger for changing
+  Deficit=200. Reassess pressing after its next matched sessions; do not infer muscle gain or
+  that a prolonged deficit has no cost from this short window.
 - Cycle 10 ran mostly on schedule (Upper A/Lower A/Upper B/Upper C, Sep 19-23), Lower B skipped
-  once (fine, one-off).
-- **Cycle 11 in progress, adapted for the south-of-France trip** (rest Wed Sep 24, then Fri Upper B
-  → Sat Lower B → planned Sun Upper A, because normal Lower A day fell on a no-training day).
-- **Last confirmed merged session: Sep 29, `Lower B · TTL` equipment test at ToTheLimitGym.** It
-  was reconstructed from Yannick's notes because no phone workout was recorded: 19 sets across
-  nine machines, with known hack-squat RIRs preserved and all unreported RIRs left blank.
+  once (fine, one-off). Normal rotation resumed after Budapest on Oct 5.
+- **Latest sessions:** Oct 6 `Lower B · TTL` and Oct 7 `Upper B` at ToTheLimitGym, both merged and
+  reviewed. Lower B: hack squat improved from the 50×5 @2 equipment test to 50×10 @2, but 55×5 @0
+  fell below the 8–12 target; use 50kg across work sets and build reps. Leg extension reached
+  82×12 @1 vs the 82×10 test. Ab bench progressed to 12.5×10,9,9 @1. TTL hack squat is a new
+  machine baseline; compare only with its TTL test. The two 68kg curl sets (10 and 9 reps) are
+  logged as kneeling curls, but the note says seated curl; confirm the machine before comparing or
+  editing those rows.
+- Upper B: standing OHP 40×5 @1 gives raw Epley e1RM ~46.7kg vs 45.3kg for 40×4 on Sep 30 (+3%).
+  Incline DB curl and Flame Sport lateral raises also added reps at the same TTL setup. Yannick
+  clarified that the rope pushdown pairs with incline DB curl, and the HS triceps extension pairs
+  with preacher curl at TTL. This is a proposed exercise arrangement, not a new active program.
+  The Oct 7 export's rope sets are still historically named `Overhead triceps` with a `Triceps
+  corde` note; no CSV relabel has been made.
+- **Latest sessions merged Oct 7:** Oct 1 `Lower A · TTL`, Oct 2 `Upper C · TTL`, Oct 5
+  `Upper A`, Oct 6 `Lower B · TTL`, and Oct 7 `Upper B` at ToTheLimitGym.
+  Belt squat, Glute Drive, TTL leg curl/abs, D.Y. Row, High Row, pullover, and lateral raise are
+  fresh machine baselines. Upper C dumbbell fly and pec-fly machine sets are now logged separately.
+- **RDL progression:** Oct 1 reached 80×6 @2 after the previous 75×8 @2; Epley estimates 96 vs
+  95 kg (~1% up). Build toward 80×8 with clean reps.
+- **Belt squat at TTL:** Oct 1 used 60 kg for 8, 8, then 4 reps to RIR 0 after a 50×12 set.
+  Keep the closest-to-machine setting; try about 55 kg for work sets next time to stay within
+  the programmed 8–12 reps without grinding.
+- **Incline DB press at TTL:** Oct 2 was 25×6 for three sets @1, with the final rep described as
+  messy. This is the first Upper C at the unfamiliar setup, not a regression call; use a lighter
+  load next time to get clean reps in the 8–10 target range.
 - **Sep 30 Upper B at ToTheLimitGym is merged.** OHP moved to 40×4 @1 (first 40kg exposure; e1RM
   ~2% below the prior 37.5×7 @1, effectively maintained during a load/setup transition). Incline
   curl moved 12→12.5kg with essentially unchanged e1RM. New same-location baselines: shoulder
@@ -77,6 +121,11 @@ Full program in `02_training_program.md`. Quick state:
   Upper B now also includes optional location-specific alternatives: Hammer Strength Triceps
   Extension for overhead triceps, and Flame Sport 3PLX machine lateral raise for conventional
   lateral raises. Details in `02_training_program.md`. All TTL machine loads are new baselines.
+- **Venue design is under review (Oct 7).** Yannick expects roughly 60% of training at TTL, 20%
+  at Basic Fit, 10% at home and 10% in hotels. He wants reliable working-load guidance at each
+  setup without a full duplicate session per venue. The prematurely prepared v1.8 program file
+  was removed from iCloud. The latest phone export identifies v1.7; a new program version has not
+  been agreed.
 - Yannick intends to take a **one-year ToTheLimitGym subscription** and will collect the
   manufacturer/model references for its equipment over the coming days. Use that inventory plus
   hands-on session feedback to reassess YF-UL5; do not redesign from machine names alone.
@@ -88,7 +137,8 @@ Full program in `02_training_program.md`. Quick state:
   - Close-grip row: under-loading corrected, now progressing normally from 52kg.
   - Squat: 82.5×5 is the current PR (Sep 20); consolidate at 82.5 before 85.
   - RDL: 75×8 is the current PR (Sep 20), done at RIR 2 — real headroom, don't be shy going up.
-  - Hack squat: 50kg, building toward 52.5.
+  - TTL hack squat: new machine; build clean 8–12 reps at 50kg before increasing, comparing only
+    with TTL records.
 - **Apple Watch Series 12** acquired ~Sep 20. Expect the Move/red-ring numbers to shift on the new
   sensor. Old-watch training-weekday Move baseline was **≈1085 kcal** (tight cluster across several
   sessions). Plan: once ~1 week of new-watch data exists, compare training-weekday Move at matched
@@ -110,12 +160,12 @@ Full detail in `03_health_medical.md`. Quick state:
   driven early waking is well documented) and/or dry autumn indoor air (heating season). Next
   bloodwork should add fasting glucose + HbA1c as a low-probability rule-out, alongside ferritin/
   iron/transferrin, vitamin D3, zinc, magnesium, and a repeat bilirubin to confirm Gilbert's.
-- **Latest sleep**: Sep 29 had no pee but difficult sleep onset (6h39); Sep 30 was okay with no pee
-  (6h53). The bladder-driven wake pattern remains absent.
-- **Budapest Oct 3-5 sleep contingency:** Yannick expects poor sleep/food Saturday and Sunday. If
-  both nights are bad, he will book a separate hotel for Sunday-to-Monday to secure recovery.
-  Treat the weekend as travel noise; do not compensate with extra calorie restriction or forced
-  training, and reassess body trends only after normal conditions resume.
+- **Latest logged sleep**: Oct 7→8, 7h22 (442 min), with one brief wake around 03:00 to pee.
+  The wake trigger was not clarified; logged one bathroom trip without assuming bladder-driven
+  waking. Oct 6→7 was 8h50 but fragmented (awake about 02:00–04:00), with pee status still unknown.
+- **Budapest Oct 3–5:** treat food, alcohol, and sleep as travel noise; do not compensate with
+  extra calorie restriction or forced training. Weight and waist were not measured during travel;
+  Oct 6 is the first fresh post-trip reading and should be interpreted cautiously.
 - **Supplements**: creatine (Nutripure/Creapure) was planned but a start date was never confirmed —
   ask if he's started, so a +1–1.5kg water-weight bump can be correctly attributed rather than
   misread as fat gain. Possibly adding Magnesium Taurine B6. A testosterone-booster product was
@@ -125,6 +175,57 @@ Full detail in `03_health_medical.md`. Quick state:
   personal tolerance — all contain dates (a confirmed-adjacent fructan risk), the spread also has
   red kidney beans (GOS risk). Testing one at a time; ask if he has results.
 
+## App and data status
+
+- **Dashboard maintenance Oct 1:** Data Entry and Weekly Report now use the current WADP formula
+  (2,000 + Move − intake; target deficit 200). Weekly Report uses the training CSV for session
+  counts and includes weight/waist moving averages. The old Deep Dive bulk page is marked
+  historical. CSV writes from Streamlit and the tracker merge now make bounded local backups in
+  `data/backups/`. Routine health entries through Oct 8 morning are recorded. Oct 8's tracker
+  merge was a no-op (54 duplicate workouts; latest training Oct 7). The dashboard is responding
+  on port 8502.
+- **Tracker location fix prepared Oct 7, deployment paused by Yannick:** app source v1.7 now
+  selects the gym before starting a workout and refreshes previous sets and weight placeholders
+  when the gym changes during a draft, preserving entered sets. The program remains v1.7; no
+  training data was changed by this code edit. The separate Sep 28 phone data correction is now
+  complete; it did not require deploying this patch.
+- **Sep 28 phone venue correction verified complete (Oct 8).** Yannick imported the isolated
+  correction and re-exported. `yf-tracker-export-2026-10-08.json` (07:15 UTC) now tags Sep 28
+  Upper A as ToTheLimitGym exactly once. All six exercises and 19 sets are unchanged, as are all
+  other workouts and the full program config (YF-UL5 v1.7). The export contains 54 workouts,
+  zero health days and no new workouts. Basic Fit's latest same-venue pulldown reference is
+  Sep 23's 66 kg again; TTL's latest is Oct 5's 70 kg. The CSV was already correct; no CSV write
+  was needed. The original Oct 7 backup and isolated correction file remain untouched.
+- **Venue-aware improvement plan approved Oct 8, production history gates still required.**
+  Yannick considers tracking, Streamlit
+  data entry and training exports satisfactory. The unresolved problems are duplicate workouts
+  by venue, venue selection within the workout flow, and useful load guidance when returning to
+  another setup. He liked the preview and approved continuing the improvement plan. Preserve
+  the local public-app patch and actual program v1.7; no production migration or deployment has
+  occurred. Historical workouts must remain unchanged during an upgrade, with real-history
+  roundtrip, restore and rollback checks required before shipping.
+- **Completed private app review build (Oct 8):** `assets/tracker-preview/index.html`, served at
+  http://127.0.0.1:8503/ (localhost only; Streamlit remains on 8502). Operational superset rounds,
+  substitutions/skipping/custom hotel exercises, first-set load guidance, notes and dated draft
+  recovery are implemented. Persistent review data uses separate IndexedDB and offline caches;
+  the public tracker, active program, CSVs and original phone exports remain untouched.
+- **History-safety gates passed for this review build:** 28 checks with the Oct 8 backup; all
+  54 original workouts, health and program preserved exactly through isolated import/export.
+  Browser restore/reload, one appended test workout, merger dry run and non-destructive checkpoint
+  recovery passed; original source SHA unchanged. Full-history exports carry separate optional
+  review metadata. Active draft imports and conflicting metadata are blocked; recovery opens
+  the correct superset/replacement. The reviewer scored all three reported fixes resolved.
+  Physical iPhone testing and actual deployment remain unperformed; older apps can ignore the
+  metadata, so preserve full review backups to restore advanced settings.
+- **Reference provenance corrected Oct 8:** the preview's invented Oct 4/5 sample dates looked
+  like real Home visits. These now read `Sample visit 1/2/3`, with a source venue on each record.
+  A shared free-weight reference from elsewhere is labeled as shared, not `Last on this setup`;
+  machine references cannot borrow another venue's history. This was a preview display problem,
+  not evidence of corrupted phone history. Original phone exports and CSV records remain unchanged.
+- **Overall Upper B revision pending:** after app improvements are finished, review Upper B as
+  a whole (exercises, volume, pairings and venue configurations). Do not treat today's preview
+  arrangement as final or import a new program yet; active program remains v1.7.
+
 ## Communication/relationship notes worth knowing immediately
 
 - He double-checks your math and reasoning and will call out overreach — when he does, actually
@@ -133,6 +234,7 @@ Full detail in `03_health_medical.md`. Quick state:
   "too much sacrifice" relative to the actual problem (schedule flexibility, not overall time) —
   a reminder that his goals (visible abs + "looking like a lifter") sometimes trade off against
   each other, and he wants that tension named plainly, not smoothed over.
-- Was mid-conversation about migrating from Claude Code to Codex (this file exists because of that
-  migration) — if he asks about anything that seems to reference "the old system," it likely means
-  Claude Code / the automatic memory tool that doesn't exist here; point him at these files instead.
+- The `docs/context/` files carry the project memory originally migrated from Claude Code to
+  Codex. On Oct 7 Yannick planned to continue in GitHub Copilot inside VS Code. He may explore
+  Bevel-inspired presentation later. The venue-aware preview improvement plan was approved Oct 8;
+  this does not waive historical-record protection or authorize an untested production deployment.
