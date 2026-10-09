@@ -997,7 +997,7 @@
             rope: [gear('rope-ttl', 'Rope triceps pushdown', 'Weight stack', 'kg', ['ttl'], reference(35, [13, 13, 12, 10])), gear('rope-bf', 'Rope triceps pushdown', 'Weight stack', 'kg', ['bf'], reference(54, [10, 9, 8, 8]))],
             hsTriceps: [gear('triceps-ttl', 'Hammer Strength triceps extension', 'Plate-loaded', 'kg plates', ['ttl'], reference(46, [12, 12, 10]))],
             preacher: [gear('preacher-ttl', 'Hammer Strength preacher curl', 'Plate-loaded', 'kg logged', ['ttl'], reference(12.5, [10, 9]), 'Oct 7'), gear('preacher-bf', 'Preacher curl machine', 'Weight stack', 'kg', ['bf'], reference(18, [12, 10]), 'Sep 25')],
-            reverse: [shared('reverse-ez', 'EZ-bar reverse curl', 'kg', reference(36, [12, 11, 10]))],
+            reverse: [gear('reverse-cable-ttl', 'Cable reverse curl', 'Cable pulley', 'kg', ['ttl']), shared('reverse-ez', 'EZ-bar reverse curl', 'kg', reference(36, [12, 11, 10]))],
             hammer: [shared('hammer-db', 'Dumbbell hammer curl', 'kg / DB', reference(14, [12, 11, 10]))],
             dyRow: [gear('dy-ttl', 'Hammer Strength D.Y. Row', 'Plate-loaded', 'kg plates', ['ttl'], reference(30, [10, 9, 8, 8]))],
             highRow: [gear('high-ttl', 'Hammer Strength High Row', 'Plate-loaded', 'kg plates', ['ttl'], reference(40, [10, 9, 8]))],
@@ -1014,8 +1014,12 @@
             if (session === 'lower-a') return ttl ? [exercise('belt', 'Belt squat', 4, '8-12', '1-2', '2:30'), exercise('rdl', 'Romanian deadlift', 4, '8', '2', '3:00'), exercise('glute', 'Glute Drive', 3, '8-12', '1', '2:00'), exercise('lyingCurl', 'Lying leg curl', 3, '10-12', '1', '1:30'), ...abs(true)] : [exercise('squat', 'Barbell back squat', 4, '5-8', '2', '3:00'), exercise('splitSquat', 'Bulgarian split squat', 4, '10 / leg', '2', '2:00'), exercise('rdl', 'Romanian deadlift', 4, '8', '2', '3:00'), ...abs(false)];
             if (session === 'lower-b') return ttl ? [exercise('hack', 'Hack squat', 4, '8-12', '1-2', '2:30'), exercise('kneelingCurl', 'Kneeling iso-lateral curl', 3, '10-15 / leg', '1', '1:30'), exercise('extension', 'Leg extension', 3, '10-15', '0-1', '1:30'), ...abs(true)] : [exercise('hack', 'Hack squat', 4, '10', '1-2', '2:30'), exercise('lyingCurl', 'Lying leg curl', 3, '10', '1', '1:30'), exercise('seatedCurl', 'Seated leg curl', 2, '10', '1', '1:30'), exercise('extension', 'Leg extension', 3, '10-12', '0-1', '1:30'), ...abs(false)];
             if (session === 'upper-c') return [ttl ? exercise('dyRow', 'D.Y. Row', 4, '8-12', '1-2', '2:30') : exercise('pulldown', 'Wide-grip pulldown', 4, '8-10', '1-2', '2:30'), exercise('inclinePress', 'Incline dumbbell press', 3, '8-10', '1-2', '2:30'), ttl ? exercise('highRow', 'High Row', 3, '10-12', '1-2', '2:00') : exercise('wideRow', 'Wide-grip row', 3, '10', '1-2', '2:30'), exercise('fly', 'Dumbbell chest fly', 3, '10-12', '1', '1:30'), exercise('pullover', 'Cable pullover', 3, '12', '1', '1:30'), exercise('facePull', 'Face pulls', 3, '12-15', '1', '1:30'), exercise('lateral', 'Lateral raise', 3, '12-15', '1', '1:30')];
-            const shoulders = [exercise('ohp', venue === 'home' ? 'Seated barbell OHP' : 'Standing barbell OHP', 4, '5-8', '2', '3:00'), exercise('shoulderPress', 'Shoulder press machine', 3, '8-12', '0-1', '2:00'), exercise('lateral', 'Lateral raise', 4, '10-15', '1', '1:30'), exercise('rearDelt', 'Rear-delt fly', 3, '12-15', '1', '1:30')];
-            return [...shoulders, exercise('inclineCurl', 'Incline dumbbell curl', 4, '10', '1-2', '1:30', 'Superset: incline curl and triceps'), exercise(ttl ? 'rope' : 'overhead', ttl ? 'Rope triceps pushdown' : 'Overhead triceps', 4, '10', '1-2', '1:30', 'Superset: incline curl and triceps'), exercise('preacher', 'Preacher curl', 4, '10', '1-2', '1:30', 'Superset: preacher curl and triceps'), exercise(ttl ? 'hsTriceps' : 'rope', ttl ? 'HS triceps extension' : 'Triceps pushdown', ttl ? 3 : 4, ttl ? '8-12' : '10', '1-2', '1:30', 'Superset: preacher curl and triceps'), exercise('reverse', 'Reverse curl', 3, '10', '1', '1:30', 'Superset: reverse and hammer curls'), exercise('hammer', 'Hammer curl', 3, '10', '1', '1:30', 'Superset: reverse and hammer curls')];
+            // Upper B (Oct 9 revision): TTL uses its machines; every other venue gets the free-weight adaptation.
+            const shoulders = ttl
+                ? [exercise('ohp', 'Standing barbell OHP', 3, '5-8', '2', '3:00'), exercise('shoulderPress', 'Shoulder press machine', 3, '8-12', '0-1', '2:00'), exercise('lateral', 'Lateral raise', 4, '10-15', '1', '1:30'), exercise('rearDelt', 'Rear-delt machine', 3, '12-15', '1', '1:30')]
+                : [exercise('ohp', venue === 'home' ? 'Seated barbell OHP' : 'Standing barbell OHP', 5, '5-8', '2', '3:00'), exercise('lateral', 'Lateral raise', 4, '10-15', '1', '1:30'), exercise('rearDelt', 'Rear-delt fly', 3, '12-15', '1', '1:30')];
+            const pair = 'Superset: incline curl and rope pushdown';
+            return [...shoulders, exercise('inclineCurl', 'Incline dumbbell curl', 4, '10', '1-2', '1:30', pair), exercise('rope', 'Rope triceps pushdown', 4, '10', '1-2', '1:30', pair), ttl ? exercise('hsTriceps', 'HS triceps extension', 3, '8-12', '1-2', '1:30') : exercise('overhead', 'Overhead triceps', 3, '8-12', '1-2', '1:30'), exercise('preacher', 'Preacher curl', 4, '10', '1-2', '1:30'), exercise('reverse', 'Reverse curl', 3, '10', '1', '1:30')];
         }
         function defaultEquipment(item, venue = state.venue) {
             return resolveEquipment(item, venue);
@@ -1164,7 +1168,7 @@
             document.getElementById('venue').value = state.venue;
             document.getElementById('workout-title').textContent = sessionNames[state.session];
             const items = configuration();
-            document.getElementById('workout-subtitle').textContent = sessionSubtitles[state.session] + ' - ' + items.length + ' exercises' + (state.session === 'upper-b' ? ' - Overall program revision pending' : '');
+            document.getElementById('workout-subtitle').textContent = sessionSubtitles[state.session] + ' - ' + items.length + ' exercises';
             let previousGroup = '';
             document.getElementById('exercise-list').innerHTML = items.map((item, index) => {
                 const partners = item.group.startsWith('Superset') ? items.filter(candidate => candidate.group === item.group) : [];
@@ -1318,7 +1322,7 @@
         const legacyNames = {
             pulldown: ['Tirage vertical prise large'], closeRow: ['Tirage horizontal prise serr\u00e9'], bench: ['D\u00e9velopp\u00e9 couch\u00e9 barre'], singlePull: ['Tirage vertical unilat\u00e9ral'], dips: ['Dips (lest\u00e9s ou BW)'], shrug: ['Shrug barre'], lateral: ['\u00c9l\u00e9vations lat\u00e9rales', '\u00c9l\u00e9vations lat\u00e9rales machine (Flame Sport 3PLX) (optionnel)'],
             squat: ['Back squat barre'], splitSquat: ['Bulgarian split squat'], rdl: ['Romanian deadlift barre'], belt: ['Belt squat'], glute: ['Glute Drive (HS)'], lyingCurl: ['Leg curl allong\u00e9'], seatedCurl: ['Leg curl assis'], kneelingCurl: ['Kneeling leg curl iso-lateral (HS)'], extension: ['Leg extension'], hack: ['Hack squat'], abBench: ['Ab bench crunch'], oblique: ['Oblique crunch machine (HS)'], jackknife: ['Weighted jackknife'], twist: ['Russian twist'], legRaise: ['Leg raise slow'], situp: ['Sit-ups feet on ground (optionnel)'], plank: ['Plank hold'],
-            ohp: ['Standing OHP barbell', 'Seated OHP barbell'], shoulderPress: ['Shoulder press machine (optionnel)'], rearDelt: ['Rear delt cable fly', 'Rear delt machine'], inclineCurl: ['Curl inclin\u00e9 halt\u00e8res'], overhead: ['Overhead triceps'], rope: ['Triceps barre poulie haute'], hsTriceps: ['Triceps Extension machine (HS) (optionnel)'], preacher: ['Preacher curl'], reverse: ['Reverse curl EZ'], hammer: ['Hammer curl'], dyRow: ['Iso-Lateral D.Y. Row (HS)'], highRow: ['Iso-Lateral High Row (HS)'], wideRow: ['Tirage horizontal prise large'], inclinePress: ['D\u00e9velopp\u00e9 inclin\u00e9 halt\u00e8res'], fly: ['\u00c9cart\u00e9 halt\u00e8re pec'], pullover: ['Pull-over cable']
+            ohp: ['Standing OHP barbell', 'Seated OHP barbell'], shoulderPress: ['Shoulder press machine (optionnel)'], rearDelt: ['Rear delt cable fly', 'Rear delt machine'], inclineCurl: ['Curl inclin\u00e9 halt\u00e8res'], overhead: ['Overhead triceps'], rope: ['Triceps barre poulie haute'], hsTriceps: ['Triceps Extension machine (HS) (optionnel)'], preacher: ['Preacher curl'], reverse: ['Reverse curl EZ', 'Reverse curl poulie'], hammer: ['Hammer curl'], dyRow: ['Iso-Lateral D.Y. Row (HS)'], highRow: ['Iso-Lateral High Row (HS)'], wideRow: ['Tirage horizontal prise large'], inclinePress: ['D\u00e9velopp\u00e9 inclin\u00e9 halt\u00e8res'], fly: ['\u00c9cart\u00e9 halt\u00e8re pec'], pullover: ['Pull-over cable']
         };
         function recordTime(date) { const parts = date.split('/').map(Number); return parts.length === 3 ? new Date(parts[2], parts[1] - 1, parts[0]).getTime() : 0; }
         function legacyRecords(key) {
@@ -1331,6 +1335,7 @@
             if (exercise.exerciseKey === 'lateral' && /Flame Sport/i.test(exercise.equipmentName)) return legacyNames.lateral[1];
             if (exercise.exerciseKey === 'rearDelt' && /machine/i.test(exercise.equipmentName)) return 'Rear delt machine';
             if (exercise.exerciseKey === 'rope') return 'Rope triceps pushdown';
+            if (exercise.exerciseKey === 'reverse' && /cable|pulley/i.test(exercise.equipmentName)) return legacyNames.reverse[1];
             return (legacyNames[exercise.exerciseKey] || [exercise.name])[0];
         }
         function legacyWorkout(workout) {
