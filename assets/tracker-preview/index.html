@@ -409,6 +409,14 @@
             flex-shrink: 0;
         }
 
+        .elsewhere {
+            color: var(--muted);
+            font-size: 12px;
+            font-variant-numeric: tabular-nums;
+            overflow-wrap: anywhere;
+            margin: -4px 0 12px;
+        }
+
         .empty-reference {
             color: var(--amber);
             font-size: 13px;
@@ -1041,6 +1049,10 @@
             const common = options.find(option => option.venues.includes(venue));
             return specific || common || gear('unknown-' + venue + '-' + item.key, venueNames[venue] + ' equipment', 'Unidentified setup', 'kg', [venue]);
         }
+        function equipmentAt(item, venue) {
+            const selection = state.equipment.get(venue + '|' + item.key);
+            return state.custom.get(selection) || (equipmentCatalog[item.key] || []).find(option => option.id === selection) || defaultEquipment(item, venue);
+        }
         function selectedEquipment(item) {
             const selection = state.equipment.get(state.venue + '|' + item.key);
             return state.custom.get(selection) || (equipmentCatalog[item.key] || []).find(option => option.id === selection) || defaultEquipment(item);
@@ -1069,6 +1081,31 @@
                 return { record: records[0], label: equipment.kind === 'Free weight' ? 'Shared free-weight reference' : 'Shared bodyweight reference' };
             }
             return null;
+        }
+        // Latest performance of this exercise at another venue, hidden when this venue has a newer one. Display only: never a prefill or a load target.
+        function elsewhereFor(item, equipment) {
+            // Every setup this exercise could have been logged on, at every venue: catalog, custom and each venue's default.
+            const byId = new Map();
+            for (const option of [equipment, ...(equipmentCatalog[item.key] || []), ...[...state.custom.values()].filter(option => option.exerciseKey === item.key), ...Object.keys(venueNames).map(venue => equipmentAt(item, venue))]) byId.set(option.id, option);
+            const options = [...byId.values()];
+            const candidates = [];
+            for (const option of options) for (const record of historyFor(option)) if (record.sets.length) candidates.push(record);
+            for (const record of legacyRecords(item.key)) if (record.exercise.sets.length) candidates.push({ date: record.workout.date, venue: record.venue, sets: record.exercise.sets });
+            candidates.sort((first, second) => recordTime(second.date) - recordTime(first.date));
+            const local = candidates.find(record => record.venue === state.venue);
+            const other = candidates.find(record => record.venue !== state.venue);
+            const shown = referenceFor(equipment);
+            if (!other) return null;
+            // Hide only when the local record is provably newer; undated sample visits cannot prove that.
+            if (local && recordTime(local.date) > recordTime(other.date)) return null;
+            if (shown && shown.record.date === other.date && shown.record.venue === other.venue) return null;
+            return other;
+        }
+        function elsewhereHTML(item, equipment) {
+            const record = elsewhereFor(item, equipment);
+            if (!record) return '';
+            const where = record.venue ? 'Last time in another venue - ' + venueNames[record.venue] : 'Last time - venue not recorded';
+            return '<div class="elsewhere"><span aria-hidden="true">\u2194</span> ' + escapeHTML(where + ' ' + record.date) + ': ' + escapeHTML(formatSets(record.sets, equipment.unit === 'BW', false)) + ' - context only</div>';
         }
         function draftFor(item, equipment = selectedEquipment(item)) {
             const key = state.session + '|' + state.venue + '|' + item.key + '|' + equipment.id;
@@ -1141,7 +1178,7 @@
                 if (partners.length > 1) heading += '<div class="pair-tabs" role="tablist" aria-label="' + escapeHTML(item.group) + '">' + partners.map((partner, partnerIndex) => '<button role="tab" aria-selected="' + (partner.key === active) + '" data-action="pair" data-index="' + items.indexOf(partner) + '">' + (partnerIndex === 0 ? 'A: ' : 'B: ') + escapeHTML(partner.name) + '</button>').join('') + '</div>';
                 previousGroup = item.group;
                 if (isSkipped(item)) return heading + '<article class="exercise" data-exercise="' + item.key + '"><h2>' + escapeHTML(item.name) + '</h2><p class="muted small">Skipped for this workout</p><button class="text-command" data-action="restore-exercise" data-index="' + index + '">Restore exercise</button></article>';
-                return heading + '<article class="exercise" data-exercise="' + item.key + '"><div class="exercise-heading"><div class="exercise-name"><h2>' + escapeHTML(item.name) + '</h2><div class="target">' + item.sets + ' x ' + escapeHTML(item.reps) + (item.rir ? ' - RIR ' + escapeHTML(item.rir) : '') + ' - Rest ' + item.rest + '</div></div><div class="exercise-tools"><button class="icon-button" data-action="equipment" data-index="' + index + '" title="Change ' + escapeHTML(item.name) + ' equipment" aria-label="Change ' + escapeHTML(item.name) + ' equipment">' + icon('settings') + '</button><button class="icon-button" data-action="history" data-index="' + index + '" title="' + escapeHTML(item.name) + ' history" aria-label="' + escapeHTML(item.name) + ' history">' + icon('history') + '</button></div></div><div class="equipment-line">' + icon('pin') + '<span>' + escapeHTML(equipment.name) + ' - ' + escapeHTML(equipment.kind) + '</span></div>' + (!loadConfirmed(equipment) ? '<div class="convention-warning"><span>Recorded load convention unconfirmed</span><button class="text-command" data-action="equipment" data-index="' + index + '">' + (equipment.kind === 'Unidentified setup' ? 'Choose equipment' : 'Choose convention') + '</button></div>' : '') + '<div class="reference">' + (previous ? '<span class="reference-values">' + escapeHTML(formatSets(previous.sets, bodyweight, false)) + '</span><span class="reference-meta">' + (loadConfirmed(equipment) ? escapeHTML(reference.label) : 'Raw recorded sets') + '<br>' + escapeHTML(previous.date) + (previous.venue ? '<br>' + escapeHTML(venueNames[previous.venue]) : '<br>Venue not recorded') + '</span>' : '<span class="empty-reference">No previous sets on this equipment</span>') + '</div><div class="set-head"><span>Set</span><span>' + escapeHTML(loadConfirmed(equipment) ? equipment.unit : 'kg logged') + '</span><span>' + (item.key === 'plank' ? 'Seconds' : 'Reps') + '</span><span>RIR</span><span class="screen-reader">Complete</span></div>' + draft.map((entry, setIndex) => {
+                return heading + '<article class="exercise" data-exercise="' + item.key + '"><div class="exercise-heading"><div class="exercise-name"><h2>' + escapeHTML(item.name) + '</h2><div class="target">' + item.sets + ' x ' + escapeHTML(item.reps) + (item.rir ? ' - RIR ' + escapeHTML(item.rir) : '') + ' - Rest ' + item.rest + '</div></div><div class="exercise-tools"><button class="icon-button" data-action="equipment" data-index="' + index + '" title="Change ' + escapeHTML(item.name) + ' equipment" aria-label="Change ' + escapeHTML(item.name) + ' equipment">' + icon('settings') + '</button><button class="icon-button" data-action="history" data-index="' + index + '" title="' + escapeHTML(item.name) + ' history" aria-label="' + escapeHTML(item.name) + ' history">' + icon('history') + '</button></div></div><div class="equipment-line">' + icon('pin') + '<span>' + escapeHTML(equipment.name) + ' - ' + escapeHTML(equipment.kind) + '</span></div>' + (!loadConfirmed(equipment) ? '<div class="convention-warning"><span>Recorded load convention unconfirmed</span><button class="text-command" data-action="equipment" data-index="' + index + '">' + (equipment.kind === 'Unidentified setup' ? 'Choose equipment' : 'Choose convention') + '</button></div>' : '') + '<div class="reference">' + (previous ? '<span class="reference-values">' + escapeHTML(formatSets(previous.sets, bodyweight, false)) + '</span><span class="reference-meta">' + (loadConfirmed(equipment) ? escapeHTML(reference.label) : 'Raw recorded sets') + '<br>' + escapeHTML(previous.date) + (previous.venue ? '<br>' + escapeHTML(venueNames[previous.venue]) : '<br>Venue not recorded') + '</span>' : '<span class="empty-reference">No previous sets on this equipment</span>') + '</div>' + elsewhereHTML(item, equipment) + '<div class="set-head"><span>Set</span><span>' + escapeHTML(loadConfirmed(equipment) ? equipment.unit : 'kg logged') + '</span><span>' + (item.key === 'plank' ? 'Seconds' : 'Reps') + '</span><span>RIR</span><span class="screen-reader">Complete</span></div>' + draft.map((entry, setIndex) => {
                     const prior = previous && (previous.sets[setIndex] || previous.sets[previous.sets.length - 1]);
                     return '<div class="set-row"><span class="set-number">' + (setIndex + 1) + '</span><input aria-label="' + escapeHTML(item.name) + ' set ' + (setIndex + 1) + ' weight" data-field="weight" data-index="' + index + '" data-set="' + setIndex + '" inputmode="decimal" type="number" min="0" step="any" placeholder="' + (bodyweight ? 'BW' : prior && loadConfirmed(equipment) ? prior.weight : 'kg') + '" value="' + escapeHTML(entry.weight) + '"' + (bodyweight || !loadConfirmed(equipment) ? ' disabled' : '') + '><input aria-label="' + escapeHTML(item.name) + ' set ' + (setIndex + 1) + ' ' + (item.key === 'plank' ? 'seconds' : 'reps') + '" data-field="reps" data-index="' + index + '" data-set="' + setIndex + '" inputmode="numeric" type="number" min="1" step="1" placeholder="' + (prior && loadConfirmed(equipment) ? prior.reps : item.key === 'plank' ? 'sec' : 'reps') + '" value="' + escapeHTML(entry.reps) + '"' + (!loadConfirmed(equipment) ? ' disabled' : '') + '><input aria-label="' + escapeHTML(item.name) + ' set ' + (setIndex + 1) + ' RIR" data-field="rir" data-index="' + index + '" data-set="' + setIndex + '" inputmode="numeric" type="number" min="0" max="10" step="1" placeholder="RIR" value="' + escapeHTML(entry.rir) + '"' + (!loadConfirmed(equipment) ? ' disabled' : '') + '><button class="icon-button' + (entry.done ? ' active' : '') + '" data-action="complete" data-index="' + index + '" data-set="' + setIndex + '" aria-pressed="' + entry.done + '" title="Complete ' + escapeHTML(item.name) + ' set ' + (setIndex + 1) + '" aria-label="Complete ' + escapeHTML(item.name) + ' set ' + (setIndex + 1) + '"' + (!loadConfirmed(equipment) ? ' disabled' : '') + '>' + icon('check') + '</button></div><div class="row-error" id="error-' + index + '-' + setIndex + '" role="status"></div>';
                 }).join('') + '<p class="guidance">' + escapeHTML(guidanceFor(item, equipment)) + '</p><label class="field" for="note-' + index + '">Workout note</label><input id="note-' + index + '" data-note="' + index + '" maxlength="500" value="' + escapeHTML(state.notes.get(state.session + '|' + state.venue + '|' + item.key + '|' + equipment.id) || '') + '"><div class="set-actions"><button class="icon-button" data-action="add-set" data-index="' + index + '" title="Add ' + escapeHTML(item.name) + ' set" aria-label="Add ' + escapeHTML(item.name) + ' set">' + icon('plus') + '</button><button class="icon-button" data-action="remove-set" data-index="' + index + '" title="Remove last ' + escapeHTML(item.name) + ' set" aria-label="Remove last ' + escapeHTML(item.name) + ' set"' + (draft.length === 1 ? ' disabled' : '') + '>' + icon('minus') + '</button><span class="small muted">' + (item.group.startsWith('Superset') ? 'Rest after both partners' : escapeHTML(loadLabel(equipment))) + '</span></div><div class="availability"><button class="text-command" data-action="unavailable" data-index="' + index + '">Equipment unavailable</button>' + (item.slotKey !== item.key ? '<button class="text-command" data-action="restore-exercise" data-index="' + index + '">Original exercise</button>' : '') + '</div></article>';

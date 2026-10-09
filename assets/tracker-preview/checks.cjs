@@ -27,7 +27,7 @@ const context = vm.createContext({
 });
 vm.runInContext(fs.readFileSync(path.join(__dirname, 'review-store.js'), 'utf8'), context);
 vm.runInContext(script, context);
-const api = vm.runInContext('({state, configuration, selectedEquipment, draftFor, workoutEntries, historyFor, referenceFor, loadConfirmed, formatSets, finish, finishSample, loadOptionHTML, closeSheet, completeSet, timer, stopTimer, guidanceFor, knownExercise, legacyWorkout, hasAnyDraftEntries, importBackup, reviewDraft})', context);
+const api = vm.runInContext('({state, configuration, selectedEquipment, draftFor, workoutEntries, historyFor, referenceFor, elsewhereFor, loadConfirmed, formatSets, finish, finishSample, loadOptionHTML, closeSheet, completeSet, timer, stopTimer, guidanceFor, knownExercise, legacyWorkout, hasAnyDraftEntries, importBackup, reviewDraft})', context);
 const backup = require('./review-store.js');
 const catalogBefore = vm.runInContext('JSON.stringify(equipmentCatalog)', context);
 const json = value => JSON.parse(JSON.stringify(value));
@@ -201,6 +201,69 @@ check('A machine reference never falls back to a different venue', () => {
     const equipment = api.selectedEquipment(itemFor('pulldown'));
     api.state.history.set(equipment.id, [{ date: 'Other venue', venue: 'bf', sets: [{ weight: 66, reps: 9, rir: 1 }] }]);
     assert.equal(api.referenceFor(equipment), null);
+});
+
+check('Last time in another venue shows only when the latest performance was elsewhere', () => {
+    const item = itemFor('pulldown'), equipment = api.selectedEquipment(item);
+    api.state.history.set(equipment.id, [
+        { date: '05/10/2026', venue: 'bf', sets: [{ weight: 70, reps: 9, rir: 1 }] },
+        { date: '23/09/2026', venue: 'ttl', sets: [{ weight: 66, reps: 9, rir: 1 }] }
+    ]);
+    assert.equal(api.referenceFor(equipment).record.date, '23/09/2026');
+    assert.equal(api.elsewhereFor(item, equipment).venue, 'bf');
+    assert.equal(api.elsewhereFor(item, equipment).date, '05/10/2026');
+    api.state.venue = 'bf';
+    assert.equal(api.referenceFor(equipment).record.date, '05/10/2026');
+    assert.equal(api.elsewhereFor(item, equipment), null);
+});
+
+check('Demo sample visits keep the other-venue line because they have no dates to compare', () => {
+    reset('upper-a', 'bf');
+    const item = itemFor('pulldown'), equipment = api.selectedEquipment(item);
+    assert.equal(api.referenceFor(equipment).record.venue, 'bf');
+    const other = api.elsewhereFor(item, equipment);
+    assert.ok(other && other.venue !== 'bf');
+});
+
+check('The other-venue rule holds for every venue pair, session and exercise', () => {
+    const venues = ['ttl', 'bf', 'home', 'hotel', 'other'], sessions = ['upper-a', 'lower-a', 'upper-b', 'upper-c', 'lower-b'];
+    const sets = [{ weight: 40, reps: 10, rir: 1 }], failures = [];
+    let pairs = 0;
+    for (const session of sessions) for (const there of venues) for (const here of venues) {
+        if (here === there) continue;
+        reset(session, there);
+        const thereItems = api.configuration();
+        reset(session, here);
+        for (const item of api.configuration()) {
+            const source = thereItems.find(candidate => candidate.key === item.key);
+            if (!source) continue;
+            reset(session, there);
+            const thereEquipment = api.selectedEquipment(source);
+            api.state.history.set(thereEquipment.id, [{ date: '05/10/2026', venue: there, sets }]);
+            api.state.venue = here;
+            const equipment = api.selectedEquipment(item), shown = api.elsewhereFor(item, equipment);
+            const label = session + ' ' + item.key + ' ' + there + '->' + here;
+            const reference = api.referenceFor(equipment);
+            const inBox = reference && reference.record.venue === there && reference.record.date === '05/10/2026';
+            if (!inBox && (!shown || shown.venue !== there || shown.date !== '05/10/2026')) failures.push(label + ' missing');
+            api.state.history.set(equipment.id, [{ date: '06/10/2026', venue: here, sets }, ...(api.state.history.get(equipment.id) || []).filter(record => record.venue !== here)]);
+            if (equipment.id !== thereEquipment.id && api.elsewhereFor(item, equipment)) failures.push(label + ' not hidden after newer local');
+            pairs++;
+        }
+    }
+    assert.ok(pairs > 500, 'only ' + pairs + ' combinations tested');
+    assert.deepEqual(failures, []);
+});
+
+check('A new venue shows the latest performance from anywhere as context only', () => {
+    const item = itemFor('pulldown'), equipment = api.selectedEquipment(item);
+    api.state.history.set(equipment.id, [{ date: '05/10/2026', venue: 'ttl', sets: [{ weight: 70, reps: 9, rir: 1 }] }]);
+    api.state.venue = 'hotel';
+    const hotelEquipment = api.selectedEquipment(item);
+    const other = api.elsewhereFor(item, hotelEquipment);
+    assert.equal(other.venue, 'ttl');
+    assert.equal(other.date, '05/10/2026');
+    assert.equal(api.referenceFor(hotelEquipment), null);
 });
 
 check('Supersets advance partners and start rest only after the pair', () => {
