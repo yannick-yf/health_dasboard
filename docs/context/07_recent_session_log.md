@@ -562,3 +562,19 @@ Physical iPhone validation and deployment remain manual gates. Older apps ignore
 review metadata, so retain the full review backup for drafts/equipment recovery. Overall Upper B
 revision remains pending after the app review; no new program file was created. User preference:
 keep execution bounded and updates direct; do not repeatedly reopen broad review or feature scope.
+
+## Oct 9 2026 - tracker app v2 deployed; Upper B/C revised; full-history review
+
+The venue-aware review build became the production tracker (v2.0, deployed Oct 9; v2.1 prepared
+with the Upper C revision). Training only: no Entry/Trends tabs (health stays in Streamlit), no
+demo data, one-time import of the latest full export into a new database (`yf-tracker-v2`); the
+v1.x data stays untouched, so reverting the commit restores the old app. Program now lives in the
+app code; updates ship via push and the in-app "New version ready" banner. Imported records link
+automatically to a setup when venue and logged name identify exactly one machine. Export: history
+icon → Export full backup → Save to Files → iCloud/yf-tracker; same filename pattern for the merge.
+Upper B and Upper C revised per Yannick (see `02_training_program.md`). Oct 9 `Upper C · TTL`
+merged with corrected labels (Iso-Lateral Row, Front Lat Pulldown, pec fly machine split); the
+one-off bent-over row trial is not logged. HS back machines are logged per side; TTL pec fly is a
+weight stack. Full-history review Jul 19–Oct 9: strength index ~+8% during the cut, weak spots in
+side/rear delt and abs volume and flat incline press/lateral raise. Oct 9 daily review: Oct 8
+nominal deficit 54 kcal; Oct 5–8 mean 109; hold 200. Sleep Oct 8→9: 7h25, no wake or pee.

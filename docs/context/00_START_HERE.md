@@ -1,6 +1,6 @@
 # START HERE — Live State
 
-**Last updated: Oct 8 2026.**
+**Last updated: Oct 9 2026.**
 This file is a living snapshot — edit it in place as things change. Don't let it grow into a log;
 that's what `07_recent_session_log.md` is for.
 
@@ -12,8 +12,8 @@ constraint is permanent context — see `04_profile_goals_and_style.md`).
 
 ## Body, right now
 
-- **Latest measurement (Oct 8): 72.4 kg and 79.6 cm waist.** Weight is unchanged from Oct 7;
-  waist is 0.2 cm lower and matches Oct 2. Oct 6's first fresh post-Budapest
+- **Latest measurement (Oct 9): 72.4 kg and 79.8 cm waist.** Weight is 72.4 for the third
+  morning in a row (Oct 7–9); waist moved 79.8 → 79.6 → 79.8 cm. Oct 6's first fresh post-Budapest
   reading was 73.0 kg / 81.0 cm; Oct 3–5 repeat Oct 2 because Yannick did not measure during the
   trip. The Oct 7–8 reversal puts measurements close to Oct 2 (72.2 kg / 79.6 cm), so treat Oct 6
   as a travel-related fluctuation, not a new trend or fat-gain signal.
@@ -46,14 +46,28 @@ Full protocol in `01_nutrition_wadp.md`. Quick state:
 - **Oct 8 daily review:** Oct 7 completed at Move 1,126 and intake 2,997, a nominal WADP
   deficit of 129 kcal. Oct 5–7 completed deficits were 186, 68 and 129 (mean 128 kcal/day).
   Oct 8's fresh waist reading is back at 79.6 cm; keep Deficit=200, without compensating for
-  travel or treating one morning as a new trend. Oct 8 Move/intake are still pending.
+  travel or treating one morning as a new trend.
+- **Oct 9 daily review:** Oct 8 completed at Move 714 and intake 2,660, a nominal WADP deficit of
+  54 kcal. Oct 5–8 completed deficits were 186, 68, 129 and 54 (mean 109 kcal/day), below the 200
+  setting. Weight and waist are stable, so no change; keep Deficit=200 and aim closer to the target
+  intake. Oct 9 Move/intake are pending.
 - Rule to apply: if waist keeps drifting down at 200 → hold. If it's genuinely stalled → step to
   100. Don't jump straight to 0/surplus — he's deliberately doing a slow ramp (200→100→0→small
   surplus) to avoid a past mistake of overshooting into fat gain during the bulk transition.
 
-## Training — YF-UL5 v1.7 in latest export; venue design under review
+## Training — YF-UL5 in tracker app v2 (venue-aware, since Oct 9)
 
 Full program in `02_training_program.md`. Quick state:
+- **Oct 9 `Upper C · TTL` merged** (17 rows; D.Y. Row/High Row relabelled to Iso-Lateral Row and
+  Iso-Lateral Front Lat Pulldown, machine fly sets split out). Incline DB press 25×8/7/6, up 3
+  reps on Oct 2; pullover 44×12 on two sets (move up); DB fly still 20×8-9 (drop to 18 kg).
+  Upper B and Upper C were revised Oct 9 (see `02_training_program.md`).
+- **Full-history review (Oct 9, Jul 19–Oct 9):** 4.8 sessions/week; 27 of 35 exercise series up,
+  strength index ~+8% while weight −1.4 kg and waist −2.5 cm (recomp). No measurable link between
+  session performance and sleep, deficit, steps or Move within the observed ranges. Weak spots:
+  side/rear delts (~7 and ~3 hard sets/week logged versus ~10 and ~9 planned), abs logged ~6
+  sets/week versus a 20–22 target (logging or execution unclear), incline press and DB lateral
+  raise flat.
 - **Oct 8 same-venue performance review:** eight TTL workout records Sep 28-Oct 7, including
   Sep 29's equipment test. OHP, incline DB curl, Flame Sport raises, close-grip row and ab bench
   show progress on repeated exposures. Pulldown gained reps but Oct 5's last two sets went to
