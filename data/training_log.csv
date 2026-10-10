@@ -1045,3 +1045,20 @@ date,session,exercise_order,exercise,target,set_number,weight,reps,rir,note
 09/10/2026,Upper C · TTL,6,Pull-over cable,3×12,1,44,10,1,"[ToTheLimitGym] light+slow, feel lat stretch; first cut if long"
 09/10/2026,Upper C · TTL,6,Pull-over cable,3×12,2,44,12,1,"[ToTheLimitGym] light+slow, feel lat stretch; first cut if long"
 09/10/2026,Upper C · TTL,6,Pull-over cable,3×12,3,44,12,1,"[ToTheLimitGym] light+slow, feel lat stretch; first cut if long"
+10/10/2026,Lower A,1,Romanian deadlift barre,4x8,1,80,6,1,[ToTheLimitGym]
+10/10/2026,Lower A,1,Romanian deadlift barre,4x8,2,80,6,1,[ToTheLimitGym]
+10/10/2026,Lower A,2,Leg curl allongé,3x10-12,1,46,12,2,[ToTheLimitGym]
+10/10/2026,Lower A,2,Leg curl allongé,3x10-12,2,46,12,1,[ToTheLimitGym]
+10/10/2026,Lower A,2,Leg curl allongé,3x10-12,3,46,9,1,[ToTheLimitGym]
+10/10/2026,Lower A,3,Back squat barre,4x5-8,1,80,5,2,[ToTheLimitGym]
+10/10/2026,Lower A,3,Back squat barre,4x5-8,2,80,5,1,[ToTheLimitGym]
+10/10/2026,Lower A,3,Back squat barre,4x5-8,3,80,5,1,[ToTheLimitGym]
+10/10/2026,Lower A,3,Back squat barre,4x5-8,4,85,3,1,[ToTheLimitGym]
+10/10/2026,Lower A,4,Glute Drive (HS),3x8-12,1,80,16,3,[ToTheLimitGym]
+10/10/2026,Lower A,4,Glute Drive (HS),3x8-12,2,90,15,1,[ToTheLimitGym]
+10/10/2026,Lower A,4,Glute Drive (HS),3x8-12,3,100,12,1,[ToTheLimitGym]
+10/10/2026,Lower A,5,Weighted jackknife,3x12-15 / side,1,40,12,1,[ToTheLimitGym]
+10/10/2026,Lower A,5,Weighted jackknife,3x12-15 / side,2,40,8,0,[ToTheLimitGym]
+10/10/2026,Lower A,5,Weighted jackknife,3x12-15 / side,3,40,8,0,[ToTheLimitGym]
+10/10/2026,Lower A,6,Ab bench crunch,4x10-15,1,12.5,15,2,[ToTheLimitGym]
+10/10/2026,Lower A,6,Ab bench crunch,4x10-15,2,12.5,12,2,[ToTheLimitGym]

@@ -44,10 +44,15 @@ trusting this doc blindly — it can drift.
 - **TTL abs** (both lower days): ab bench crunch 4×10-15, oblique crunch machine (HS)
   3×12-15/side, slow leg raise 2×12-15.
 
-**Load conventions:** the two Hammer Strength back machines (Iso-Lateral Row, Iso-Lateral Front
-Lat Pulldown) are logged **per side**. The TTL pec fly machine is a weight stack. The convention
-for the other TTL plate-loaded machines (HS preacher, shoulder press, triceps extension, Flame
-Sport, belt squat, Glute Drive, hack squat, ab/oblique machines) is not confirmed yet.
+**Load conventions at TTL (confirmed Oct 10):** logged **per side** (plates on one side): the two
+Hammer Strength back machines (Iso-Lateral Row, Iso-Lateral Front Lat Pulldown), the HS shoulder
+press (each arm independent) and the Flame Sport lateral raise. Logged **total plates**: HS triceps
+extension, HS preacher curl, belt squat, hack squat, Glute Drive, ab bench crunch. The pec fly
+machine is a weight stack. HS kneeling iso-lateral leg curl: not confirmed (per leg vs total).
+The preacher's earlier "20×10 vs 12.5×10" drop (Sep 30 vs Oct 7) is therefore still unresolved:
+convention for those two dates was never recorded.
+- **Abs at TTL (v2.2, Oct 10):** the weighted jackknife replaces the oblique crunch machine on both
+  leg days (ab bench crunch 4×10-15, weighted jackknife 3×12, slow leg raise 2×12-15).
 
 One full pass through all 5 sessions = one "cycle." Cycles don't strictly follow a fixed day-of-week
 schedule — Yannick reorders sessions around travel/life and that's fine, as long as the muscle-group

@@ -1,7 +1,7 @@
 """Current Watch-Adaptive Deficit Protocol settings and arithmetic."""
 
 BMR_BASE_KCAL = 2000
-CURRENT_DEFICIT_KCAL = 200
+CURRENT_DEFICIT_KCAL = 100
 
 
 def intake_target(move_kcal: float, deficit_kcal: float = CURRENT_DEFICIT_KCAL) -> float:

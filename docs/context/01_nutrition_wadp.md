@@ -17,7 +17,7 @@ Daily intake target  = Daily TDEE estimate − Deficit
 | Parameter | Value | Notes |
 |---|---|---|
 | `BMR₀` | **2,000 kcal** | Intentionally ~270 above Mifflin-St Jeor estimate, calibrated to offset Apple's known underestimate of active-energy burn. Both errors are roughly constant and cancel out long-term. **Never audit or "correct" this number** — it was empirically validated (see below), not theoretically derived. |
-| `Deficit` | currently 200, see `00_START_HERE.md` | Adjusted in ±100 steps, data-driven only (see triggers below). |
+| `Deficit` | currently 100 (since Oct 9 2026), see `00_START_HERE.md` | Adjusted in ±100 steps, data-driven only (see triggers below). |
 
 ## Why trust this over Apple's own numbers (KEY INSIGHT, proven over a full ~14-week cut)
 

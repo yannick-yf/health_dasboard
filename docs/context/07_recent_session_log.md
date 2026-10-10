@@ -578,3 +578,20 @@ one-off bent-over row trial is not logged. HS back machines are logged per side;
 weight stack. Full-history review Jul 19–Oct 9: strength index ~+8% during the cut, weak spots in
 side/rear delt and abs volume and flat incline press/lateral raise. Oct 9 daily review: Oct 8
 nominal deficit 54 kcal; Oct 5–8 mean 109; hold 200. Sleep Oct 8→9: 7h25, no wake or pee.
+
+## Oct 10 2026 - daily review
+Oct 10 morning: 72.0 kg, 79.5 cm (new waist low), sleep 8h00 perfect, no wake or pee. Oct 9 Move
+was first saved as 3,112 (equal to the Apple total, giving an absurd 2,020 kcal deficit);
+Yannick corrected it to 1,223 → nominal deficit 131 kcal; Oct 5–9 mean 114. Deficit target is 100
+(since Oct 9); impact review planned Sunday Oct 11 / Monday Oct 12. No new tracker export.
+
+## Oct 10 2026 - Lower A merged, cycle 12 closed, tracker v2.2
+Yannick's tracker feedback: timer fixed; weighted jackknife replaces the oblique machine on both
+TTL leg days; weight boxes of unconfirmed plate machines were locked (known TTL machines now start
+with a convention); export was hard to find; iOS auto-zoomed on fields. v2.2 (prepared, user to
+push): labelled Backup button with an unexported counter and an export prompt after each save,
+16px fields, stale idle draft dates cleared on foreground (cause of the Lower A dated Oct 9), and
+TTL load conventions per Yannick (per side: HS back machines, HS shoulder press, Flame Sport;
+total: HS triceps extension, preacher, belt squat, hack squat, glute drive, ab bench). Lower A
+merged as 10/10/2026 with `Weighted jackknife` (backup made; CSV +17 rows). Cycle 12 = Oct 5–10,
+the first complete pass at a single gym (TTL).

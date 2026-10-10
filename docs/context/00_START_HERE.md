@@ -1,6 +1,6 @@
 # START HERE — Live State
 
-**Last updated: Oct 9 2026.**
+**Last updated: Oct 10 2026 (evening).**
 This file is a living snapshot — edit it in place as things change. Don't let it grow into a log;
 that's what `07_recent_session_log.md` is for.
 
@@ -12,15 +12,24 @@ constraint is permanent context — see `04_profile_goals_and_style.md`).
 
 ## Body, right now
 
-- **Latest measurement (Oct 9): 72.4 kg and 79.8 cm waist.** Weight is 72.4 for the third
-  morning in a row (Oct 7–9); waist moved 79.8 → 79.6 → 79.8 cm. Oct 6's first fresh post-Budapest
+- **Latest measurement (Oct 10): 72.0 kg and 79.5 cm waist** — weight 0.4 below the three
+  previous mornings (72.4, Oct 7–9) and a new waist low (previous low 79.6), first morning at the
+  100 target, single reading. Oct 6's first fresh post-Budapest
   reading was 73.0 kg / 81.0 cm; Oct 3–5 repeat Oct 2 because Yannick did not measure during the
   trip. The Oct 7–8 reversal puts measurements close to Oct 2 (72.2 kg / 79.6 cm), so treat Oct 6
   as a travel-related fluctuation, not a new trend or fat-gain signal.
 
-## Nutrition — WADP deficit: currently **200**, Sep 28–Oct 4 review complete
+## Nutrition — WADP deficit: currently **100** (stepped down from 200 on Oct 9)
 
 Full protocol in `01_nutrition_wadp.md`. Quick state:
+- **Oct 9 decision (Yannick): Deficit 200 → 100.** He has been deliberately targeting 100 since
+  coming back from Budapest (Oct 5–8 completed deficits averaged 109). Rationale: 200 has run
+  since Sep 13/14; he still wants belly fat to keep coming off but now wants to give muscle gain
+  more room, and the full-history review shows strength still progressing. This is the planned
+  slow ramp (200 → 100 → 0 → small surplus). **Judge its impact at the weekly review on Sunday
+  Oct 11 / Monday Oct 12:** waist 7- and 14-day averages (still drifting down or flat is fine),
+  weight trend and main-lift strength. The prior week (Sep 28–Oct 4) is Budapest-affected, so also
+  compare against the clean Sep 14–27 weeks. Dashboard constant `CURRENT_DEFICIT_KCAL` set to 100.
 - Ramped down from 300→200 starting Sep 13/14 (cut had hit diminishing returns on waist, and the
   goal-2 tradeoff — "look like a lifter" vs "getting skinnier" — started biting visibly).
 - Held at 200 for two weeks; Sep 24 Yannick considered stepping to 100 (visual "skinny" concern +
@@ -48,9 +57,11 @@ Full protocol in `01_nutrition_wadp.md`. Quick state:
   Oct 8's fresh waist reading is back at 79.6 cm; keep Deficit=200, without compensating for
   travel or treating one morning as a new trend.
 - **Oct 9 daily review:** Oct 8 completed at Move 714 and intake 2,660, a nominal WADP deficit of
-  54 kcal. Oct 5–8 completed deficits were 186, 68, 129 and 54 (mean 109 kcal/day), below the 200
-  setting. Weight and waist are stable, so no change; keep Deficit=200 and aim closer to the target
-  intake. Oct 9 Move/intake are pending.
+  54 kcal. Oct 5–8 completed deficits were 186, 68, 129 and 54 (mean 109 kcal/day), below the
+  200 setting but matching the 100 Yannick was already targeting (formalised the same day, see
+  above). Weight and waist are stable. Oct 9 completed (Move 1,223, intake 3,092) at a nominal 131 kcal
+  deficit; Oct 5–9 mean 114 kcal/day, at the 100 target. (Oct 9's Move was first entered as 3,112,
+  the Apple total, and corrected by Yannick the next morning.) Oct 10 Move/intake pending.
 - Rule to apply: if waist keeps drifting down at 200 → hold. If it's genuinely stalled → step to
   100. Don't jump straight to 0/surplus — he's deliberately doing a slow ramp (200→100→0→small
   surplus) to avoid a past mistake of overshooting into fat gain during the bulk transition.
@@ -58,6 +69,15 @@ Full protocol in `01_nutrition_wadp.md`. Quick state:
 ## Training — YF-UL5 in tracker app v2 (venue-aware, since Oct 9)
 
 Full program in `02_training_program.md`. Quick state:
+- **Oct 10 `Lower A` (TTL) merged — closes cycle 12** (Oct 5 Upper A, Oct 6 Lower B, Oct 7 Upper B,
+  Oct 9 Upper C, Oct 10 Lower A: all five once, all at TTL, 94 sets). The phone had saved it with a
+  stale Oct 9 date and the jackknife on the oblique slot; both were corrected in the CSV (date
+  10/10, exercise `Weighted jackknife`) and app v2.2 fixes the cause. Cycle 11 (Sep 25–Oct 2) had 7
+  sessions including the Sep 29 Lower B and Sep 30 Upper B TTL tests. Cycle 12 vs previous exposures:
+  15 of 24 comparable exercises up, 5 flat, 4 down, median +2.6%.
+  Lower A log: RDL 80×6,6; leg curl 46×12/12/9; back squat 80×5,5,5 + 85×3 (first TTL squat
+  session, new rack — not comparable to Basic Fit's 96 e1RM); Glute Drive 80×16/90×15/100×12;
+  weighted jackknife 40×12/8/8; ab bench 12.5×15/12.
 - **Oct 9 `Upper C · TTL` merged** (17 rows; D.Y. Row/High Row relabelled to Iso-Lateral Row and
   Iso-Lateral Front Lat Pulldown, machine fly sets split out). Incline DB press 25×8/7/6, up 3
   reps on Oct 2; pullover 44×12 on two sets (move up); DB fly still 20×8-9 (drop to 18 kg).
