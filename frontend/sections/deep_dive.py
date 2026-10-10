@@ -11,6 +11,7 @@ import numpy as np
 from plotly.subplots import make_subplots
 import plotly.graph_objects as go
 
+from sections.training_views import render_deep_dive as render_training_deep_dive
 from utils.tdee_calculator import apply_to_dataframe
 from utils.visualization_helpers import _DARK_LAYOUT
 from utils.metrics_helpers import compute_intake_targets
@@ -120,6 +121,8 @@ def render(df):
     # Waist + BF estimates — only rendered if any waist data exists in the bulk window
     if bulk["waist_cm"].notna().any():
         _render_waist_section(bulk, personal_info)
+
+    render_training_deep_dive(df)
 
     col_c, col_d = st.columns(2)
     with col_c:

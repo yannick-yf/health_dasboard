@@ -603,3 +603,12 @@ a TTL seated-curl setup, repairs the stale Oct 9 Lower A date in saved state/imp
 registry for retired exercises still offered in the change-exercise menu (kneeling, oblique,
 hammer, D.Y. row, high row). Bevel reviewed (free core features; Pro $99.99/yr not worth it):
 analysis ideas go in Streamlit, not in the tracker.
+
+Oct 10 (Streamlit): added a Training section to the Weekly Report and its HTML download (cycle
+status, session list, hard sets per muscle versus prior week and prior 4-week average, progress
+and PRs versus each exercise's previous time, venue-aware) via `frontend/utils/training_metrics.py`
+with tests in `tests/test_training_metrics.py` (10 new, all passing with the existing 4). Verified
+against the real log: week Sep 28 = cycle 11 closed (7 sessions incl. 2 TTL test extras), week
+Oct 5 = cycle 12 complete, 93 hard sets, 3 PRs. Not yet committed.
+Same day Yannick said he mainly uses the Analytics Dashboard and Deep Dive, not the Weekly Report,
+so the training view was added to both (compact block on the dashboard, four-tab deep dive).

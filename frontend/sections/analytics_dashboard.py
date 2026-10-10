@@ -7,6 +7,7 @@ import pandas as pd
 from datetime import date, timedelta
 import plotly.graph_objects as go
 from utils.metrics_helpers import calculate_weight_trend, calculate_weight_rate_kgperweek, format_sleep_time
+from sections.training_views import render_dashboard_block
 from utils.visualization_helpers import (
     create_time_series_plot,
     create_weight_chart,
@@ -51,6 +52,7 @@ def render(df):
     # Render dashboard sections
     _render_kpi_cards(daily_df)
     _render_chart_grid(filtered_df, daily_df)
+    render_dashboard_block(df, start_date, end_date)
 
 
 def _render_time_period_selection(df):

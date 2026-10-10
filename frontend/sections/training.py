@@ -12,46 +12,10 @@ import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
 
+from utils.training_metrics import muscle_of as _muscle
+
 ACCENT = "#667eea"
 ACCENT2 = "#f59e0b"
-
-# Ordered keyword → muscle rules. First match wins, so order matters
-# (e.g. "overhead triceps" must hit Triceps before Front delts; "wrist curl"
-# must hit Forearms before Biceps). This classifies REAL exercise names; it is
-# metadata, not fabricated data.
-MUSCLE_RULES = [
-    (["jackknife", "crunch", "russian twist", "sit-up", "situp", "plank",
-      "abdo", "leg raise", "levé de jambe", "leve de jambe", "toes-to-bar",
-      "dead bug", "wood chop", "pallof"], "Abs"),
-    (["mollet", "calf", "calv"], "Calves"),
-    (["wrist", "avant-bras", "forearm"], "Forearms"),
-    (["triceps"], "Triceps"),
-    (["face pull", "rear delt", "oiseau", "reverse pec", "arrière épaule",
-      "arriere epaule"], "Rear delts"),
-    (["élévation latérale", "elevation laterale", "élévations latérales",
-      "elevations laterales", "lateral raise", "side delt"], "Side delts"),
-    (["ohp", "militaire", "shoulder press", "overhead press"], "Front delts"),
-    # Leg rules MUST come before the biceps "curl" rule — "leg curl" contains "curl".
-    (["leg curl", "ischio", "leg-curl"], "Hamstrings"),
-    (["deadlift", "soulevé de terre", "souleve de terre", "sdt", "roumain",
-      "romanian", "pull-through", "pull through"], "Hamstrings"),
-    (["leg extension"], "Quads"),
-    (["squat", "hack", "bulgarian", "fente", "lunge", "presse", "leg press"], "Quads"),
-    (["curl"], "Biceps"),
-    (["shrug", "trapèze", "trapeze"], "Traps"),
-    (["couché", "couche", "incliné", "incline", "écarté", "ecarte", "dips",
-      "pec", "bench", "fly"], "Chest"),
-    (["tirage", "rowing", "row", "traction", "pull-up", "pull up", "pull-over",
-      "pullover", "pulldown"], "Back"),
-]
-
-
-def _muscle(ex):
-    e = str(ex).lower()
-    for kws, m in MUSCLE_RULES:
-        if any(k in e for k in kws):
-            return m
-    return "Other"
 
 
 def _epley(w, reps):

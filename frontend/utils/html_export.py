@@ -15,6 +15,40 @@ def _delta(value, prior, unit, decimals=1):
     return f"{value - prior:+.{decimals}f} {unit} vs prior week" if value is not None and prior is not None else "Prior week unavailable"
 
 
+STATUS_LABELS = {"PR": "PR", "up": "up", "flat": "flat", "down": "down", "new": "new"}
+
+
+def _training_html(training) -> str:
+    if training is None:
+        return "<section><h2>Training</h2><p>Training log unavailable.</p></section>"
+    lines = []
+    for c in training["cycles"]:
+        state = "complete" if c["complete"] else f"{len(c['done'])}/5 so far"
+        todo = f" · still to do: {', '.join(c['missing'])}" if c["missing"] else ""
+        extra = f" · {c['extras']} extra" if c["extras"] else ""
+        lines.append(f"<li>Cycle {c['number']} · {c['start']:%b %d}–{c['end']:%b %d} · "
+                     f"{c['sessions']} sessions ({state}){extra}{todo}</li>")
+    sessions = training["sessions"]
+    if sessions.empty:
+        return f"<section><h2>Training</h2><ul>{''.join(lines)}</ul><p>No sessions logged.</p></section>"
+    table = sessions[["date", "session", "venue", "sets", "cycle"]].to_html(
+        index=False, border=0, classes="grid", escape=True)
+    volume = training["volume"].rename_axis("Muscle").reset_index().to_html(
+        index=False, border=0, classes="grid", escape=True, na_rep="")
+    progress = training["progress"]
+    shown = progress.assign(Status=progress["Status"].map(STATUS_LABELS))[
+        ["Exercise", "Compared", "Best set", "e1RM", "Previous e1RM", "Change %", "Status", "Note"]]
+    prog = shown.to_html(index=False, border=0, classes="grid", escape=True, na_rep="")
+    counts = training["counts"]
+    summary = (f"{training['hard_sets']} hard sets (prior week {training['prior_hard_sets']}) · "
+               f"{counts.get('PR', 0)} PR · {counts.get('up', 0) + counts.get('PR', 0)} up · "
+               f"{counts.get('flat', 0)} flat · {counts.get('down', 0)} down")
+    return (f"<section><h2>Training</h2><ul>{''.join(lines)}</ul>{table}<p>{escape(summary)}</p>"
+            f"<h3>Hard sets per muscle</h3>{volume}<h3>Progress (estimated 1RM)</h3>{prog}"
+            "<p>Free weights are compared across gyms; machines and cables only within the same "
+            "gym. Abs are left out.</p></section>")
+
+
 def render_report_html(report_data: dict) -> str:
     """Render a standalone report with the same metrics as the Streamlit page."""
     r = report_data
@@ -47,10 +81,13 @@ def render_report_html(report_data: dict) -> str:
 <style>body{{font:15px system-ui,sans-serif;background:#0f172a;color:#f0f2f6;max-width:1100px;margin:auto;padding:2rem}}
 .cards{{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1rem}}
 .card{{background:#1e293b;border-radius:10px;padding:1rem;display:flex;flex-direction:column;gap:.4rem}}
-small,span,p{{color:#aeb7c7}}strong{{font-size:1.35rem}}section{{margin:1.5rem 0}}li{{margin:.5rem 0}}</style></head>
+small,span,p{{color:#aeb7c7}}strong{{font-size:1.35rem}}section{{margin:1.5rem 0}}li{{margin:.5rem 0}}
+.grid{{border-collapse:collapse;width:100%;margin:.6rem 0}}.grid th,.grid td{{padding:.35rem .6rem;text-align:left;
+border-bottom:1px solid #334155}}.grid th{{color:#aeb7c7;font-weight:600}}</style></head>
 <body><h1>Weekly Health Report</h1><h2>{r['week_start']:%b %d}–{r['week_end']:%b %d, %Y}</h2>
 <p>Observed WADP = 2,000 + Move − intake; positive means deficit. {r['days_available']}/7 health days,
 {r['deficit_days']} days with Move and intake. Current target deficit: {CURRENT_DEFICIT_KCAL} kcal/day.
 The target is a relative dial; body and strength trends decide changes.</p>
 <section class="cards">{cards_html}</section><section><h2>Notes</h2><ul>{notes_html}</ul></section>
+{_training_html(r.get("training"))}
 <section>{trend}</section><section>{deficit}</section></body></html>"""

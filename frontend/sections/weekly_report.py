@@ -7,6 +7,7 @@ import streamlit as st
 
 from utils.report_generator import generate_weekly_report_data
 from utils.html_export import render_report_html
+from utils.training_metrics import describe_cycle
 from utils.wadp import CURRENT_DEFICIT_KCAL
 
 
@@ -20,6 +21,45 @@ def _metric(value, unit, decimals=1):
 
 def _delta(value, prior, unit, decimals=1):
     return f"{value - prior:+.{decimals}f} {unit} vs prior week" if value is not None and prior is not None else None
+
+
+STATUS_LABELS = {"PR": "🏆 PR", "up": "▲ up", "flat": "= flat", "down": "▼ down", "new": "🆕 new"}
+
+
+def _render_training(training):
+    st.subheader("🏋️ Training")
+    if training is None:
+        st.caption("Training log unavailable.")
+        return
+    for cycle in training["cycles"]:
+        st.markdown(describe_cycle(cycle))
+    sessions = training["sessions"]
+    if sessions.empty:
+        st.info("No training sessions logged this week.")
+        return
+    st.dataframe(sessions[["date", "session", "venue", "sets", "cycle"]]
+                 .rename(columns={"date": "Date", "session": "Session", "venue": "Venue",
+                                  "sets": "Sets", "cycle": "Cycle"}),
+                 hide_index=True, use_container_width=True)
+    counts = training["counts"]
+    cols = st.columns(5)
+    cols[0].metric("Hard sets (RIR ≤ 3)", training["hard_sets"],
+                   f"{training['hard_sets'] - training['prior_hard_sets']:+d} vs prior week")
+    cols[1].metric("🏆 PRs", counts.get("PR", 0))
+    cols[2].metric("▲ Up", counts.get("up", 0) + counts.get("PR", 0))
+    cols[3].metric("= Flat", counts.get("flat", 0))
+    cols[4].metric("▼ Down", counts.get("down", 0))
+    st.markdown("**Hard sets per muscle**")
+    st.dataframe(training["volume"], use_container_width=True)
+    progress = training["progress"]
+    if not progress.empty:
+        st.markdown("**Progress vs the previous time each exercise was done** (estimated 1RM)")
+        shown = progress.assign(Status=progress["Status"].map(STATUS_LABELS))
+        st.dataframe(shown[["Exercise", "Compared", "Best set", "e1RM", "Previous e1RM",
+                            "Change %", "Status", "Note"]], hide_index=True,
+                     use_container_width=True)
+        st.caption("Free weights are compared across gyms; machines and cables only within the "
+                   "same gym, so a first session at a new gym shows as new. Abs are left out.")
 
 
 def render(df: pd.DataFrame):
@@ -75,6 +115,7 @@ def render(df: pd.DataFrame):
     cols[2].metric("Average steps", f"{report['avg_steps']:,.0f}" if report["avg_steps"] is not None else "N/A")
     for note in report["signals"]:
         st.info(note)
+    _render_training(report["training"])
     st.plotly_chart(report["fig_trend"], use_container_width=True)
     st.plotly_chart(report["fig_deficit"], use_container_width=True)
     st.download_button("⬇️ Download HTML Report", render_report_html(report).encode("utf-8"),

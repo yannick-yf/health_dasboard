@@ -5,6 +5,7 @@ from pathlib import Path
 import pandas as pd
 import plotly.graph_objects as go
 
+from utils import training_metrics
 from utils.wadp import BMR_BASE_KCAL, CURRENT_DEFICIT_KCAL
 
 TRAINING_CSV = Path(__file__).resolve().parents[2] / "data" / "training_log.csv"
@@ -35,6 +36,15 @@ def _session_count(start, end, training_csv):
     log["date"] = pd.to_datetime(log["date"], format="%d/%m/%Y", errors="coerce")
     week = log[(log["date"] >= start) & (log["date"] <= end)]
     return len(week.drop_duplicates(["date", "session"]))
+
+
+def _training_summary(df, start, training_csv):
+    """Cycle, hard-set and progress view of the week, or None without a usable training log."""
+    log = training_metrics.load_training_log(training_csv)
+    if log is None:
+        return None
+    weights = df.dropna(subset=["weight"]).drop_duplicates("date").set_index("date")["weight"]
+    return training_metrics.weekly_training_summary(log, start, weights)
 
 
 def _trend_chart(context):
@@ -102,5 +112,6 @@ def generate_weekly_report_data(df: pd.DataFrame, week_start, training_csv=TRAIN
         "prior_sessions": _session_count(start - pd.Timedelta(days=7), start - pd.Timedelta(days=1), Path(training_csv)),
         "avg_sleep_h": _mean(week["sleep_min"]) / 60 if _mean(week["sleep_min"]) is not None else None,
         "avg_steps": _mean(week["steps"]), "signals": signals,
+        "training": _training_summary(context, start, Path(training_csv)),
         "fig_trend": _trend_chart(context), "fig_deficit": _deficit_chart(week),
     }

@@ -121,11 +121,32 @@ sections and helpers. Being evaluated for eventual replacement (Marimo was float
 active migration in progress — treat Streamlit as the live tool.
 
 Data Entry and Weekly Report use the current WADP settings in `frontend/utils/wadp.py` (2,000
-base, currently 200 deficit). Weekly Report uses only days with both Move and intake for observed
+base; deficit 100 since Oct 9 2026). Weekly Report uses only days with both Move and intake for observed
 deficit, compares week-end 7-day weight and 7/14-day waist averages, and counts distinct
 date/session pairs from `data/training_log.csv`. Carried-forward travel measurements have no flag
 in the CSV and remain in moving averages; verify them before making a diet decision. The Deep
 Dive bulk tracker is historical and displays a warning because its old targets are retired.
+
+**Weekly Report training section (Oct 10 2026):** `frontend/utils/training_metrics.py` computes
+the cycle, hard-set and progress view of the selected week from `data/training_log.csv`; it is
+shown on the page and in the HTML download. Cycle numbering follows the notes (a cycle is one pass
+through the five sessions; a repeat or a complete cycle starts the next; cycle 9 = Sep 14, 10 =
+Sep 19, 11 = Sep 25, 12 = Oct 5–10; the Sep 29–30 TTL tests are extras inside cycle 11 —
+`KNOWN_CYCLE_STARTS` / `EXTRA_SESSION_DATES` in that file). Hard sets = RIR ≤ 3 or no RIR.
+Progress is the best estimated 1RM versus the previous time the exercise was done; free weights
+compare across gyms, machines/cables only within one gym, abs are excluded, bench counts from the
+Sep 10 unassisted baseline, and TTL lateral raises are treated as the Flame Sport machine. The
+Training Log page shares the same muscle classification (Glute Drive now counts as Glutes).
+The same analytics feed two pages Yannick actually uses (Oct 10, `frontend/sections/training_views.py`):
+the **Analytics Dashboard** has a compact Training block under its charts that follows the selected
+time period (sessions, hard sets per week, PRs, share of lifts that went up, cycles completed,
+hard sets per muscle per week, lifts up/flat/down per week, PR list), and the **Deep Dive** has a
+"Training deep dive" with four tabs (Cycles, Muscles with freshness and a 12-week heatmap,
+Exercises with a venue-aware drill-down and PR markers, Weekly overview joining hard sets and
+progress with weight, waist, intake, Move, deficit, steps and sleep), placed after the waist
+section. No composite strength index on purpose: a compounded index overstated progress
+(~120 vs ~+7% real average), so progress is shown as lifts up/flat/down against each lift's own
+previous time.
 
 ## Dev environment
 
