@@ -992,15 +992,15 @@ date,session,exercise_order,exercise,target,set_number,weight,reps,rir,note
 06/10/2026,Lower B · TTL,1,Hack squat,4×8-12,4,50,10,1,[ToTheLimitGym] TTL baseline only (test 50×5 @2) — not comparable to Basic Fit
 06/10/2026,Lower B · TTL,2,Kneeling leg curl iso-lateral (HS),3×10-15/leg,1,10,18,2,[ToTheLimitGym] Deux Dernière série seated curl 68kg sur machine
 06/10/2026,Lower B · TTL,2,Kneeling leg curl iso-lateral (HS),3×10-15/leg,2,15,15,1,[ToTheLimitGym] Deux Dernière série seated curl 68kg sur machine
-06/10/2026,Lower B · TTL,2,Kneeling leg curl iso-lateral (HS),3×10-15/leg,3,68,10,1,[ToTheLimitGym] Deux Dernière série seated curl 68kg sur machine
-06/10/2026,Lower B · TTL,2,Kneeling leg curl iso-lateral (HS),3×10-15/leg,4,68,9,1,[ToTheLimitGym] Deux Dernière série seated curl 68kg sur machine
-06/10/2026,Lower B · TTL,3,Leg extension,3×10-15,1,75,15,2,[ToTheLimitGym] TTL Hammer Strength (test 82×10)
-06/10/2026,Lower B · TTL,3,Leg extension,3×10-15,2,82,12,1,[ToTheLimitGym] TTL Hammer Strength (test 82×10)
-06/10/2026,Lower B · TTL,3,Leg extension,3×10-15,3,82,10,0,[ToTheLimitGym] TTL Hammer Strength (test 82×10)
-06/10/2026,Lower B · TTL,4,Ab bench crunch,4×10-15,1,10,15,3,"[ToTheLimitGym] TTL ab bench, loaded; full flexion, 1s squeeze. Test: 10×12"
-06/10/2026,Lower B · TTL,4,Ab bench crunch,4×10-15,2,12.5,10,1,"[ToTheLimitGym] TTL ab bench, loaded; full flexion, 1s squeeze. Test: 10×12"
-06/10/2026,Lower B · TTL,4,Ab bench crunch,4×10-15,3,12.5,9,1,"[ToTheLimitGym] TTL ab bench, loaded; full flexion, 1s squeeze. Test: 10×12"
-06/10/2026,Lower B · TTL,4,Ab bench crunch,4×10-15,4,12.5,9,1,"[ToTheLimitGym] TTL ab bench, loaded; full flexion, 1s squeeze. Test: 10×12"
+06/10/2026,Lower B · TTL,3,Seated leg curl,3×10-15/leg,1,68,10,1,[ToTheLimitGym] Deux Dernière série seated curl 68kg sur machine
+06/10/2026,Lower B · TTL,3,Seated leg curl,3×10-15/leg,2,68,9,1,[ToTheLimitGym] Deux Dernière série seated curl 68kg sur machine
+06/10/2026,Lower B · TTL,4,Leg extension,3×10-15,1,75,15,2,[ToTheLimitGym] TTL Hammer Strength (test 82×10)
+06/10/2026,Lower B · TTL,4,Leg extension,3×10-15,2,82,12,1,[ToTheLimitGym] TTL Hammer Strength (test 82×10)
+06/10/2026,Lower B · TTL,4,Leg extension,3×10-15,3,82,10,0,[ToTheLimitGym] TTL Hammer Strength (test 82×10)
+06/10/2026,Lower B · TTL,5,Ab bench crunch,4×10-15,1,10,15,3,"[ToTheLimitGym] TTL ab bench, loaded; full flexion, 1s squeeze. Test: 10×12"
+06/10/2026,Lower B · TTL,5,Ab bench crunch,4×10-15,2,12.5,10,1,"[ToTheLimitGym] TTL ab bench, loaded; full flexion, 1s squeeze. Test: 10×12"
+06/10/2026,Lower B · TTL,5,Ab bench crunch,4×10-15,3,12.5,9,1,"[ToTheLimitGym] TTL ab bench, loaded; full flexion, 1s squeeze. Test: 10×12"
+06/10/2026,Lower B · TTL,5,Ab bench crunch,4×10-15,4,12.5,9,1,"[ToTheLimitGym] TTL ab bench, loaded; full flexion, 1s squeeze. Test: 10×12"
 07/10/2026,Upper B,1,Standing OHP barbell,4×5-8,1,40,5,1,[ToTheLimitGym]
 07/10/2026,Upper B,1,Standing OHP barbell,4×5-8,2,40,4,1,[ToTheLimitGym]
 07/10/2026,Upper B,2,Shoulder press machine (optionnel),3×8-12,1,20,8,1,"[ToTheLimitGym] si machine dispo — ¾ lockout, 2-3s eccentric"

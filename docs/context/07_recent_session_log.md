@@ -595,3 +595,11 @@ TTL load conventions per Yannick (per side: HS back machines, HS shoulder press,
 total: HS triceps extension, preacher, belt squat, hack squat, glute drive, ab bench). Lower A
 merged as 10/10/2026 with `Weighted jackknife` (backup made; CSV +17 rows). Cycle 12 = Oct 5–10,
 the first complete pass at a single gym (TTL).
+
+Later Oct 10: Yannick replaced the kneeling iso-lateral curl with the seated leg curl in TTL Lower B
+(Lower A keeps the lying curl) and kept the abs plan untrimmed. Oct 6 Lower B CSV rows 3-4 (68×10,
+68×9) relabelled `Seated leg curl` with orders renumbered (backup made); tracker v2.2 also gained
+a TTL seated-curl setup, repairs the stale Oct 9 Lower A date in saved state/imported files, and a
+registry for retired exercises still offered in the change-exercise menu (kneeling, oblique,
+hammer, D.Y. row, high row). Bevel reviewed (free core features; Pro $99.99/yr not worth it):
+analysis ideas go in Streamlit, not in the tracker.

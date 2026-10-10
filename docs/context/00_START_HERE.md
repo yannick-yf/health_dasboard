@@ -85,9 +85,13 @@ Full program in `02_training_program.md`. Quick state:
 - **Full-history review (Oct 9, Jul 19–Oct 9):** 4.8 sessions/week; 27 of 35 exercise series up,
   strength index ~+8% while weight −1.4 kg and waist −2.5 cm (recomp). No measurable link between
   session performance and sleep, deficit, steps or Move within the observed ranges. Weak spots:
-  side/rear delts (~7 and ~3 hard sets/week logged versus ~10 and ~9 planned), abs logged ~6
-  sets/week versus a 20–22 target (logging or execution unclear), incline press and DB lateral
-  raise flat.
+  side/rear delts (~7 and ~3 hard sets/week logged versus ~10 and ~9 planned), abs ~9-10 sets/week
+  in the latest cycle (the 12-week average of ~6 was dragged down by low-logging weeks; the old
+  20–22 target was dropped Oct 10 in favour of ~10-12), incline press and DB lateral raise flat.
+  Next training: Upper A on Monday Oct 12 (cycle 13). Decided Oct 10: TTL Lower B now uses
+  the seated leg curl (Lower A keeps the lying curl). His Oct 6 note said the last two "kneeling"
+  sets (68 kg ×10, ×9 at RIR 1) were a seated curl; the CSV rows were relabelled `Seated leg curl`
+  (exercise_order renumbered), so the next seated curl reference is 68 kg ×10/×9.
 - **Oct 8 same-venue performance review:** eight TTL workout records Sep 28-Oct 7, including
   Sep 29's equipment test. OHP, incline DB curl, Flame Sport raises, close-grip row and ab bench
   show progress on repeated exposures. Pulldown gained reps but Oct 5's last two sets went to

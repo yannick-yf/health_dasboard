@@ -38,8 +38,11 @@ trusting this doc blindly — it can drift.
     sets where there is no machine, e.g. hotels) → cable pullover 3×10-12 (pullover machine tried
     and rejected) → superset face pulls + lateral raises 3×12-15 (kept in the program even though
     Yannick doesn't always do them).
-- **Lower B** (ham/quad accessories + abs): TTL: hack squat 4×8-12 → kneeling iso-lateral leg curl
-  (HS) 3×10-15/leg → leg extension 3×10-15 → TTL abs. Elsewhere: hack squat 4×10 → lying leg
+- **Lower B** (ham/quad accessories + abs): TTL: hack squat 4×8-12 → **seated leg curl 3×10-12**
+  (replaced the kneeling iso-lateral curl on Oct 10; seated curl trains the hamstrings at long
+  length, Maeo 2021: ~14% vs ~9% hamstring growth against a prone curl; reference 68×10, 68×9 on
+  Oct 6) → leg extension 3×10-15 → TTL abs. Hamstring pairing: Lower A lying curl, Lower B seated
+  curl. Elsewhere: hack squat 4×10 → lying leg
   curl 3×10 → seated leg curl 2×10 → leg extension 3×10-12 → abs.
 - **TTL abs** (both lower days): ab bench crunch 4×10-15, oblique crunch machine (HS)
   3×12-15/side, slow leg raise 2×12-15.
@@ -48,7 +51,7 @@ trusting this doc blindly — it can drift.
 Hammer Strength back machines (Iso-Lateral Row, Iso-Lateral Front Lat Pulldown), the HS shoulder
 press (each arm independent) and the Flame Sport lateral raise. Logged **total plates**: HS triceps
 extension, HS preacher curl, belt squat, hack squat, Glute Drive, ab bench crunch. The pec fly
-machine is a weight stack. HS kneeling iso-lateral leg curl: not confirmed (per leg vs total).
+machine is a weight stack. HS kneeling iso-lateral leg curl (no longer programmed, still selectable): per side/leg. The TTL seated leg curl is a weight stack.
 The preacher's earlier "20×10 vs 12.5×10" drop (Sep 30 vs Oct 7) is therefore still unresolved:
 convention for those two dates was never recorded.
 - **Abs at TTL (v2.2, Oct 10):** the weighted jackknife replaces the oblique crunch machine on both
@@ -67,8 +70,11 @@ spacing stays sane (see recovery-window guidance below).
 - When reordering sessions, keep: Chest/Back sessions ~4 days apart where possible, Legs sessions
   ~4 days apart, Shoulders ~2 days apart. A single heavy barbell lift per day keeps sessions to
   ~60-75 min.
-- Abs target ~20-22 sets/week across Lower A + Lower B (deliberately above generic research optimum
-  — this is intentional, abs are priority #1).
+- Abs target revised Oct 10 2026 to ~10-12 sets/week across Lower A + Lower B. The old 20-22 target
+  was dropped at Yannick's request ("20 sets of abs is too much anyway"); his real volume this
+  cycle was 9-10 sets/week (Oct 6: 4 ab bench sets; Oct 10: 3 jackknife + 2 ab bench). The TTL plan
+  keeps ab bench 4, weighted jackknife 3 and slow leg raise 2 per leg day; Yannick decided not to
+  trim it and does 3-4 sets of each ab exercise as time allows.
 
 ## Venue / equipment comparability rules (IMPORTANT — read before judging any progression)
 
