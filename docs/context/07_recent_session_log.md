@@ -612,3 +612,21 @@ against the real log: week Sep 28 = cycle 11 closed (7 sessions incl. 2 TTL test
 Oct 5 = cycle 12 complete, 93 hard sets, 3 PRs. Not yet committed.
 Same day Yannick said he mainly uses the Analytics Dashboard and Deep Dive, not the Weekly Report,
 so the training view was added to both (compact block on the dashboard, four-tab deep dive).
+
+## Oct 11 2026 - daily review
+Oct 11 morning: 72.0 kg, 79.5 cm (same as Oct 10), sleep 7h10, no wake or pee. Oct 10 completed at
+Move 1,194 / intake 3,084 = nominal deficit 110; Oct 5–10 mean 113. Streamlit restarted Oct 10
+(old process since Sep 15 served stale code; a second older instance still runs on port 8501).
+No new tracker export (newest is the Oct 10 file with the stale-dated Lower A, already merged
+corrected; do not merge it again).
+
+## Oct 12 2026 - Upper A merged (cycle 13 opens), daily review, program-change question
+Upper A (TTL) merged from the first v2.2 export (15 rows, backup made). Oct 11 completed at Move
+1,389 / intake 3,204 = nominal deficit 185; Oct 5–11 week mean 123. Oct 12 morning 72.0 kg, 79.5
+cm, sleep 8h21 (wake/pee detail not yet given). Yannick asked what to think of changing the
+program after 12 weeks and noted Upper A took ~70 min for 15 logged working sets.
+
+Oct 12 weekly review (Oct 5–11): hold Deficit=100 for two more clean weeks, decide the step to 0
+on Oct 26. Oct 11→12 night: perfect, no wake or pee (8h21). Program: Yannick decided to keep it
+as is after discussing options (delt supersets, back trim, shorter accessory rests were offered
+and parked; revisit after two more cycles).

@@ -1062,3 +1062,18 @@ date,session,exercise_order,exercise,target,set_number,weight,reps,rir,note
 10/10/2026,Lower A,5,Weighted jackknife,3x12-15 / side,3,40,8,0,[ToTheLimitGym]
 10/10/2026,Lower A,6,Ab bench crunch,4x10-15,1,12.5,15,2,[ToTheLimitGym]
 10/10/2026,Lower A,6,Ab bench crunch,4x10-15,2,12.5,12,2,[ToTheLimitGym]
+12/10/2026,Upper A,1,Tirage vertical prise large,3x8-10,1,70,11,1,[ToTheLimitGym]
+12/10/2026,Upper A,1,Tirage vertical prise large,3x8-10,2,70,9,1,[ToTheLimitGym]
+12/10/2026,Upper A,1,Tirage vertical prise large,3x8-10,3,70,9,1,[ToTheLimitGym]
+12/10/2026,Upper A,2,Tirage horizontal prise serré,3x10,1,70,9,1,[ToTheLimitGym] 70 too heavy - 60 sliglthy too light
+12/10/2026,Upper A,2,Tirage horizontal prise serré,3x10,2,70,9,1,[ToTheLimitGym] 70 too heavy - 60 sliglthy too light
+12/10/2026,Upper A,2,Tirage horizontal prise serré,3x10,3,60,12,1,[ToTheLimitGym] 70 too heavy - 60 sliglthy too light
+12/10/2026,Upper A,3,Développé couché barre,4x5-8,1,65,6,1,[ToTheLimitGym]
+12/10/2026,Upper A,3,Développé couché barre,4x5-8,2,65,5,1,[ToTheLimitGym]
+12/10/2026,Upper A,3,Développé couché barre,4x5-8,3,65,5,1,[ToTheLimitGym]
+12/10/2026,Upper A,3,Développé couché barre,4x5-8,4,65,4,0,[ToTheLimitGym]
+12/10/2026,Upper A,4,Tirage vertical unilatéral,3x10,1,56,10,2,[ToTheLimitGym]
+12/10/2026,Upper A,4,Tirage vertical unilatéral,3x10,2,56,10,1,[ToTheLimitGym]
+12/10/2026,Upper A,5,Dips (lestés ou BW),3x8-10,1,10,8,1,[ToTheLimitGym]
+12/10/2026,Upper A,5,Dips (lestés ou BW),3x8-10,2,10,8,1,[ToTheLimitGym]
+12/10/2026,Upper A,5,Dips (lestés ou BW),3x8-10,3,10,8,1,[ToTheLimitGym]

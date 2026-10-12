@@ -1,6 +1,6 @@
 # START HERE — Live State
 
-**Last updated: Oct 10 2026 (evening).**
+**Last updated: Oct 12 2026.**
 This file is a living snapshot — edit it in place as things change. Don't let it grow into a log;
 that's what `07_recent_session_log.md` is for.
 
@@ -12,9 +12,9 @@ constraint is permanent context — see `04_profile_goals_and_style.md`).
 
 ## Body, right now
 
-- **Latest measurement (Oct 10): 72.0 kg and 79.5 cm waist** — weight 0.4 below the three
-  previous mornings (72.4, Oct 7–9) and a new waist low (previous low 79.6), first morning at the
-  100 target, single reading. Oct 6's first fresh post-Budapest
+- **Latest measurement (Oct 12): 72.0 kg and 79.5 cm waist** — the same for the third morning in
+  a row (Oct 10–12): 0.4 below the Oct 7–9 plateau at 72.4 and at the waist low (previous low
+  79.6), first days at the 100 target, still too early to call a trend. Oct 6's first fresh post-Budapest
   reading was 73.0 kg / 81.0 cm; Oct 3–5 repeat Oct 2 because Yannick did not measure during the
   trip. The Oct 7–8 reversal puts measurements close to Oct 2 (72.2 kg / 79.6 cm), so treat Oct 6
   as a travel-related fluctuation, not a new trend or fat-gain signal.
@@ -61,7 +61,21 @@ Full protocol in `01_nutrition_wadp.md`. Quick state:
   200 setting but matching the 100 Yannick was already targeting (formalised the same day, see
   above). Weight and waist are stable. Oct 9 completed (Move 1,223, intake 3,092) at a nominal 131 kcal
   deficit; Oct 5–9 mean 114 kcal/day, at the 100 target. (Oct 9's Move was first entered as 3,112,
-  the Apple total, and corrected by Yannick the next morning.) Oct 10 Move/intake pending.
+  the Apple total, and corrected by Yannick the next morning.) Oct 10 completed (Move 1,194,
+  intake 3,084) at a nominal 110 kcal deficit; Oct 5–10 mean 113 kcal/day (six completed days:
+  186, 68, 129, 54, 131, 110), at the 100 target. Oct 11 completed (Move 1,389, intake 3,204) at a nominal 185
+  kcal deficit, so Oct 5–11 (the full Mon–Sun week) averaged 123 kcal/day.
+- **Weekly review Oct 5–11 (first week at 100), run Oct 12: HOLD Deficit=100.** Nominal deficit
+  123 (target 100; days 186/68/129/54/131/110/185), intake 2,975, Move 1,098, steps 8.9k, sleep
+  7.7 h. Weight MA7 72.34 (prior 72.37) and waist MA7 79.83 (+0.09) / MA14 79.79 (+0.02) look flat
+  but are distorted: Oct 3–5 repeat Oct 2 (no measuring in Budapest) and Oct 6 was a 73.0 / 81.0
+  post-trip outlier. The fresh readings since Oct 7 are the lowest logged: weight 72.4, 72.4, 72.4,
+  72.0, 72.0, 72.0 and waist 79.8, 79.6, 79.8, 79.5, 79.5, 79.5; excluding Oct 6 the week's waist
+  mean is ~79.63 versus 79.74 the week before. Strength: cycle 12 complete, 14 lifts up (3 PRs), 5
+  flat, 5 down (the downs are mostly non-comparable: preacher convention, kneeling-curl test
+  baseline, first squat on the TTL rack), 93 hard sets (+5), 5 sessions. Plan: hold 100 for at
+  least two clean weeks (Oct 12–25), then decide Oct 26 whether waist/strength allow the step to
+  0; do not step on this week's noisy data. Aim intake closer to the target (2,000 + Move − 100).
 - Rule to apply: if waist keeps drifting down at 200 → hold. If it's genuinely stalled → step to
   100. Don't jump straight to 0/surplus — he's deliberately doing a slow ramp (200→100→0→small
   surplus) to avoid a past mistake of overshooting into fat gain during the bulk transition.
@@ -69,6 +83,11 @@ Full protocol in `01_nutrition_wadp.md`. Quick state:
 ## Training — YF-UL5 in tracker app v2 (venue-aware, since Oct 9)
 
 Full program in `02_training_program.md`. Quick state:
+- **Oct 12 `Upper A` (TTL) merged — opens cycle 13**, the first export from tracker v2.2 (date and
+  names correct). Pulldown 70×11/9/9, row 70×9/9 then 60×12 (note: 70 too heavy, 60 slightly too
+  light), bench 65×6/5/5/4 @0, single-arm pulldown 56×10/10, dips +10×8×3. Shrug/lateral
+  raise/face pull finisher not logged; Yannick says the logged work already took ~70 minutes.
+  He is considering changing the program (see the discussion in the Oct 12 log entry).
 - **Oct 10 `Lower A` (TTL) merged — closes cycle 12** (Oct 5 Upper A, Oct 6 Lower B, Oct 7 Upper B,
   Oct 9 Upper C, Oct 10 Lower A: all five once, all at TTL, 94 sets). The phone had saved it with a
   stale Oct 9 date and the jackknife on the oblique slot; both were corrected in the CSV (date
