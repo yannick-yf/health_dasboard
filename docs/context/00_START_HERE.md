@@ -1,6 +1,6 @@
 # START HERE — Live State
 
-**Last updated: Oct 12 2026.**
+**Last updated: Oct 19 2026 (evening).**
 This file is a living snapshot — edit it in place as things change. Don't let it grow into a log;
 that's what `07_recent_session_log.md` is for.
 
@@ -18,6 +18,13 @@ constraint is permanent context — see `04_profile_goals_and_style.md`).
   reading was 73.0 kg / 81.0 cm; Oct 3–5 repeat Oct 2 because Yannick did not measure during the
   trip. The Oct 7–8 reversal puts measurements close to Oct 2 (72.2 kg / 79.6 cm), so treat Oct 6
   as a travel-related fluctuation, not a new trend or fat-gain signal.
+
+- **Body fat estimate (Oct 14): about 13%** (range 12–13.5). Formulas on the Oct 10–14 averages
+  (72.1 kg, 79.6 cm): RFM 17.5, Deurenberg 16.9, YMCA 11.7 (mean 15.4 — overstates for a lifter);
+  anchored to the July 5 US Navy reading (~14%) they give ~11.3–13.4, centre ~12. Yannick's visual
+  self-check (upper abs relaxed, centre line, lower abs) says 13–14%, closer to 13, some days ~12.
+  Working number 13%; goal (4 abs visible in normal light) ≈ 12%, ~0.7 kg of fat away. Add a neck
+  measurement to run US Navy again; compare monthly photos in the same light.
 
 ## Nutrition — WADP deficit: currently **100** (stepped down from 200 on Oct 9)
 
@@ -83,6 +90,69 @@ Full protocol in `01_nutrition_wadp.md`. Quick state:
 ## Training — YF-UL5 in tracker app v2 (venue-aware, since Oct 9)
 
 Full program in `02_training_program.md`. Quick state:
+- **Oct 19 `Upper C` (TTL) merged — cycle 14, 2/5** (Lower B Oct 18, Upper C Oct 19): Iso-Lateral
+  Row 40×11/12/12/10 (all four sets at 40, up from 30/35/40/40 on Oct 9); Front Lat Pulldown
+  35×9/9/8 (up from 25/30/35); incline DB press 25×8×3 (was 8/7/6); DB fly 20×10 @0, 9; pec fly
+  machine 40×11/10; cable pullover 44×14 then 50×9. Face pull/lateral raise finisher skipped
+  on purpose (Upper B, a shoulder/arm day, is tomorrow; shoulders should be ~2 days apart). Cycle 13 closed 4/5 without Lower A.
+- **Weekly review Oct 12–18, run Oct 19: no change to the dial (100); no step on this week's data.**
+  Nominal deficit 47 kcal/day (93, 97, 139, −93, −79, 68, 102 — two uncontrolled Paris days and a
+  restaurant evening); the two weeks at the 100 setting average ~85. Intake 3,112, Move 1,159, steps
+  10.8k, sleep 7.3 h. Weight MA7 72.21 (prior 72.34), waist MA7 79.59 (prior 79.83), MA14 79.71
+  (79.79): flat-to-down, fresh waist readings 79.3–79.6 (new low 79.3 on Oct 15), Oct 18/19 weight
+  72.7 after two high-intake days (food/water). Training: 5 sessions (Upper A, Lower B, Upper B,
+  Upper C at Basic Fit, Lower B), 76 hard sets (−17 vs 93: no abs logged, finisher cut), cycle 13
+  4/5 (Lower A missing), cycle 14 opened Oct 18; 13 lifts up (3 PRs), 2 flat, 3 down (incline
+  press −4% after doing the pec fly first, close-grip row −5% at 70 kg "too heavy", single-arm
+  pulldown −2%). Side delts only 4 hard sets, abs 0. Open decision: Yannick's "5+2" idea (5 days
+  deficit ~300, 2 planned flexible days, review ~Nov 16) versus holding 100 to the Oct 26 review.
+- **Oct 18 `Lower B` (TTL) merged — opens cycle 14** (10 rows, no abs logged): hack squat 70×8 ×3
+  @2 then 80×3 @0 (Oct 13: 55/60/65/70×8); seated leg curl 70.5×12 ×3 @2/2/1 (top of the 10–12
+  range on all sets, so raise the load next time); leg extension 84.5×11/9/8.
+- **Oct 18 daily review (weekly review planned Oct 19):** Oct 16 (Paris trip, uncontrolled day):
+  Move 1,421, intake 3,500, nominal −79; Oct 17 (rest/Paris): Move 1,074, intake 3,006, nominal +68;
+  steps 19.2k and 18.7k. Oct 18 morning 72.7 kg (+0.6 after two high-intake days), waist 79.6, sleep
+  8h47. Yannick finds the planned-deficit boredom real and free days energising; proposed a "5+2"
+  structure (5 days deficit ~300, 2 flexible days at maintenance to +200, review ~Nov 16) — his
+  choice pending. Oct 16 `Upper C` at Basic Fit merged (4 exercises, partial): pulldown 66×9/9/8,
+  wide-grip row 52×17 then 59×13/12/11, incline DB press 26×5, 24×7/6 (pec fly done first, fatigue),
+  new Basic Fit pec fly machine 59×15, 66×10/9. Cycle 13 is
+  4/5 (Upper A Oct 12, Lower B Oct 13, Upper B Oct 14, Upper C Oct 16; only Lower A is missing).
+  Next: Sun Oct 18 Lower B, Upper C, Upper B — a repeated Lower B starts cycle 14, so cycle 13
+  closes incomplete at 4/5 (like cycles 8–10) unless Lower A is done first.
+- **Oct 16 daily review:** Oct 15 intake was revised by Yannick to 2,800 (Move 707 → nominal
+  deficit −93, a small surplus; target intake was 2,607). Breakfast 620 and lunch 711 were exact;
+  the Indian restaurant dinner (chicken tikka masala, plain naan, ~50 g rice, two rum cocktails,
+  the second very light and the naan small) is an estimate (Claude's first guess was ~3,000).
+  Treat the day as directional only; do not compensate. Oct 16 morning 72.1 kg, 79.6 cm, sleep 5h53
+  (7:41 train from Mulhouse, by schedule).
+- **Oct 15 daily review:** Oct 14 completed (Move 929, intake 2,790) at a nominal 139 kcal deficit
+  (a low-Move Upper B day). Oct 15 morning 72.1 kg and 79.3 cm — a new waist low — with a short
+  night (6h21) because he went to bed late, not a sleep problem; Oct 15→16 will also be short (7:41
+  train from Mulhouse). Cycle 13 is 3/5 (Upper A Oct 12, Lower B Oct 13, Upper B Oct
+  14; still to do Lower A and Upper C).
+- **Oct 14 `Upper B` (TTL, new layout) merged** (28 rows): OHP 40×6 @0 / 40×4; HS shoulder press
+  20×8, 15×12, 17.5×10 (per arm); Flame Sport lateral 2.5×12/10/10 + 0×18; rear-delt machine
+  54×12/10/9; incline curl 12.5×11/9/8/8 (PR); HS triceps extension 48.5×12/10/9; preacher
+  12.5×12/8/7; cable reverse curl 35×13, 42.5×8 (first session, new baseline); rope pushdown
+  43×10/9/8/8. Cycle 13 so far: 12 lifts up (2 PRs), 1 flat, 2 down (close-grip row, single-arm
+  pulldown), 2 new.
+- **Oct 14 daily review:** Oct 13 completed (Move 1,070, intake 2,973) at a nominal 97 kcal deficit,
+  on the 100 target (Oct 5–13 completed days average ~115). Oct 14 morning 72.5 kg (+0.5 after a
+  beef dinner), waist 79.5, sleep 7h54 with a night wake from stomach pain that Yannick attributes
+  to the beef; single readings, no change. Upper B planned later today.
+- **Oct 13 `Lower B` (TTL) merged** (cycle 13, 2nd session): hack squat 55×12, 60×12, 65×10,
+  70×8 (first working sets after the 50×10 baseline, big jump); seated leg curl 68×12, 75×7 @0,
+  70.5×8 (its first full session; the phone logs it as `Leg curl assis`, the same exercise as the
+  Oct 6 `Seated leg curl` sets); leg extension 82×12, 89×10, 82×9. No abs: see the pain note below.
+- **Abs soreness (Oct 12–13):** after the Oct 12 Upper A Yannick's abs were very sore (felt on the
+  lat pulldown movement); no pain by Oct 13 and he skipped abs on Lower B. Consistent with heavy
+  soreness, not an injury; if it recurs or any red flag appears (bulge, pain at rest or worsening,
+  fever, vomiting, sudden pop) he should see a doctor. Resume abs normally once pain-free.
+  The Oct 13 waist of 80.0 cm (+0.5) is treated as noise.
+- **Oct 13 hack squat gain is not like-for-like:** different machine and hands positioned
+  differently (more strength) plus a harder push; do not use it as a progression baseline claim.
+  The four CSV rows carry this in their note.
 - **Oct 12 `Upper A` (TTL) merged — opens cycle 13**, the first export from tracker v2.2 (date and
   names correct). Pulldown 70×11/9/9, row 70×9/9 then 60×12 (note: 70 too heavy, 60 slightly too
   light), bench 65×6/5/5/4 @0, single-arm pulldown 56×10/10, dips +10×8×3. Shrug/lateral

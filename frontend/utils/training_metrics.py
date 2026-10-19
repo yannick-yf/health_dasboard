@@ -21,6 +21,8 @@ SESSION_FAMILIES = ["Upper A", "Lower A", "Upper B", "Upper C", "Lower B"]
 KNOWN_CYCLE_STARTS = [date(2026, 9, 14), date(2026, 9, 19), date(2026, 9, 25)]
 EXTRA_SESSION_DATES = [date(2026, 9, 29), date(2026, 9, 30)]
 
+# Names the log uses for one exercise (the phone app exports the French name).
+EXERCISE_ALIASES = {"Seated leg curl": "Leg curl assis"}
 VENUE_ALIASES = {"BF Saint-Louis": "Basic Fit", "Basic Fit Paris - no hack squat": "Basic Fit"}
 BENCH_UNASSISTED_FROM = pd.Timestamp("2026-09-10")
 HARD_SET_MAX_RIR = 3  # sets at RIR 0-3, or with no RIR logged, count as hard sets
@@ -142,6 +144,7 @@ MUSCLE_RULES = [
 CAVEATS = {
     ("Preacher curl", "ToTheLimitGym"): "Load convention was not recorded on the earlier dates",
     ("Kneeling leg curl iso-lateral (HS)", "ToTheLimitGym"): "Earlier set was an equipment test",
+    ("Hack squat", "ToTheLimitGym"): "Oct 13 used a different machine and hand position",
 }
 
 REQUIRED_COLUMNS = {"date", "session", "exercise", "weight", "reps", "rir", "note"}
@@ -166,6 +169,7 @@ def load_training_log(path):
     t["dt"] = pd.to_datetime(t["date"], format="%d/%m/%Y", errors="coerce")
     for column in ["weight", "reps", "rir"]:
         t[column] = pd.to_numeric(t[column], errors="coerce")
+    t["exercise"] = t["exercise"].replace(EXERCISE_ALIASES)
     t["family"] = t["session"].str.replace(r"\s*·\s*TTL$", "", regex=True).str.strip()
     venue = t["note"].fillna("").str.extract(r"^\[([^\]]+)\]")[0].fillna("Unrecorded")
     t["venue"] = venue.replace(VENUE_ALIASES)

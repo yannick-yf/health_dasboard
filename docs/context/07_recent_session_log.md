@@ -630,3 +630,55 @@ Oct 12 weekly review (Oct 5–11): hold Deficit=100 for two more clean weeks, de
 on Oct 26. Oct 11→12 night: perfect, no wake or pee (8h21). Program: Yannick decided to keep it
 as is after discussing options (delt supersets, back trim, shorter accessory rests were offered
 and parked; revisit after two more cycles).
+
+## Oct 13 2026 - Lower B merged, abs pain reported
+Lower B (TTL) merged from the Oct 13 export (10 rows, backup made). Oct 12 completed at Move 1,098
+/ intake 3,005 = nominal deficit 93. Oct 13 morning 72.0 kg, 80.0 cm (+0.5), sleep 7h10. Yannick
+reported abdominal pain after Upper A that the lat pulldown movement triggers; no abs trained on
+Lower B. `Leg curl assis` and `Seated leg curl` are now treated as one exercise in the Streamlit
+analytics (`EXERCISE_ALIASES`).
+Oct 13 follow-up: abs soreness gone by Oct 13 (heavy DOMS after Upper A, not an injury); night
+Oct 12→13: one wake to pee, expected per Yannick. The Oct 13 hack squat used a different machine
+and a new hand position, annotated in the CSV note column (backup made) and in the report's
+caveat column.
+
+Oct 14: Oct 13 completed at nominal deficit 97. Morning 72.5 kg / 79.5 cm, sleep 7h54, night wake
+with stomach pain (likely a heavy beef dinner, per Yannick; if it recurs after ordinary meals,
+mention to a doctor). No new tracker export; Upper B planned later.
+
+Oct 14: body fat estimated at ~13% (formulas anchored to July's US Navy ~14% give ~12; Yannick's
+visual check says 13–14%). Goal ~12%. No change to the 100 deficit before the Oct 26 review.
+
+## Oct 15 2026 - Upper B merged (cycle 13 at 3/5)
+Upper B (TTL, new layout) merged from the Oct 14 export (28 rows, backup made). Oct 14 completed at
+nominal deficit 139 (Move 929 / intake 2,790). Oct 15 morning 72.1 kg / 79.3 cm (waist low), sleep
+6h21. Cycle 13: Upper A, Lower B, Upper B done; Lower A and Upper C to do.
+Oct 15: short night (6h21) was a late bedtime; the next night will be short too (7:41 train).
+
+Oct 16: Oct 15 dinner out (Indian restaurant, two rum cocktails); intake entered 2,500, Claude's
+estimate ~3,000 (range 2,630–3,300). Morning 72.1 kg / 79.6 cm, sleep 5h53 (early train).
+Oct 16: Yannick revised the Oct 15 intake to 2,800 (second cocktail very light, naan small) → nominal deficit −93.
+
+## Oct 16 2026 - training plan and a proposed 2,000 kcal "reverse diet"
+Plan: Sat Oct 17 rest; Sun Oct 18 Lower B, then Upper C, then Upper B (a new cycle; cycle 13 stays at
+4/5 with only Lower A undone after the Oct 16 Upper C). WADP has run 94 days (since Jul 14); Jul 14–Oct 15 averages:
+intake 2,954, Move 1,039; last 28 days intake 2,977, nominal deficit only 53 but weight MA7 −0.79
+kg (implied real deficit ~220, implied maintenance ~3,200). Yannick, bored of WADP, proposed 10–15
+days starting at 2,000 kcal/day regardless of activity, +100 every 3 days only if losing weight.
+Claude's analysis: that is a ~1,000 kcal/day cut (≈ −3 kg on the scale in 15 days, ~1.5 kg/week,
+red tier of the protocol), not a reverse diet; a real reverse starts at current intake (~3,000)
+and rises. Decision pending; the Oct 26 review stays the default.
+
+## Oct 18 2026 - Upper C (Basic Fit) merged; Paris days logged
+Oct 16 Upper C at Basic Fit merged from the Oct 16 export (partial session, backup made). Oct 16–17
+were uncontrolled Paris days (nominal −79 and +68, 19k steps each); morning Oct 18 72.7 kg / 79.6
+cm / 8h47. Weekly review planned Oct 19 (week Oct 12–18).
+Correction (Oct 18): cycle 13 = Upper A, Lower B, Upper B, Upper C = 4/5, only Lower A missing; the earlier 3/5 notes predate the Oct 16 Upper C.
+Oct 18: Lower B (TTL) merged from the Oct 18 export (10 rows, backup made); it opens cycle 14; seated curl hit the top of its range.
+
+## Oct 19 2026 - weekly review (Oct 12–18)
+No dial change. Nominal deficit 47/day with three uncontrolled days; waist stable at its lows,
+weight steady; 5 sessions, 76 hard sets, 13 lifts up. Oct 18 Move 1,812 / intake 3,710 (nominal
++102). Pending: choose flexible days for the "5+2" plan, and abs/delt volume was low this week.
+Oct 19: Upper C (TTL) merged from the Oct 19 export (cycle 14 at 2/5, backup made); strong progress on both back machines and the incline press.
+Oct 19: Yannick skipped the lateral raise/face pull finisher on Upper C deliberately because Upper B (shoulders/arms) is the next day; not a time or adherence gap.

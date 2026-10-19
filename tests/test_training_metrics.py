@@ -223,6 +223,15 @@ class VolumeTests(unittest.TestCase):
         self.assertEqual(summary["volume"].loc["Abs", "This week"], 1)
         self.assertNotIn("Weighted jackknife", summary["progress"]["Exercise"].tolist())
 
+    def test_seated_curl_names_are_one_exercise(self):
+        log = make_log([
+            ("06/10/2026", "Lower B", "Seated leg curl", 68, 10, 1, "ToTheLimitGym"),
+            ("13/10/2026", "Lower B", "Leg curl assis", 68, 12, 1, "ToTheLimitGym"),
+        ])
+        progress = tm.weekly_training_summary(log, "2026-10-12")["progress"]
+        self.assertEqual(progress["Exercise"].tolist(), ["Leg curl assis"])
+        self.assertEqual(progress["Status"].tolist(), ["up"])
+
     def test_missing_or_incomplete_logs_give_none(self):
         self.assertIsNone(tm.load_training_log(Path(tempfile.mkdtemp()) / "nothing.csv"))
         path = Path(tempfile.mkdtemp()) / "partial.csv"
