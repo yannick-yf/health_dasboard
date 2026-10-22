@@ -682,3 +682,8 @@ weight steady; 5 sessions, 76 hard sets, 13 lifts up. Oct 18 Move 1,812 / intake
 +102). Pending: choose flexible days for the "5+2" plan, and abs/delt volume was low this week.
 Oct 19: Upper C (TTL) merged from the Oct 19 export (cycle 14 at 2/5, backup made); strong progress on both back machines and the incline press.
 Oct 19: Yannick skipped the lateral raise/face pull finisher on Upper C deliberately because Upper B (shoulders/arms) is the next day; not a time or adherence gap.
+Oct 20: Oct 19 intake 2,900 (Greek restaurant dinner ~1,200 estimated by Yannick) → nominal −69; morning 72.7 kg / 80.0 cm / 7h11; no new export yet (Upper B today).
+Oct 20: Yannick plans a clean week (Oct 20–25) with no flexible days; Upper B later today.
+Oct 20: Upper B (TTL) merged (cycle 14 at 3/5, backup made); arm and delt work up on Oct 14; reverse curl not logged.
+Oct 21: Oct 20 completed at nominal deficit 201 (intake 2,946 vs target 3,047); morning 72.2 kg / 79.5 cm / 7h08 (the 72.7 plateau and the 80.0 waist were food/water noise). No new export since Upper B.
+Oct 22: Oct 21 rest day at nominal deficit 92 (intake 2,568 vs target 2,560); morning 72.2 kg / 79.4 cm (waist low) / 8h18; no new export.

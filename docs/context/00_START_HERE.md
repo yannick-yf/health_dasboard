@@ -1,6 +1,6 @@
 # START HERE — Live State
 
-**Last updated: Oct 19 2026 (evening).**
+**Last updated: Oct 22 2026.**
 This file is a living snapshot — edit it in place as things change. Don't let it grow into a log;
 that's what `07_recent_session_log.md` is for.
 
@@ -90,6 +90,24 @@ Full protocol in `01_nutrition_wadp.md`. Quick state:
 ## Training — YF-UL5 in tracker app v2 (venue-aware, since Oct 9)
 
 Full program in `02_training_program.md`. Quick state:
+- **Oct 20 `Upper B` (TTL) merged — cycle 14, 3/5** (Lower B Oct 18, Upper C Oct 19, Upper B Oct 20):
+  OHP 40×6/5/4 @1/0/0; HS shoulder press 17.5×12/11/9 (per arm, all sets at one load); Flame Sport
+  2.5×12/10/10 + 0×16; rear-delt machine 54×12/11; incline curl 12.5×10/10/9/9; HS triceps
+  extension 51×11/9/9 (+2.5 kg vs Oct 14); preacher 12.5×13/10/9 (Oct 14: 12/8/7); rope pushdown
+  43×12/10/10/10 (Oct 14: 10/9/8/8). Cable reverse curl not logged.
+- **Plan for Oct 20–25 (Yannick, Oct 20): a clean week, all seven days on the 100 dial, no
+  flexible days.** The Oct 19–25 weekly review should read it as a full-adherence week; the "5+2"
+  flexible-day structure is still undecided and would start the week after.
+- **Oct 22 daily review (clean week, day 3):** Oct 21 (rest day) completed at Move 660, intake 2,568,
+  nominal deficit 92 (target 2,560, on the dial); clean days Oct 20–21 average 146. Oct 22 morning
+  72.2 kg and 79.4 cm (new waist low), sleep 8h18. No new export (cycle 14 still 3/5).
+- **Oct 21 daily review (clean week, day 2):** Oct 20 completed (Move 1,147, intake 2,946, nominal
+  deficit 201; target intake 3,047). Oct 21 morning 72.2 kg (back down from 72.7), waist 79.5, sleep
+  7h08. The Oct 20 waist of 80.0 was noise.
+- **Oct 20 daily review:** Oct 19 completed (Move 831, intake 2,900 per Yannick's restaurant estimate:
+  Greek dinner ~1,200) at a nominal −69 (target intake 2,731). Oct 20 morning 72.7 kg (third morning
+  at 72.7 after four higher-intake days), waist 80.0 (+0.5, treated as noise), sleep 7h11. Upper B
+  planned today.
 - **Oct 19 `Upper C` (TTL) merged — cycle 14, 2/5** (Lower B Oct 18, Upper C Oct 19): Iso-Lateral
   Row 40×11/12/12/10 (all four sets at 40, up from 30/35/40/40 on Oct 9); Front Lat Pulldown
   35×9/9/8 (up from 25/30/35); incline DB press 25×8×3 (was 8/7/6); DB fly 20×10 @0, 9; pec fly
