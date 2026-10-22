@@ -687,3 +687,6 @@ Oct 20: Yannick plans a clean week (Oct 20–25) with no flexible days; Upper B 
 Oct 20: Upper B (TTL) merged (cycle 14 at 3/5, backup made); arm and delt work up on Oct 14; reverse curl not logged.
 Oct 21: Oct 20 completed at nominal deficit 201 (intake 2,946 vs target 3,047); morning 72.2 kg / 79.5 cm / 7h08 (the 72.7 plateau and the 80.0 waist were food/water noise). No new export since Upper B.
 Oct 22: Oct 21 rest day at nominal deficit 92 (intake 2,568 vs target 2,560); morning 72.2 kg / 79.4 cm (waist low) / 8h18; no new export.
+Oct 22: 30-day trend check — weight flat, waist −0.08 cm/wk at a realized nominal deficit of 39; strength accelerating; real deficit ≈ nominal (the earlier ~220 estimate is superseded). Choice pending: hold 100 + flexible days vs 200 on clean days with 1–2 planned flexible days.
+Oct 22: Yannick shared the plan: Thailand from Nov 8 for ~1 month (train nearly daily, waist tracked, weight less reliable), then Christmas; goal 12–13% BF year-round, stronger, small recomp-cut in January.
+Oct 22: Yannick agreed to run Deficit 200 for 1–2 weeks (to ~Nov 7) with 1–2 planned flexible days per week, then maintenance in Thailand; he will enter data on his Mac there; no travel mode wanted. `CURRENT_DEFICIT_KCAL` set to 200.

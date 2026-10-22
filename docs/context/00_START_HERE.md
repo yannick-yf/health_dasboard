@@ -26,7 +26,7 @@ constraint is permanent context — see `04_profile_goals_and_style.md`).
   Working number 13%; goal (4 abs visible in normal light) ≈ 12%, ~0.7 kg of fat away. Add a neck
   measurement to run US Navy again; compare monthly photos in the same light.
 
-## Nutrition — WADP deficit: currently **100** (stepped down from 200 on Oct 9)
+## Nutrition — WADP deficit: currently **200** (temporary, Oct 22–Nov 7; was 100 from Oct 9)
 
 Full protocol in `01_nutrition_wadp.md`. Quick state:
 - **Oct 9 decision (Yannick): Deficit 200 → 100.** He has been deliberately targeting 100 since
@@ -98,6 +98,27 @@ Full program in `02_training_program.md`. Quick state:
 - **Plan for Oct 20–25 (Yannick, Oct 20): a clean week, all seven days on the 100 dial, no
   flexible days.** The Oct 19–25 weekly review should read it as a full-adherence week; the "5+2"
   flexible-day structure is still undecided and would start the week after.
+- **Decision Oct 22: Deficit back to 200 for the next 1–2 weeks (until ~Nov 7), then maintenance.**
+  Clean days at intake = 2,000 + Move − 200, with 1–2 planned flexible days a week (weekly average
+  ≈ −150); expected ~0.3–0.4 kg of fat and waist ~79.0–79.3. Reason: Yannick is bored of the
+  deficit, wants abs (~12%) before the Thailand trip, and the 30-day data showed the waist moves
+  only when the real deficit is ≥ ~150. From Nov 8 (Thailand) plan is maintenance (~2,000 + Move,
+  tracked loosely, waist-band guardrails ~78.5–80.5, weekly photo), Christmas the same, small
+  recomp-cut in January. He will enter data on his Mac in Thailand; no travel mode in the Weekly
+  Report. The dashboard constant `CURRENT_DEFICIT_KCAL` is set to 200 for this period.
+- **Calendar constraint and goal (Yannick, Oct 22):** he is away in Thailand from Sun Nov 8 for about
+  a month (training almost daily, weight tracking less accurate, waist still tracked), then
+  Christmas. Goal: maintain body composition while getting stronger, stay around 12–13% body fat
+  all year, and run a small recomp-cut again in January.
+- **30-day trend check (Oct 22):** using only real readings (not carried-forward travel values),
+  Sep 22–Oct 21: weight slope −0.03 kg/wk (flat), waist −0.08 cm/wk (79.88→79.64), nominal deficit
+  only 39 (intake 3,000), versus Aug 22–Sep 20: weight +0.01 kg/wk, waist −0.22 cm/wk, nominal
+  deficit 213. Strength accelerated (60% of lifts up vs 46%, median weekly change +2.6% vs +1.0%).
+  Reading: slow fat loss is a result of the small realized deficit (recomp pattern), not a failure
+  of the method; over the last 30 days energy balance ≈ maintenance (~3,000), so the real deficit
+  ≈ the nominal one. Earlier "real deficit ~220 / maintenance ~3,200" came from endpoint averages
+  distorted by carried-forward weights and is superseded. Reaching ~12% BF needs ~5,400 kcal of
+  fat loss: ~8 weeks at a real 100/day, ~4–5 weeks at 150–200.
 - **Oct 22 daily review (clean week, day 3):** Oct 21 (rest day) completed at Move 660, intake 2,568,
   nominal deficit 92 (target 2,560, on the dial); clean days Oct 20–21 average 146. Oct 22 morning
   72.2 kg and 79.4 cm (new waist low), sleep 8h18. No new export (cycle 14 still 3/5).
