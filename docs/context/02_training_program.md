@@ -32,7 +32,9 @@ trusting this doc blindly — it can drift.
 - **Upper C** (chest/back volume, revised Oct 9): two back exercises, then two chest exercises,
   then pullover; order may change with machine availability.
   - Back, TTL: HS Iso-Lateral Row 4×10-12 (overhand, elbows wide, 1-second squeeze, rest 2:00) →
-    HS Iso-Lateral Front Lat Pulldown 3×8-10. Back, elsewhere: wide-grip pulldown 4×8-10 →
+    HS Iso-Lateral Front Lat Pulldown 3×8-10, plus an **optional chest-supported T-bar row** 3×10-12 after
+    the Iso-Lateral Row (added in tracker v2.3, Oct 26; plates loaded, logged as total plates; earlier
+    bent-row sets on Oct 9 and Oct 26 are only in the notes). Back, elsewhere: wide-grip pulldown 4×8-10 →
     wide-grip row 3×10.
   - All venues: incline DB press 3×8-10 → DB flye 2×10-12 + pec fly machine 2×10-12 (4 DB flye
     sets where there is no machine, e.g. hotels) → cable pullover 3×10-12 (pullover machine tried
@@ -46,6 +48,10 @@ trusting this doc blindly — it can drift.
   curl 3×10 → seated leg curl 2×10 → leg extension 3×10-12 → abs.
 - **TTL abs** (both lower days): ab bench crunch 4×10-15, oblique crunch machine (HS)
   3×12-15/side, slow leg raise 2×12-15.
+
+**Back squat (Oct 24):** it gives Yannick mild back soreness the next day (not limiting), so at TTL
+he prefers the programmed belt squat. Chat reminder only; the program and app are unchanged and
+on the trip he will use whatever Lower A options are available.
 
 **Load conventions at TTL (confirmed Oct 10):** logged **per side** (plates on one side): the two
 Hammer Strength back machines (Iso-Lateral Row, Iso-Lateral Front Lat Pulldown), the HS shoulder

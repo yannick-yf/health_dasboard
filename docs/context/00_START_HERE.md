@@ -1,6 +1,6 @@
 # START HERE — Live State
 
-**Last updated: Oct 22 2026.**
+**Last updated: Oct 26 2026.**
 This file is a living snapshot — edit it in place as things change. Don't let it grow into a log;
 that's what `07_recent_session_log.md` is for.
 
@@ -98,6 +98,49 @@ Full program in `02_training_program.md`. Quick state:
 - **Plan for Oct 20–25 (Yannick, Oct 20): a clean week, all seven days on the 100 dial, no
   flexible days.** The Oct 19–25 weekly review should read it as a full-adherence week; the "5+2"
   flexible-day structure is still undecided and would start the week after.
+- **Back squat preference (Yannick, Oct 24):** he gets mild back soreness the day after back
+  squatting (he could still play an hour of basketball), so at TTL he prefers the programmed
+  **belt squat** and RDL over the barbell squat. This is only a light reminder for the chat. No
+  app or program change: on the Asia trip he will do whatever Lower A options are available.
+- **Oct 26 `Upper C` (TTL) merged — opens cycle 15 (1/5)**: Iso-Lateral Row 42.5×12 ×2 (+ a barbell
+  bent row with +20 kg, 12 and 13 reps @2, only in the note); Front Lat Pulldown 35×10 ×3 (top of
+  range); incline DB press 25×9/8/7; DB fly 20×10/9; pec fly machine 40×12/11; cable pullover
+  50×12 ×2 (was 44×14 then 50×9). Lateral raise/face pull finisher skipped (Upper B is Oct 28).
+- **Yannick's stance (Oct 26):** will target a deficit of 100–200 (200 on normal days, 100 on poor-sleep
+  or hard-training days), performance stable or progressing, physique now lean, close to last
+  year's cut look; wants to add muscle later with a properly managed bulk. Poor sleep Oct 25→26.
+- **Weekly review Oct 19–25 (clean week, first 200 days), run Oct 26: keep the 200 dial to ~Nov 7.**
+  Nominal deficit 81 for the week: 201, 92, 144, 135, 137 on the five training/normal days
+  (average ~142, on the 200 dial), plus −69 (Oct 19, Greek dinner) and −70 on Oct 25, a day of
+  nothing (Move 253, 2.3k steps, intake 2,323 vs a 2,053 target). Intake 2,842, Move 923, steps 7.2k.
+  Weight MA7 72.27 (prior 72.21), waist MA7 79.54 (79.59), MA14 79.56 (79.71); fresh readings
+  71.7 kg (lowest) and 79.3 cm (low) on Oct 25–26. Training: 4 sessions (cycle 14 closed 5/5 with
+  Lower B on Oct 18), 72 hard sets, 7 PRs (back squat, dips, Glute Drive, lying curl, single-arm
+  pulldown, triceps extension, DB fly), 12 up/5 flat/5 down (downs are load adjustments: close-grip
+  row 62.5 vs 70, shoulder press 17.5 vs 20, etc.). Quads/hamstrings only 3 sets each this week
+  (Lower B fell in the prior week); abs 6 sets. Sleep avg 7.7 h; Oct 26 morning 5h53.
+- **Cycle 15 plan (Yannick, Oct 25):** Mon Oct 26 Upper C (opens cycle 15; cycle 14 closed 5/5 on
+  Oct 23), Tue Lower B, Wed Upper B, Thu rest, Fri Oct 30 Upper A, Sat Oct 31 Lower A. Spacing
+  checked: shoulders 2 days apart, chest/back and legs 4 days apart. Nov 2–7 is the last week at
+  home (cycle 16 starts Nov 2); Thailand from Nov 8. Weekly review of the clean week planned Oct 26.
+- **Oct 25 daily review:** Oct 24 completed (Move 1,252, intake 3,115, 13.1k steps) at a nominal
+  deficit 137 (target at 200 was 3,052). Oct 25 morning 71.7 kg (lowest weight logged), waist 79.3
+  (waist low), sleep 9h20. Days on the 200 dial (Oct 22–24) average ~139. Weekly review of the clean
+  week (Oct 19–25) is due now/Monday.
+- **Oct 24 daily review:** Oct 23 completed at Move 1,177, intake 3,042, nominal deficit 135 (target
+  intake at 200 was 2,977). Oct 24 morning 72.2 kg, waist 79.6, sleep 6h23. Oct 22–23 average
+  deficit ~140 on the 200 dial.
+- **Oct 23 `Lower A` (TTL) merged — closes cycle 14 (5/5, all five sessions, 7 hard-day span
+  Oct 18–23)**: back squat 85×5 @1, 85×5 @0, 85×2 @0 (Oct 10: 80×5/5/5 + 85×3); Glute Drive
+  100×12, 110×12, 120×11 @0 (Oct 10: 80/90/100); lying curl 48.5×12/10/8 (was 46); ab bench
+  12.5×12 ×3; weighted jackknife 40×8/8/5. No RDL or belt squat logged. Abs are back (6 sets).
+- **Oct 23 daily review (first day of the 200 dial was Oct 22):** Oct 22 completed at Move 1,141,
+  intake 2,997, nominal deficit 144 (target intake at 200 was 2,941). Oct 23 morning 72.2 kg, waist
+  79.5, sleep 7h03. Clean-week days Oct 20–22 average a nominal deficit of ~146.
+- **Oct 22 `Upper A` (TTL) merged — cycle 14, 4/5** (Lower B Oct 18, Upper C Oct 19, Upper B Oct 20,
+  Upper A Oct 22; only Lower A left): pulldown 70×11/10/10; close-grip row 62.5×11/10/9 (was 70
+  "too heavy"); bench 65×7/6/6/5 @1/2/1/0 (Oct 12: 6/5/5/4); single-arm pulldown 56×12/11 (was
+  10/10); weighted dips +12.5×8/7 then +15×4 @0. Shrug/lateral/face-pull finisher not logged.
 - **Decision Oct 22: Deficit back to 200 for the next 1–2 weeks (until ~Nov 7), then maintenance.**
   Clean days at intake = 2,000 + Move − 200, with 1–2 planned flexible days a week (weekly average
   ≈ −150); expected ~0.3–0.4 kg of fat and waist ~79.0–79.3. Reason: Yannick is bored of the

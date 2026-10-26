@@ -690,3 +690,18 @@ Oct 22: Oct 21 rest day at nominal deficit 92 (intake 2,568 vs target 2,560); mo
 Oct 22: 30-day trend check — weight flat, waist −0.08 cm/wk at a realized nominal deficit of 39; strength accelerating; real deficit ≈ nominal (the earlier ~220 estimate is superseded). Choice pending: hold 100 + flexible days vs 200 on clean days with 1–2 planned flexible days.
 Oct 22: Yannick shared the plan: Thailand from Nov 8 for ~1 month (train nearly daily, waist tracked, weight less reliable), then Christmas; goal 12–13% BF year-round, stronger, small recomp-cut in January.
 Oct 22: Yannick agreed to run Deficit 200 for 1–2 weeks (to ~Nov 7) with 1–2 planned flexible days per week, then maintenance in Thailand; he will enter data on his Mac there; no travel mode wanted. `CURRENT_DEFICIT_KCAL` set to 200.
+Oct 22: Upper A (TTL) merged from the Oct 22 export (cycle 14 at 4/5, only Lower A left; backup made); bench, pulldowns and dips up.
+Oct 23: Oct 22 (first 200-dial day) completed at nominal deficit 144; morning 72.2 kg / 79.5 cm / 7h03; no new export.
+Oct 24: Lower A (TTL) merged from the Oct 23 export (backup made) — cycle 14 complete (5/5); Oct 23 completed at nominal deficit 135; morning 72.2 kg / 79.6 cm / 6h23.
+Oct 24: Yannick will stop barbell back squats (back pain the day after, every time) and use the belt squat; Oct 24 short night was a late bedtime.
+Oct 24 (clarification): the back squat comment is only a light chat reminder (mild soreness, not limiting); no change to the program or app; on the Asia trip he does whatever is available for Lower A.
+Oct 25: Oct 24 completed at nominal deficit 137; morning 71.7 kg (lowest) / 79.3 cm / 9h20; no new export.
+Oct 25: next cycle is 15 (Mon Upper C, Tue Lower B, Wed Upper B, Thu rest, Fri Upper A, Sat Lower A); no training today (rest/basketball); weekly review tomorrow.
+
+## Oct 26 2026 - weekly review (Oct 19–25)
+Keep Deficit=200 to ~Nov 7. Week nominal deficit 81 (days on the dial ~142; Greek dinner day and a
+do-nothing rest day with Move 253 pulled it down). 7 PRs, no regression signals; waist/weight at
+lows (79.3 cm / 71.7 kg fresh readings). Oct 26 morning sleep 5h53.
+Oct 26: poor sleep; Yannick will target a 100–200 deficit, feels close to last year's cut look and wants a properly managed bulk later to add muscle.
+Oct 26: Upper C (TTL) merged from the Oct 26 export (cycle 15 at 1/5, backup made); pulldown and pullover progressed.
+Oct 26: the machine Yannick used for 'bent row with chest support' is the chest-supported T-bar row; added as an optional Upper C (TTL) exercise in tracker v2.3 (prepared, not yet pushed; exports as `T-bar row (optionnel)`).
