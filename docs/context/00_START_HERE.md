@@ -1,6 +1,6 @@
 # START HERE — Live State
 
-**Last updated: Oct 26 2026.**
+**Last updated: Oct 28 2026.**
 This file is a living snapshot — edit it in place as things change. Don't let it grow into a log;
 that's what `07_recent_session_log.md` is for.
 
@@ -102,6 +102,15 @@ Full program in `02_training_program.md`. Quick state:
   squatting (he could still play an hour of basketball), so at TTL he prefers the programmed
   **belt squat** and RDL over the barbell squat. This is only a light reminder for the chat. No
   app or program change: on the Asia trip he will do whatever Lower A options are available.
+- **Oct 27 `Lower B` (TTL) merged — cycle 15, 2/5** (Upper C Oct 26, Lower B Oct 27): ab bench 15×12,
+  20×9, 20×8; hack squat 75×9/9/8 @2 then 80×3 @0 (Oct 18: 70×8×3 + 80×3); seated leg curl 73×8,
+  10, 9 (up 2.5 kg from 70.5×12); leg extension 84.5×12/10/10 (Oct 18: 11/9/8).
+- **Oct 28 daily review:** Oct 27 completed at Move 1,003, intake 2,857, nominal deficit 146 (target at
+  200 was 2,803). Oct 28 morning 72.1 kg, waist 79.4, sleep 7h50. Lower B (Oct 27) was exported on the
+  morning of Oct 28 and merged.
+- **Oct 27 daily review:** Oct 26 (poor-sleep day, Upper C) completed at Move 1,022, intake 2,936,
+  nominal deficit 86 (target at the 100 end was 2,922, at 200 was 2,822). Oct 27 morning 72.1 kg
+  (+0.4 vs the 71.7 low), waist 79.4, sleep 8h33. No new export (Lower B today).
 - **Oct 26 `Upper C` (TTL) merged — opens cycle 15 (1/5)**: Iso-Lateral Row 42.5×12 ×2 (+ a barbell
   bent row with +20 kg, 12 and 13 reps @2, only in the note); Front Lat Pulldown 35×10 ×3 (top of
   range); incline DB press 25×9/8/7; DB fly 20×10/9; pec fly machine 40×12/11; cable pullover

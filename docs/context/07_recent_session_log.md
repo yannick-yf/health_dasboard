@@ -705,3 +705,6 @@ lows (79.3 cm / 71.7 kg fresh readings). Oct 26 morning sleep 5h53.
 Oct 26: poor sleep; Yannick will target a 100–200 deficit, feels close to last year's cut look and wants a properly managed bulk later to add muscle.
 Oct 26: Upper C (TTL) merged from the Oct 26 export (cycle 15 at 1/5, backup made); pulldown and pullover progressed.
 Oct 26: the machine Yannick used for 'bent row with chest support' is the chest-supported T-bar row; added as an optional Upper C (TTL) exercise in tracker v2.3 (prepared, not yet pushed; exports as `T-bar row (optionnel)`).
+Oct 27: Oct 26 completed at nominal deficit 86 (used the 100 end after a poor night); morning 72.1 kg / 79.4 cm / 8h33; no new export.
+Oct 28: Oct 27 completed at nominal deficit 146; morning 72.1 kg / 79.4 cm / 7h50; planned Lower B not in an export yet.
+Oct 28: Lower B (Oct 27) merged from the Oct 28 export (cycle 15 at 2/5, backup made); abs back on Lower B.
